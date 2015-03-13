@@ -1,0 +1,7 @@
+parameters: ~
+
+services:
+  gravity.editor.ckeditor:
+    class: Gravity\CKEditorBundle\Editor\CKEditor
+    tags:
+      - { name: gravity.editor, editor: ckeditor }
