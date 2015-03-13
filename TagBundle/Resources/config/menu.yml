@@ -1,0 +1,8 @@
+tags:
+  title: Node Tags
+  icon: tags
+  items:
+    tag:
+      route: gravity_admin_tags
+      title: View Tags
+      description: View all node tags

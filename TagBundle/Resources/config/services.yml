@@ -1,0 +1,58 @@
+parameters:
+  gravity.tag.form.type.tag_choice.class: Gravity\TagBundle\Form\Type\TagChoiceType
+
+services:
+  #
+  # Form Types
+  gravity.tag.form.type.tag_choice:
+    class: %gravity.tag.form.type.tag_choice.class%
+    arguments: [@doctrine.orm.default_entity_manager]
+    tags:
+        - { name: form.type, alias: tag_choice }
+
+  gravity.tag.form.field.widget.tag_autocomplete:
+    class: Gravity\TagBundle\Field\Widget\Form\TagAutoCompleteWidgetForm
+    arguments:
+      - @doctrine.orm.default_entity_manager
+      - @gravity_cms.module.field_tag.form.type.tag_collection_handler
+    tags:
+        - { name: form.type, alias: tag_widget_autocomplete }
+
+  gravity.tag.form.field.widget.tag_select:
+    class: Gravity\TagBundle\Field\Widget\Form\TagSelectWidgetForm
+    arguments:
+      - @doctrine.orm.default_entity_manager
+    tags:
+        - { name: form.type, alias: tag_widget_select }
+
+
+  # Fields
+  gravity.tag.field.tag:
+    class: Gravity\TagBundle\Field\FieldTag
+    tags:
+      - { name: gravity.field }
+
+  gravity_cms.module.field_tag.field.widget.tag_autocomplete:
+    class: Gravity\TagBundle\Field\Widget\TagAutoCompleteWidget
+    tags:
+      - { name: gravity.field.widget }
+
+  gravity_cms.module.field_tag.field.display.tag:
+    class: Gravity\TagBundle\Field\Display\TagHtmlDisplay
+    tags:
+      - { name: gravity.field.display }
+
+
+  gravity_cms.module.field_tag.field.widget.tag_select:
+    class: Gravity\TagBundle\Field\Widget\TagSelectWidget
+    tags:
+      - { name: gravity.field.widget }
+
+  #
+  # Auto Complete
+  gravity_cms.module.field_tag.form.type.tag_collection_handler:
+    class: Gravity\TagBundle\AutoComplete\TagAutoCompleteHandler
+    arguments:
+      - @doctrine.orm.default_entity_manager
+    tags:
+      - { name: auto_complete.handler }

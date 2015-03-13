@@ -1,0 +1,23 @@
+{% extends 'GravityTagBundle:Tag:base.html.twig' %}
+{% set page_modules = ['cms/tag/tag/form'] %}
+
+{% block breadcrumbs %}
+    {{ parent() }}
+    <li><a href="{{ url('gravity_admin_tag_new') }}">Create</a></li>
+{% endblock %}
+
+{% block page_icon %}
+    <i class="page-header-icon fa-plus"></i>
+{% endblock %}
+
+{% block page_title %}
+    New Tag
+{% endblock %}
+
+{% block page_desc %}
+    Create a new content node tag
+{% endblock %}
+
+{% block plugin %}
+    {{ include('GravityTagBundle:Tag:form.html.twig') }}
+{% endblock %}

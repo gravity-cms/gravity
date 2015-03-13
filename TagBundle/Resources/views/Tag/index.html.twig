@@ -1,0 +1,39 @@
+{% extends 'GravityTagBundle:Tag:base.html.twig' %}
+
+{% block page_title %}
+    View Tags
+{% endblock %}
+
+{% block page_desc %}
+    All Node Tags
+{% endblock %}
+
+{% block plugin %}
+    <div class="row">
+        <div class="col-sm-9">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for tag in tags %}
+                                <tr>
+                                    <td><a href="{{ url('gravity_admin_tag_edit', {id: tag.id}) }}">{{ tag.name }}</a></td>
+                                    <td>{{ tag.description }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+        </div>
+        <div class="col-sm-3">
+            <a class="btn btn-primary" href="{{ url('gravity_admin_tag_new') }}">
+                <i class="fa-plus"></i> New Tag
+            </a>
+        </div>
+    </div>
+{% endblock %}

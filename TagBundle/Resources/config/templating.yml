@@ -1,0 +1,2 @@
+forms:
+  tag_element: '@module_field_tag/Form/tag-select.html.twig'

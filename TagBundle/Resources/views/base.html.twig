@@ -1,0 +1,10 @@
+{% extends '@theme/layout.html.twig' %}
+
+{% block breadcrumbs %}
+    {{ parent() }}
+    <li><a href="{{ url('gravity_admin_tags') }}">Node Tags</a></li>
+{% endblock %}
+
+{% block page_icon %}
+    <i class="page-header-icon fa-tags"></i>
+{% endblock %}

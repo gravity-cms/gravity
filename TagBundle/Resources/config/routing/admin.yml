@@ -1,0 +1,11 @@
+tags:
+  path:     /tags
+  defaults: { _controller: GravityTagBundle:Tag:index }
+
+tag_new:
+  path:     /tags/{id}/new
+  defaults: { _controller: GravityTagBundle:Tag:new, id:root }
+
+tag_edit:
+  path:     /tags/{id}/edit
+  defaults: { _controller: GravityTagBundle:Tag:edit }

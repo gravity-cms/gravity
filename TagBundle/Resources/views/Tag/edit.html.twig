@@ -1,0 +1,22 @@
+{% extends 'GravityTagBundle:Tag:base.html.twig' %}
+{% set page_modules = ['cms/tag/tag/form'] %}
+
+{% block breadcrumbs %}
+    {{ parent() }}
+    {% for parent in parents %}
+        <li><a href="{{ url('gravity_admin_tag_edit', {id: parent.id}) }}">{{ parent.name|capitalize }}</a></li>
+    {% endfor %}
+    <li><a href="{{ url('gravity_admin_tag_edit', {id: tag.id}) }}">{{ tag.name|capitalize }}</a></li>
+{% endblock %}
+
+{% block page_title %}
+    Editing {{ tag.name }}
+{% endblock %}
+
+{% block page_desc %}
+    Modify tag
+{% endblock %}
+
+{% block plugin %}
+    {{ include('GravityTagBundle:Tag:form.html.twig') }}
+{% endblock %}

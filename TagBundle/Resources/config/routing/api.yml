@@ -1,0 +1,3 @@
+api_node_tag:
+  type:         rest
+  resource:     Gravity\TagBundle\Controller\Api\TagController
