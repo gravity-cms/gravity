@@ -5,7 +5,7 @@ namespace Gravity\TagBundle\Field\Widget\Form;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Gravity\TagBundle\Field\Configuration\FieldTagConfiguration;
-use GravityCMS\NodeBundle\Entity\ContentTypeField;
+use Gravity\NodeBundle\Entity\ContentTypeField;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -76,7 +76,7 @@ class TagSelectWidgetForm extends AbstractType
 
         $resolver->setRequired(['content_type_field']);
         $resolver->setAllowedTypes([
-            'content_type_field' => '\GravityCMS\NodeBundle\Entity\ContentTypeField',
+            'content_type_field' => '\Gravity\NodeBundle\Entity\ContentTypeField',
         ]);
     }
 

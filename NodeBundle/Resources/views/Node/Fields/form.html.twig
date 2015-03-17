@@ -1,0 +1,42 @@
+{% extends '@theme/Form/fields.html.twig' %}
+
+{% macro field_collection_row(widget) %}
+    {% spaceless %}
+    <li class="field-group-item">
+        <div class="field-controls">
+            <div class="fa fa-arrows-v field-sort-icon"></div>
+            <button type="button" class="btn btn-danger form-delete-widget">
+                <i class="fa fa-times"></i>
+            </button>
+        </div>
+        <div class="field-group-item-widget">
+            {{ form_widget(widget) }}
+        </div>
+    </li>
+    {% endspaceless %}
+{% endmacro %}
+
+{% block field_content_collection_widget %}
+    <div class="field-group">
+        {% if form.vars.limit == 1 %}
+            {{ form_widget(form) }}
+        {% else %}
+            <div class="field-group-header">
+                <h3>{{ form.vars.type_field.label|default('')|capitalize }}</h3>
+                <div class="field-control-block">
+                    <button type="button" class="form-add-widget btn btn-primary btn-xs"
+                            data-prototype="{{ _self.field_collection_row(form.vars.prototype)|e }}"
+                            data-widget-type="{{ form.vars.type_field.field.name }}"
+                            data-limit="{{ form.vars.limit }}">
+                        Add
+                    </button>
+                </div>
+            </div>
+            <ul class="field-group-list">
+                {% for widget in form %}
+                    {{ _self.field_collection_row(widget) }}
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+{% endblock %}

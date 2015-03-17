@@ -1,0 +1,93 @@
+{% extends 'GravityNodeBundle:ContentType:edit.html.twig' %}
+{% set selected_tab = 'fields' %}
+{% block tab %}
+    {{ form_start(form) }}
+        <div class="table-responsive">
+            <table class="table table-striped field-type">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Form Type</th>
+                    <th>Display Type</th>
+                    <th>&nbsp;</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for field in contentType.contentTypeFields %}
+                    {% spaceless %}
+                        <tr>
+                            <td><abbr title="{{ field.name }}" >{{ field.label|capitalize }}</abbr></td>
+                            <td><abbr title="Edit {{ field.label }} Settings">
+                                    <a href="{{ url('gravity_admin_content_type_edit_field_settings', {
+                                        type: contentType.name,
+                                        typeField: field.name
+                                    }) }}">{{ field.field.label|capitalize }}</a>
+                                </abbr></td>
+                            <td>
+                                {% if field.viewWidget.config %}
+                                        <abbr title="Configure Widget Settings">
+                                            <a href="{{ url('gravity_admin_content_type_edit_form_view_settings', {
+                                                type: contentType.name,
+                                                typeField: field.name
+                                            }) }}">
+                                                {{ field.viewWidget.label }}
+                                            </a>
+                                    </abbr>
+                                {% else %}
+                                    {{ field.viewWidget.label }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                <abbr title="Configure Display Settings"><a href="#">
+                                    {{ field.viewDisplay.label }}
+                                </a></abbr>
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    <a href="{{
+                                        url('gravity_admin_content_type_edit_field', {
+                                            type: contentType.name,
+                                            typeField: field.name
+                                        })
+                                    }}" class="btn btn-default">Edit</a>
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-down"></i></button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="field-type-remove" href="{{
+                                            url('gravity_api_delete_type_field', {
+                                                contentType: contentType.id,
+                                                contentTypeField: field.id
+                                            })
+                                        }}"><i class="fa-trash-o"></i> Remove</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endspaceless %}
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td>
+                        {{ form_widget(form.order) }}
+                        {{ form_widget(form.label, {attr: {'placeholder': 'Field Label'} } ) }}
+                    </td>
+                    <td>
+                        {{ form_widget(form.field) }}
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-primary">
+                            Create
+                        </button>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    {{ form_end(form) }}
+
+{% endblock %}

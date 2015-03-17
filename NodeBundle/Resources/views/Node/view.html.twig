@@ -1,0 +1,21 @@
+{% extends 'GravityNodeBundle:Node:base.html.twig' %}
+
+{% block breadcrumbs %}
+    {{ parent() }}
+    <li><a href="{{ url('gravity_admin_node_create_select') }}">View</a></li>
+{% endblock %}
+
+{% block page_title %}
+    Viewing {{ node.title }}
+{% endblock %}
+
+{% block page_desc %}
+    Created on <abbr title="{% if node.createdBy %}By {{ node.createdBy.username }} {% endif %}at {{ node.createdOn | date('H:i:s') }}">{{ node.createdOn | date('Y-m-d') }}</abbr>
+    {% if node.editedOn %}
+        / <em>Edited on <abbr title="{% if node.editedBy %}By {{ node.editedBy.username }} {% endif %}at {{ node.editedOn | date('H:i:s') }}">{{ node.editedOn | date('Y-m-d') }}</abbr></em>
+    {% endif %}
+{% endblock %}
+
+{% block plugin %}
+    {{ node.title }}
+{% endblock %}

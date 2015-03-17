@@ -1,0 +1,5 @@
+node_view:
+  path: /node/{id}
+  defaults: { _controller: Node:view }
+  requirements:
+    id: \d+

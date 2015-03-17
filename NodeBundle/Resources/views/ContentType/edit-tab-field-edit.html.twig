@@ -1,0 +1,14 @@
+{% extends 'GravityNodeBundle:ContentType:edit.html.twig' %}
+{% set selected_tab = 'fields' %}
+{% block tab %}
+    {% form_theme form 'GravityNodeBundle:ContentType:Fields/form.html.twig' %}
+
+    <h4 class="text-light-gray text-semibold text-md">{{ contentTypeField.field.name|capitalize }} field settings</h4>
+    {{ form_start(form) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.label) }}
+        <button type="submit" class="btn btn-default">
+            <i class="fa-save"></i> Save
+        </button>
+    {{ form_end(form) }}
+{% endblock %}

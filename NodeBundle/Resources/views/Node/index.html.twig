@@ -1,0 +1,41 @@
+{% extends 'GravityNodeBundle:Node:base.html.twig' %}
+
+{% block page_title %}
+    View Nodes
+{% endblock %}
+
+{% block page_desc %}
+    All Content Nodes
+{% endblock %}
+
+{% block plugin %}
+    <div class="row">
+        <div class="col-sm-9">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Type</th>
+                                <th>Published</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for node in nodes %}
+                                <tr>
+                                    <td><a href="{{ url('gravity_admin_node_edit', {id: node.id}) }}">{{ node.title }}</a></td>
+                                    <td>{{ node.contentType.label|capitalize }}</td>
+                                    <td>{% if node.published %}{{ node.publishedOn|date('Y-m-d') }}{% endif %}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+        </div>
+        <div class="col-sm-3">
+            <a class="btn btn-primary" href="{{ url('gravity_admin_node_create_select') }}">
+                <i class="fa-plus"></i> New Node
+            </a>
+        </div>
+    </div>
+{% endblock %}

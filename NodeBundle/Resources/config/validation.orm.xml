@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+
+    <class name="Gravity\NodeBundle\Model\ContentType">
+
+        <property name="name">
+            <constraint name="NotNull"/>
+            <constraint name="Length">
+                <option name="min">3</option>
+                <option name="max">100</option>
+                <option name="minMessage">Name must be at least {{ limit }} characters in length</option>
+                <option name="maxMessage">Name cannot be longer than {{ limit }} characters in length</option>
+            </constraint>
+            <constraint name="Regex">
+                <option name="pattern">/[a-z_]+/</option>
+                <option name="message">Name name must be lower case alphabetic with underscores</option>
+            </constraint>
+        </property>
+
+        <property name="label">
+            <constraint name="NotNull"/>
+            <constraint name="Length">
+                <option name="min">3</option>
+                <option name="max">100</option>
+                <option name="minMessage">Name must be at least {{ limit }} characters in length</option>
+                <option name="maxMessage">Name cannot be longer than {{ limit }} characters in length</option>
+            </constraint>
+        </property>
+
+        <property name="typeFields">
+            <constraint name="Valid"/>
+        </property>
+
+    </class>
+
+    <class name="Gravity\NodeBundle\Model\ContentTypeField">
+
+        <property name="name">
+            <constraint name="NotNull"/>
+            <constraint name="Length">
+                <option name="min">3</option>
+                <option name="max">20</option>
+                <option name="minMessage">Name must be at least {{ limit }} characters in length</option>
+                <option name="maxMessage">Name cannot be longer than {{ limit }} characters in length</option>
+            </constraint>
+            <constraint name="Regex">
+                <option name="pattern">/^[a-z][a-z_]+$/</option>
+                <option name="message">Name must be lower case alphabetic with underscores</option>
+            </constraint>
+        </property>
+        
+        <constraint name="Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity">
+            <option name="fields">
+                <value>name</value>
+                <value>contentType</value>
+            </option>
+            <option name="errorPath">name</option>
+            <option name="message">This name is already in use.</option>
+        </constraint>
+
+    </class>
+
+</constraint-mapping>

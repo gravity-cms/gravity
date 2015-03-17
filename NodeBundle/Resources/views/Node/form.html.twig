@@ -1,0 +1,59 @@
+{% form_theme form 'GravityNodeBundle:Node:Fields/form.html.twig' %}
+{{ form_start(form) }}
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="panel">
+                <div class="panel-heading">
+                    <span class="panel-title">Page Content</span>
+                    <div class="panel-heading-controls">
+                        <div class="panel-heading-icon"><i class="fa-align-left"></i></div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    {{ form_row(form.title) }}
+                    {{ form_row(form.description) }}
+
+                    <hr />
+
+                    {{ form_widget(form.fields) }}
+
+                </div>
+                <div class="panel-footer text-right">
+                    {% if node|default(false) %}
+                        <a href="{{ url('gravity_api_delete_node', {id: node.id}) }}" class="btn btn-danger pull-left api-delete">
+                            <i class="fa-trash"></i> Delete
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa-save"></i> Update
+                        </button>
+                    {% else %}
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa-plus"></i> Create
+                        </button>
+                    {% endif %}
+                    <a href="{{ url('gravity_admin_node_index') }}" class="btn btn-default">
+                        Cancel
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <a class="accordion-toggle text-muted" data-toggle="collapse" href="#collapsePublishing">
+                            Publishing
+                        </a>
+                    </div>
+                    <div id="collapsePublishing" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            {{ form_row(form.published, {row_size: 'lg'}) }}
+                            {{ form_row(form.publishedOn, {row_size: 'lg'}) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{{ form_end(form) }}

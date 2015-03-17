@@ -1,0 +1,38 @@
+{% extends '@theme/Form/fields.html.twig' %}
+
+{% block _gravity_node_content_type_typeFields_widget %}
+
+    <button type="button" class="btn btn-link field-type-add" data-prototype="{{ fn.row(form.vars.prototype)|e }}">
+        <i class="fa-plus"></i> Add Field
+    </button>
+
+    <div class="table-responsive">
+        <table class="table table-striped field-type">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Field</th>
+                    <th>Display Type</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for field in contentType.fields %}
+                    {% spaceless %}
+                        <tr>
+                            <td>{{ field.name }}</td>
+                            <td>{{ field.field }}</td>
+                            <td>@TODO</td>
+                            <td>
+                                <button type="button" class="btn btn-danger field-type-remove">
+                                    <i class="fa-trash-o"></i> Remove
+                                </button>
+                            </td>
+                        </tr>
+                    {% endspaceless %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

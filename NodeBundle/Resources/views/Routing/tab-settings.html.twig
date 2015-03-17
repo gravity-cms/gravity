@@ -1,0 +1,20 @@
+{% extends 'GravityNodeBundle:Routing:base.html.twig' %}
+{% set selected_tab = 'settings' %}
+
+{% block page_title %}
+    Router Settings
+{% endblock %}
+
+{% block page_desc %}
+    Configure settings for the node router
+{% endblock %}
+
+{% block tab %}
+    {{ form_start(form) }}
+        {{ form_rest(form) }}
+
+        <button type="submit" class="btn btn-primary">
+            <i class="fa-save"></i> Save
+        </button>
+    {{ form_end(form) }}
+{% endblock %}

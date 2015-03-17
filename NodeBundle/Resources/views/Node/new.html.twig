@@ -1,0 +1,29 @@
+{% extends 'GravityNodeBundle:Node:base.html.twig' %}
+{% set page_modules = ['cms/node/node/form'] %}
+
+{% block breadcrumbs %}
+    {{ parent() }}
+    <li><a href="{{ url('gravity_admin_node_create_select') }}">Create</a></li>
+{% endblock %}
+
+{% block head_javascripts %}
+    {% set page_modules = page_modules | merge(editor.assets) %}
+    {% for field in fields %}
+        {% for library in field.widget.assetLibraries %}
+            {% set page_modules = page_modules | merge(library.javascripts) %}
+        {% endfor %}
+    {% endfor %}
+    {{ parent() }}
+{% endblock %}
+
+{% block page_title %}
+    New {{ contentType.name }} Node
+{% endblock %}
+
+{% block page_desc %}
+
+{% endblock %}
+
+{% block plugin %}
+    {% include 'GravityNodeBundle:Node:form.html.twig' %}
+{% endblock %}

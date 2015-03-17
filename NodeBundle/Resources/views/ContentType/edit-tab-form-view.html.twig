@@ -1,0 +1,69 @@
+{% extends 'GravityNodeBundle:ContentType:edit.html.twig' %}
+{% set selected_tab = 'form' %}
+{% set page_modules = ['cms/node/type/form_view'] %}
+{% block tab %}
+    {% form_theme form 'GravityNodeBundle:ContentType:Fields/form.html.twig' %}
+    {{ form_start(form) }}
+        <div class="table-responsive">
+            <table class="table table-striped content-type-form-view">
+                <thead>
+                <tr>
+                    <th>Order</th>
+                    <th>Name</th>
+                    <th>Field Type</th>
+                    <th>View Type</th>
+                    <th>&nbsp;</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i,fieldType in form.contentTypeFields %}
+                    {% spaceless %}
+                        <tr>
+                            <td><button type="button" class="btn-link drag-handle"><i class="fa-arrows"></i></button> {{ form_widget(fieldType, {
+                                    attr: {
+                                        class: 'table-sort-order'
+                                    }
+                                }) }}</td>
+                            <td>{{ contentType.contentTypeFields[i].label|capitalize }}</td>
+                            <td>{{ contentType.contentTypeFields[i].field.label|capitalize }}</a></td>
+                            <td>
+                                {{ contentType.contentTypeFields[i].viewWidget.label }}
+                            </td>
+                            <td>
+
+                                <div class="btn-group pull-right">
+                                    {% if contentType.contentTypeFields[i].viewWidget.config %}
+                                    <a href="{{ url('gravity_admin_content_type_edit_form_view_settings', {
+                                        type: contentType.name,
+                                        typeField: contentType.contentTypeFields[i].name
+                                    }) }}" class="btn btn-default">
+                                        <i class="fa-cog"></i>
+                                    </a>
+                                    {% else %}
+                                        <button type="button" class="btn btn-default" disabled>
+                                            <i class="fa-cog"></i>
+                                        </button>
+                                    {% endif %}
+
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-down"></i></button>
+                                    <ul class="dropdown-menu dropdown-menu-right pull-right">
+                                        <li><a class="field-type-remove" href="{{ url('gravity_admin_content_type_edit_form_view_change', {
+                                                type: contentType.name,
+                                                typeField: contentType.contentTypeFields[i].name
+                                            }) }}"><i class="fa-pencil"></i> Change</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endspaceless %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            <i class="fa-save"></i> Save
+        </button>
+    {{ form_end(form) }}
+
+{% endblock %}

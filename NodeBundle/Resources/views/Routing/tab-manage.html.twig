@@ -1,0 +1,60 @@
+{% extends 'GravityNodeBundle:Routing:base.html.twig' %}
+{% set selected_tab = 'manage' %}
+
+{% block page_title %}
+    Manage Routing
+{% endblock %}
+
+{% block page_desc %}
+    Generate and Flush routes
+{% endblock %}
+
+{% block tab %}
+    <!-- TODO -->
+    <div class="alert alert-info">
+        <strong><i class="fa fa-wrench"></i> Heads up!</strong> This page is under construction!
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-success panel-dark widget-profile">
+                <div class="panel-heading">
+                    <div class="widget-profile-bg-icon"><i class="fa fa-magic"></i></div>
+                    <div class="widget-profile-header">
+                        <span>Route Generation</span><br>
+                        Generate any missing node routes
+                    </div>
+                </div> <!-- / .panel-heading -->
+                <div class="widget-profile-text">
+                    <button class="btn btn-success">
+                        Run
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-danger panel-dark widget-profile">
+                <div class="panel-heading">
+                    <div class="widget-profile-bg-icon"><i class="fa fa-fire"></i></div>
+                    <div class="widget-profile-header">
+                        <span>Route Purging</span><br>
+                        Purge all routes
+                    </div>
+                </div> <!-- / .panel-heading -->
+                <div class="widget-profile-text">
+                    <span class="text-danger">
+                        <span class="text-bold">WARNING:</span>
+                        Purging routes will cause all node URLs to return a 404 responses, degrading performance in search
+                        engines. However, it is the only way to free URLs for use again.
+                    </span>
+                </div>
+                <div class="widget-profile-text">
+                    <button class="btn btn-danger">
+                        Run
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

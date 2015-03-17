@@ -1,0 +1,6 @@
+{% extends 'GravityNodeBundle::base.html.twig' %}
+
+{% block breadcrumbs %}
+    {{ parent() }}
+    <li><a href="{{ url('gravity_admin_node_index') }}">Nodes</a></li>
+{% endblock %}

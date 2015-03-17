@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                    http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Gravity\NodeBundle\Entity\ContentType" table="content_type"
+            repository-class="Gravity\NodeBundle\Entity\Repository\ContentTypeRepository">
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <field name="name" type="string" column="name" length="100" nullable="false"/>
+        <field name="label" type="string" column="label" length="100" nullable="false"/>
+        <field name="description" type="string" column="description" length="255" nullable="true"/>
+
+        <one-to-many target-entity="Node" mapped-by="contentType" field="nodes" orphan-removal="true">
+        </one-to-many>
+
+        <one-to-many target-entity="ContentTypeField" mapped-by="contentType" field="contentTypeFields" orphan-removal="true">
+            <order-by>
+                <order-by-field name="order" direction="ASC"/>
+            </order-by>
+        </one-to-many>
+    </entity>
+</doctrine-mapping>

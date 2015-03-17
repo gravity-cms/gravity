@@ -1,0 +1,29 @@
+{% extends 'GravityNodeBundle:Node:base.html.twig' %}
+
+{% block page_title %}
+    New Content Node
+{% endblock %}
+
+{% block page_desc %}
+    Choose a content type to base your node on
+{% endblock %}
+
+{% block breadcrumbs %}
+    {{ parent() }}
+    <li><a href="{{ url('gravity_admin_node_create_select') }}">Create</a></li>
+{% endblock %}
+
+{% block plugin %}
+    {% for contentType in contentTypes %}
+        {% if loop.index % 4 == 1 %}<div class="row">{% endif %}
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <a class="panel panel-default show" href="{{ url('gravity_admin_node_create', {id: contentType.id} ) }}">
+                    <div class="panel-body">
+                        <h2 class="no-margin-t">{{ contentType.label }}</h2>
+                        <p class="text-muted no-margin-vr">{{ contentType.description }}</p>
+                    </div>
+                </a>
+            </div>
+        {% if loop.index % 4 == 0 or loop.last %}</div>{% endif %}
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends '@theme/layout.html.twig' %}
+
+{% block breadcrumbs %}
+    {{ parent() }}
+    <li><a href="{{ url('gravity_admin_index') }}">Content</a></li>
+{% endblock %}
+
+
+{% block page_icon %}
+    <i class="page-header-icon fa-align-left"></i>
+{% endblock %}

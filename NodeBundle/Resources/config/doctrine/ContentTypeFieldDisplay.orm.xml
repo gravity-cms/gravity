@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                    http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Gravity\NodeBundle\Entity\ContentTypeFieldDisplay" table="content_type_field_display">
+        <!-- discriminator map is dynamically inserted -->
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <field name="name" type="string" column="name" length="100" nullable="false"/>
+        <field name="config" type="object" column="config" nullable="false"/>
+        <field name="order" type="integer" column="field_order" nullable="false"/>
+        <field name="label" type="string" column="label" length="100" nullable="false"/>
+        <field name="description" type="string" column="description" length="225" nullable="true"/>
+
+        <one-to-one target-entity="ContentTypeField" field="typeField" mapped-by="viewDisplay">
+        </one-to-one>
+    </entity>
+</doctrine-mapping>

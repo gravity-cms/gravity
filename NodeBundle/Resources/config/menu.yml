@@ -1,0 +1,30 @@
+types:
+  title: Content Types
+  icon: files-o
+
+  items:
+    content_types:
+      route: gravity_admin_content_type_manage
+      title: All Content Types
+      description: Add, Edit and Delete Content Types
+    content_type_new:
+      route: gravity_admin_content_type_new
+      title: New Content Type
+      description: Create New Content Types
+
+nodes:
+  title: Content Nodes
+  icon: th
+  items:
+    node_create:
+      route: gravity_admin_node_create_select
+      title: Create node
+      description: Create a new content node
+    nodes:
+      route: gravity_admin_node_index
+      title: View Nodes
+      description: View all content nodes
+    routing:
+      route: gravity_admin_routing_settings
+      title: Node Routing
+      description: Manage Node routes

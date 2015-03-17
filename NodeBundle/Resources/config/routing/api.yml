@@ -1,0 +1,20 @@
+api_content_type:
+  type:         rest
+  resource:     Gravity\NodeBundle\Controller\Api\ContentTypeController
+  prefix: /node
+
+api_content_type_field:
+  type:         rest
+  resource:     Gravity\NodeBundle\Controller\Api\ContentTypeFieldController
+  parent:       api_content_type
+  prefix: /node
+
+api_content_type_routing:
+  type:         rest
+  resource:     Gravity\NodeBundle\Controller\Api\RoutingController
+  prefix: /node
+
+api_node:
+  type:         rest
+  resource:     Gravity\NodeBundle\Controller\Api\NodeController
+  prefix: /node

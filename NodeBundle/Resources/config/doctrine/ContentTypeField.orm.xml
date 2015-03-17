@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                    http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Gravity\NodeBundle\Entity\ContentTypeField" table="content_type_field">
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <field name="name" type="string" column="name" length="25" nullable="false"/>
+        <field name="label" type="string" column="label" length="55" nullable="false"/>
+        <field name="order" type="integer" column="field_order" nullable="false"/>
+        <field name="config" type="object" column="config" nullable="false"/>
+
+        <one-to-one target-entity="Gravity\NodeBundle\Entity\ContentTypeFieldDisplay" field="viewDisplay" inversed-by="typeField"
+                    orphan-removal="true">
+        </one-to-one>
+        <one-to-one target-entity="Gravity\NodeBundle\Entity\ContentTypeFieldWidget" field="viewWidget" inversed-by="typeField"
+                    orphan-removal="true">
+        </one-to-one>
+
+        <one-to-many target-entity="Gravity\NodeBundle\Entity\NodeContent" field="contents" mapped-by="contentTypeField" orphan-removal="true">
+        </one-to-many>
+
+        <many-to-one target-entity="Gravity\NodeBundle\Entity\ContentType" field="contentType" inversed-by="contentTypeFields" orphan-removal="true">
+        </many-to-one>
+
+        <many-to-one target-entity="GravityCMS\CoreBundle\Entity\Field" field="field" orphan-removal="true">
+        </many-to-one>
+
+    </entity>
+</doctrine-mapping>

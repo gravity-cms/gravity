@@ -1,0 +1,101 @@
+parameters:
+  gravity_node.doctrine.node_listener.class:  Gravity\NodeBundle\Doctrine\EventListener\NodeEventListener
+  gravity_node.doctrine.content_type_listener.class:  Gravity\NodeBundle\Doctrine\EventListener\ContentTypeEventListener
+
+  gravity_node.form.type.field_collection.class: Gravity\NodeBundle\Form\Type\FieldCollectionType
+  gravity_node.form.type.field_content_collection.class: Gravity\NodeBundle\Form\Type\FieldContentCollectionType
+
+
+services:
+
+  #
+  # Entity Definitions
+  gravity_node.entity.node:
+    class: Gravity\NodeBundle\Gravity\Entity\NodeEntity
+    tags:
+      - { name: gravity.entity }
+
+  #
+  # Doctrine - Map node listener
+  gravity_node.doctrine.node_listener:
+    class: %gravity_node.doctrine.node_listener.class%
+    arguments:
+      - @service_container
+    tags:
+      - { name: doctrine.event_subscriber }
+
+  #
+  # Forms - field collection
+  gravity_node.form.type.field_collection:
+    class: %gravity_node.form.type.field_collection.class%
+    arguments:
+        - @gravity_cms.field_manager
+        - @gravity_cms.config_manager
+    tags:
+        - { name: form.type, alias: field_collection }
+
+  gravity_node.form.type.field_content_collection:
+    class: %gravity_node.form.type.field_content_collection.class%
+    tags:
+        - { name: form.type, alias: field_content_collection }
+
+
+  gravity_node.form.type.field_content_type_field_view_change:
+    class: Gravity\NodeBundle\Form\ContentTypeFieldViewChangeForm
+    arguments:
+        - @gravity_cms.field_manager
+    tags:
+        - { name: form.type, alias: gravity_node_content_type_field_view_change }
+
+  #
+  # Configuration events
+  gravity_node.event_listener.configuration:
+    class: Gravity\NodeBundle\EventListener\ConfigurationEventSubscriber
+    arguments:
+      - @gravity_cms.config_manager
+      - @doctrine.orm.default_entity_manager
+    tags:
+        - { name: kernel.event_subscriber }
+
+  #
+  # Node routing manager
+  gravity_node.node_route_manager:
+    class: Gravity\NodeBundle\Router\NodeRouterManager
+    arguments:
+      - @gravity_cms.config_manager
+
+  gravity_node.routing.node_path_processor:
+    class: Gravity\NodeBundle\Router\PathProcessor\NodePathProcessor
+    tags:
+      - { name: gravity.node.path_processor }
+
+  #
+  # Views
+#  gravity_node.view.node:
+#    class: Gravity\NodeBundle\View\NodeView
+#    tags:
+#      - { name: gravity.view_type }
+#
+#  gravity_node.view.block.content:
+#    class: Gravity\NodeBundle\View\Block\ContentBlock
+#    tags:
+#      - { name: gravity.view.block }
+
+
+  #
+  # Fields
+  gravity_node.field.text:
+    class: Gravity\NodeBundle\Field\Text\TextField
+    tags:
+      - { name: gravity.field }
+
+
+  gravity_node.field.text.widget:
+    class: Gravity\NodeBundle\Field\Text\Widget\TextFieldWidget
+    tags:
+      - { name: gravity.field.widget }
+
+  gravity_node.field.text.display:
+    class: Gravity\NodeBundle\Field\Text\Display\TextFieldDisplay
+    tags:
+      - { name: gravity.field.display }
