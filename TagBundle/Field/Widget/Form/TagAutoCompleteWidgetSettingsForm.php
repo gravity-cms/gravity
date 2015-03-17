@@ -20,8 +20,6 @@ class TagAutoCompleteWidgetSettingsForm extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('useEditor', 'checkbox');
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

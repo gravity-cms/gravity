@@ -31,6 +31,9 @@ class FieldTagSettingsForm extends AbstractType
                         ->orderBy('u.name', 'ASC');
                 },
             ])
+            ->add('allowNew', 'checkbox', [
+                'required' => false
+            ])
             ->add('multiple', 'checkbox', [
                 'required' => false
             ]);

@@ -2,6 +2,7 @@
 
 namespace Gravity\TagBundle\Field\Configuration;
 
+use Gravity\TagBundle\Entity\Tag;
 use Gravity\TagBundle\Field\Configuration\Form\FieldTagSettingsForm;
 use GravityCMS\Component\Field\Configuration\FieldSettingsConfiguration;
 
@@ -13,8 +14,25 @@ use GravityCMS\Component\Field\Configuration\FieldSettingsConfiguration;
  */
 class FieldTagConfiguration extends FieldSettingsConfiguration
 {
-    protected $tag;
+    /**
+     * The tag category ID
+     *
+     * @var int
+     */
+    protected $tag = null;
 
+    /**
+     * Allow new tags to be added
+     *
+     * @var boolean
+     */
+    protected $allowNew = false;
+
+    /**
+     * Allow multiple selections
+     *
+     * @var bool
+     */
     protected $multiple = true;
 
     /**
@@ -44,9 +62,9 @@ class FieldTagConfiguration extends FieldSettingsConfiguration
     /**
      * @param mixed $tag
      */
-    public function setTag($tag)
+    public function setTag(Tag $tag)
     {
-        $this->tag = $tag;
+        $this->tag = $tag->getId();
     }
 
     /**
@@ -63,5 +81,21 @@ class FieldTagConfiguration extends FieldSettingsConfiguration
     public function setMultiple($multiple)
     {
         $this->multiple = $multiple;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isAllowNew()
+    {
+        return $this->allowNew;
+    }
+
+    /**
+     * @param boolean $allowNew
+     */
+    public function setAllowNew($allowNew)
+    {
+        $this->allowNew = $allowNew;
     }
 } 

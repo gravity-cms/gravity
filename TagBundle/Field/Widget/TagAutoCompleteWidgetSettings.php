@@ -15,11 +15,6 @@ use GravityCMS\Component\Field\Widget\WidgetSettingsInterface;
 class TagAutoCompleteWidgetSettings extends AbstractConfiguration implements WidgetSettingsInterface
 {
     /**
-     * @var bool
-     */
-    protected $useEditor = true;
-
-    /**
      * Get the type of the config
      *
      * @return string
@@ -37,21 +32,5 @@ class TagAutoCompleteWidgetSettings extends AbstractConfiguration implements Wid
     public function getForm()
     {
         return new TagAutoCompleteWidgetSettingsForm();
-    }
-
-    /**
-     * @return boolean
-     */
-    public function getUseEditor()
-    {
-        return $this->useEditor;
-    }
-
-    /**
-     * @param boolean $useEditor
-     */
-    public function setUseEditor($useEditor)
-    {
-        $this->useEditor = $useEditor;
     }
 }

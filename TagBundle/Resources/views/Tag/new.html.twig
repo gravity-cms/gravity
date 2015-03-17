@@ -3,6 +3,9 @@
 
 {% block breadcrumbs %}
     {{ parent() }}
+    {% if parentTag %}
+        <li><a href="{{ url('gravity_admin_tag_edit', {id: parentTag.id}) }}">{{ parentTag.name|title }}</a></li>
+    {% endif %}
     <li><a href="{{ url('gravity_admin_tag_new') }}">Create</a></li>
 {% endblock %}
 
@@ -11,11 +14,11 @@
 {% endblock %}
 
 {% block page_title %}
-    New Tag
+    New {% if parentTag %}{{ parentTag.name|title }}{% endif %} Tag
 {% endblock %}
 
 {% block page_desc %}
-    Create a new content node tag
+    Create a new {% if parentTag %}{{ parentTag.name|lower }}{% endif %} tag
 {% endblock %}
 
 {% block plugin %}

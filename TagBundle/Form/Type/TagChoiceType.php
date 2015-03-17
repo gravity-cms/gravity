@@ -49,7 +49,7 @@ class TagChoiceType extends AbstractType
             $tagOptions[]   = $childTag;
             $childChildTags = $this->getChildTags($childTag->getChildTags(), $delta + 1);
             foreach ($childChildTags as $id => $value) {
-                $tagOptions[$id] = $value;
+                $tagOptions[] = $value;
             }
         }
 

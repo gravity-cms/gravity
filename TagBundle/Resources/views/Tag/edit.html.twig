@@ -4,13 +4,13 @@
 {% block breadcrumbs %}
     {{ parent() }}
     {% for parent in parents %}
-        <li><a href="{{ url('gravity_admin_tag_edit', {id: parent.id}) }}">{{ parent.name|capitalize }}</a></li>
+        <li><a href="{{ url('gravity_admin_tag_edit', {id: parent.id}) }}">{{ parent.name|title }}</a></li>
     {% endfor %}
-    <li><a href="{{ url('gravity_admin_tag_edit', {id: tag.id}) }}">{{ tag.name|capitalize }}</a></li>
+    <li><a href="{{ url('gravity_admin_tag_edit', {id: tag.id}) }}">{{ tag.name|title }}</a></li>
 {% endblock %}
 
 {% block page_title %}
-    Editing {{ tag.name }}
+    Editing {{ tag.name|title }}
 {% endblock %}
 
 {% block page_desc %}

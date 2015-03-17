@@ -50,8 +50,9 @@ class TagAutoCompleteWidgetForm extends AbstractType
             ->add('tags', 'auto_complete', [
                 'handler'         => $this->handler,
                 'multiple'        => $configuration->isMultiple(),
+                'allow_new'       => $configuration->isAllowNew(),
                 'handler_options' => [
-                    'parent' => $configuration->getTag()->getId(),
+                    'field' => $typeField->getId(),
                 ],
                 'limit'           => (int)$limit,
                 'label'           => $limit == 1 ? null : $limit,

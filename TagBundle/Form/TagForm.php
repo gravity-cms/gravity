@@ -41,8 +41,10 @@ class TagForm extends AbstractType
             ->add('description');
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event){
-            $tag = $event->getData();
-            if($tag instanceof Tag && $tag->getId()){
+            $form = $event->getForm();
+            $data = $event->getData();
+
+            if($data instanceof Tag && ($data->getParentTag() instanceof Tag || $data->getId())){
                 $event->getForm()->remove('parentTag');
             }
         });

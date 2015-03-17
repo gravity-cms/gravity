@@ -2,11 +2,13 @@ define(['jquery', 'jqueryui', 'bootstrap', 'select2', 'cms/node/node/form'], fun
 
     nodeForm.registerWidget('tag', function($scope){
         $scope.find('input.content-tags').each(function(){
-            var $input = $(this);
-            var isMultiple = $input.data('multiple') !== 0 && $input.data('limit') !== "0";
+            var $input = $(this),
+                isMultiple = this.dataset.multiple === "1" || this.dataset.multiple === 1,
+                allowNew = this.dataset.allowNew === "1" || this.dataset.allowNew === 1;
             $input.wrap('<div class="select2-primary"></div>').select2({
                 placeholder: "Select tags",
                 multiple: isMultiple,
+                tags: allowNew,
                 initSelection: function (element, callback) {
                     var items = element.val().split(',');
                     var data = [];

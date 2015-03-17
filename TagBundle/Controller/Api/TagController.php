@@ -2,6 +2,7 @@
 
 namespace Gravity\TagBundle\Controller\Api;
 
+use Gravity\TagBundle\Entity\Tag;
 use Gravity\TagBundle\Form\TagForm;
 use GravityCMS\CoreBundle\Controller\Api\AbstractApiController;
 use Symfony\Component\Form\AbstractType;
@@ -35,7 +36,10 @@ class TagController extends AbstractApiController
     }
 
     /**
-     * @inheritdoc
+     * @param int      $method
+     * @param Tag|null $entity
+     *
+     * @return string
      */
     function getUrl($method, $entity = null)
     {
@@ -54,6 +58,14 @@ class TagController extends AbstractApiController
 
             case self::METHOD_GET:
                 return $this->generateUrl('gravity_admin_tag_edit', ['id' => $entity->getId()]);
+                break;
+
+            case self::METHOD_VIEW_ALL:
+                if($entity->getParentTag() instanceof Tag) {
+                    return $this->generateUrl('gravity_admin_tag_edit', ['id' => $entity->getParentTag()->getId()]);
+                } else {
+                    return $this->generateUrl('gravity_admin_tags');
+                }
                 break;
         }
 
