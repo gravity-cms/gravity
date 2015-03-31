@@ -1,0 +1,14 @@
+file:
+  title: Files
+  icon: file-o
+
+  items:
+    settings:
+      route: gravity_admin_file_settings
+      title: Settings
+      description: Manage File Settings
+    all_file:
+      route: gravity_admin_file_list
+      title: View Files
+      description: Add, Edit and Delete Files
+

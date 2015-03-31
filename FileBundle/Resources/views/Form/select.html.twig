@@ -1,0 +1,22 @@
+
+<div class="file-browser-window">
+    {% if init_node is not defined %}
+    {% set init_node = null %}
+    {% endif %}
+    {% if exclude_nodes is not defined %}
+        {% set exclude_nodes = null %}
+    {% endif %}
+    {% if input is not defined %}
+        {% set input = '.file-form-category' %}
+    {% endif %}
+    {{
+        include('GravityFileBundle:Form:filetreebrowser.html.twig', {
+            url: url('gravity_api_get_category_filetree')
+        })
+    }}
+    <div class="file-directory-preview">
+
+    </div>
+
+    <div class="clearfix"></div>
+</div>

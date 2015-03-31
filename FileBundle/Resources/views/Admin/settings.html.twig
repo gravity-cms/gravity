@@ -1,0 +1,25 @@
+{% extends 'GravityFileBundle::base.html.twig' %}
+{% set page_modules = ['cms/file/settings'] %}
+
+{% block breadcrumbs %}
+    {{ parent() }}
+    <li><a href="{{ url('gravity_admin_file_settings') }}">Settings</a></li>
+{% endblock %}
+
+{% block page_title %}
+    File System Settings
+{% endblock %}
+
+{% block page_desc %}
+    Configure settings for the file system
+{% endblock %}
+
+{% block plugin %}
+    {{ form_start(form) }}
+        {{ form_rest(form) }}
+
+        <button type="submit" class="btn btn-primary">
+            <i class="fa-save"></i> Save
+        </button>
+    {{ form_end(form) }}
+{% endblock %}

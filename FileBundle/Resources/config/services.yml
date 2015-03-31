@@ -1,0 +1,130 @@
+parameters:
+  gravity.file_manager.class:    Gravity\FileBundle\File\FileManager
+  gravity.stream_wrapper_manager.class: Gravity\FileBundle\File\StreamWrapper\StreamWrapperManager
+
+services:
+
+  #
+  # File Manager
+  gravity.file_manager:
+    class: %gravity.file_manager.class%
+    arguments:
+      - @gravity_cms.config_manager
+      - @doctrine.orm.default_entity_manager
+      - @gravity.stream_wrapper_manager
+
+  #
+  # Stream Wrapping
+  gravity.stream_wrapper_manager:
+    class: %gravity.stream_wrapper_manager.class%
+
+
+  gravity.stream_wrapper.public:
+    class: Gravity\FileBundle\File\StreamWrapper\Local\PublicStreamWrapper
+    calls:
+      - ['setDirPaths', [%kernel.root_dir%/../web/files, /files]]
+    tags:
+      - { name: gravity.stream_wrapper }
+
+
+  #
+  # Forms
+  gravity.file.form.file_configuration:
+    class: Gravity\FileBundle\Configuration\FileConfigurationForm
+    arguments:
+      - @gravity.stream_wrapper_manager
+    tags:
+      - { name: form.type, alias: file_configuration }
+
+  gravity.file.form.gravity_file:
+    class: Gravity\FileBundle\Form\GravityFileForm
+    tags:
+      - { name: form.type, alias: gravity_file }
+
+  gravity.file.form.file_browser:
+    class: Gravity\FileBundle\Form\Type\FileBrowserType
+    tags:
+      - { name: form.type, alias: file_browser }
+
+  gravity.file.form.file_collection:
+    class: Gravity\FileBundle\Form\Type\FileCollectionType
+    tags:
+      - { name: form.type, alias: file_collection }
+
+
+
+  #
+  # Fields
+  gravity.file.field.file:
+    class: Gravity\FileBundle\Field\File\FileField
+    tags:
+      - { name: gravity.field }
+
+  #
+  # Field Widgets
+  gravity.file.field.file.widget.file_browser:
+    class: Gravity\FileBundle\Field\File\Widget\FileBrowserWidget
+    tags:
+      - { name: gravity.field.widget }
+
+  gravity.file.field.file.widget.file_browser.form:
+    class: Gravity\FileBundle\Field\File\Widget\FileBrowserWidgetForm
+    tags:
+      - { name: form.type, alias: field_file_widget_file_browser }
+
+  #
+  # Field Displays
+  gravity.file.field.file.display.file_link:
+    class: Gravity\FileBundle\Field\File\Display\FileLink\FileLinkDisplay
+    tags:
+      - { name: gravity.field.display }
+
+
+
+  #
+  # MEDIA PROVIDER
+#  nefarian.meida.provider.local_storeage:
+#    class: Gravity\FileBundle\File\LocalStorageFileProvider
+#    arguments:
+#      - @doctrine.orm.default_entity_manager
+#      - Nefarian\CmsBundle\Plugin\File\Entity\File
+#      - @security.context
+#      - %kernel.root_dir%/../web/files/
+#      - /files/
+##    calls:
+##      - ['setOptimiser', [@linestorm.cms.media.optimiser]]
+#    tags:
+#      - { name: gravity.file.provider }
+
+
+  #
+  # TWIG MEDIA MODULE
+#  linestorm.cms.twig.module_file_extension:
+#    class: Nefarian\CmsBundle\Plugin\File\Twig\FileExtension
+#    tags:
+#      - { name: twig.extension }
+#
+#
+#  linestorm.cms.form.type.widget.fileentity:
+#        class: Nefarian\CmsBundle\Plugin\File\Form\Type\FileEntityType
+#        arguments: [@nefarian.plugin.file.manager]
+#        tags:
+#            - { name: form.type, alias: fileentity }
+#
+#  linestorm.cms.form.type.file:
+#        class: Nefarian\CmsBundle\Plugin\File\Form\FileFormType
+#        arguments: [@nefarian.plugin.file.manager]
+#        tags:
+#            - { name: form.type, alias: linestorm_cms_form_file }
+#
+#  linestorm.cms.form.type.file_multiple:
+#        class: Nefarian\CmsBundle\Plugin\File\Form\FileMultipleFormType
+#        arguments: [@nefarian.plugin.file.manager]
+#        tags:
+#            - { name: form.type, alias: linestorm_cms_form_file_multiple }
+#
+#  linestorm.cms.form.type.file_category:
+#        class: Nefarian\CmsBundle\Plugin\File\Form\FileCategoryFormType
+#        arguments: [@nefarian.plugin.file.manager]
+#        tags:
+#            - { name: form.type, alias: linestorm_cms_form_file_category }

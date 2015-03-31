@@ -1,0 +1,33 @@
+file_settings:
+  path: /file/settings
+  defaults: { _controller: GravityFileBundle:File:settings }
+
+file_list:
+  path:  /file
+  defaults: { _controller: GravityFileBundle:File:list }
+
+file_new:
+  path:  /file/new
+  defaults: { _controller: GravityFileBundle:File:new }
+
+#file_view:
+#    path:  /{id}
+#    defaults: { _controller: GravityFileBundle:File:view }
+#    requirements:
+#       id: \d+
+
+file_edit:
+  path:  /file/{id}/edit
+  defaults: { _controller: GravityFileBundle:File:edit }
+  requirements:
+     id: \d+
+
+#file_upload_edit:
+#    path: /{id}/upload
+#    defaults: { _controller: GravityFileBundle:File:uploadEdit }
+#    requirements:
+#       id: \d+
+
+file_upload:
+  path: /file/upload
+  defaults: { _controller: GravityFileBundle:File:upload }

@@ -1,0 +1,7 @@
+gravity_tag:
+  resource: @GravityFileBundle/Resources/config/routing/admin.yml
+  type: gravity_admin
+
+gravity_tag_api:
+  resource: @GravityFileBundle/Resources/config/routing/api.yml
+  type: gravity_api

@@ -1,0 +1,10 @@
+<div class="file-browser">
+    <a href="#" class="file-refresh-tree"><i class="fa-refresh"></i></a>
+    <div class="file-tree {% if class is defined %}{{ class }}{% else %}{% endif %}"
+         data-root="{{ url }}"
+         data-init="{% if init_node is defined %}{{ init_node }}{% endif %}"
+         data-input="{% if input is defined %}{{ input }}{% endif %}"
+         data-exclude="{% if exclude_nodes is defined %}{{ exclude_nodes }}{% endif %}">
+        <!-- file tree -->
+    </div>
+</div>
