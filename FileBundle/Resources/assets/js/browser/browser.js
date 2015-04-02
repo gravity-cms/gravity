@@ -44,7 +44,7 @@ define(['jquery', 'angular', 'cms/file/form/dropzone', 'cms/core/api'], function
                 '           <div class="browser-library-header clearfix" ng-show="selectedCount>0">' +
                 '               <div class="pull-right"> <span class="text-muted">({{ selectedCount }} Selected)</span> '+
                 '                   <button type="button" class="btn btn-primary" ng-click="getSelected()"><i class="fa fa-check"></i> Select</button>' +
-                '                   <button type="button" class="btn btn-danger" ng-click="deleteSelected()"><i class="fa fa-trash"></i> Delete</button>' +
+                '                   <button type="button" class="btn btn-danger" ng-click="deleteSelected()"><i class="fa fa-trash-o"></i> Delete</button>' +
                 '               </div>' +
                 '           </div>' +
                 '           <div class="browser-library-items">' +
@@ -86,6 +86,7 @@ define(['jquery', 'angular', 'cms/file/form/dropzone', 'cms/core/api'], function
                             }
                         }).filter(function(n){ return n != undefined });
                         callListener(events.SELECT, selectedFiles);
+                        $scope.selected = {};
                     };
 
                     $scope.deleteSelected = function(){

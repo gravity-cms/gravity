@@ -2,35 +2,38 @@ define(['jquery', 'jqueryui', 'bootbox', 'cms/node/node/form', 'cms/file/browser
 
     nodeForm.registerWidget('file', function($scope){
         var $launchButton = $scope.find('.launch-file-browser-button'),
-            $fieldContainer = $scope.find('.file-fields'),
+            $fieldContainer = $scope.find('.file-items'),
             fileTemplate = $launchButton.data('prototype'),
             browserTemplate = $launchButton.data('browser'),
-            fieldCount = 0;
+            fieldCount = $fieldContainer.children().length;
 
-        $scope.find('.launch-file-browser-button').on('click', function(){
+        browser.addListener(browser.events.SELECT, function(data){
+            for(var i in data){
+                (function(item) {
+                    var $template = $(fileTemplate.replace(/__name__/g, fieldCount));
+                    $template.find('.file-item-title').text(item.name).attr('href', item.url);
+                    $template.find('input[type="hidden"]').val(item.id);
 
-            bootbox.dialog({
-                title: 'File Browser',
-                message: browserTemplate,
-                className: 'modal-full',
-                buttons: {
-                    cancel: {
-                        label: 'Cancel'
-                    }
-                }
-            });
-
-            browser.attach(document);
-            browser.addListener(browser.events.SELECT, function(data){
-                for(var i in data){
-                    $fieldContainer.append('<img src="'+data[i].url+'" class="img" />')
-                }
-                console.log(data);
-            });
-
-            fieldCount++;
-            $fieldContainer.append(fileTemplate);
+                    fieldCount++;
+                    $fieldContainer.append($template);
+                })(data[i]);
+            }
+            box.modal('hide');
         });
+
+        var box = $(browserTemplate);
+        $('body').append(box);
+        browser.attach(box);
+        box.modal({
+            show: false
+        });
+        $scope.find('.launch-file-browser-button').on('click', function(){
+            box.modal('show');
+        });
+
+        $fieldContainer.on('click', '.file-item-remove', function(){
+            $(this).closest('.file-item').remove();
+        })
     });
 
 });

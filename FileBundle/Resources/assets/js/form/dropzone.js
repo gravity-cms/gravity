@@ -1,7 +1,7 @@
 (function(){
 
     //Main module definition.
-    define(['jquery', 'jqueryui', 'dropzone'], function($, ui, dz){
+    define(['jquery', 'jqueryui', 'dropzone'], function($, ui, Dropzone){
 
         var events = {
             UPLOAD: 'upload',
