@@ -1,86 +1,10 @@
-{% macro fileItem() %}
-    <div class="file-browser-item">
-        <img class="file-img" src="">
-        <div class="file-name"></div>
-    </div>
-{% endmacro %}
-
-{% macro uploadItem(form) %}
-    {% spaceless %}
-        <div class="dz-preview dz-file-preview">
-            <div class="dz-details">
-                <div class="dz-filename">
-                    <span data-dz-name></span>
-                </div>
-                <div class="dz-size">File size: <span data-dz-size></span></div>
-                <div class="dz-thumbnail-wrapper">
-                    <div class="dz-thumbnail">
-                        <img data-dz-thumbnail>
-                        <span class="dz-nopreview">No preview</span>
-                        <div class="dz-error-mark"><i class="fa fa-times-circle-o"></i></div>
-                        <div class="dz-error-message"><span data-dz-errormessage></span></div>
-                    </div>
-                </div>
-            </div>
-            <div class="progress progress-striped active">
-                <div class="progress-bar progress-bar-success" data-dz-uploadprogress></div>
-            </div>
-            <div class="file-form-container file-fields">
-                <input type="text" placeholder="Name" class="form-control media-textarea" >
-                {#{{ form_widget(form.name, {attr: {placeholder: 'Title', class: 'media-textarea', 'data-field-name': form.name.vars.full_name|replace({'__name__': '__delta__'}) } }) }}#}
-                {#{{ form_widget(form.description, {attr: {placeholder: 'Description', class: 'media-textarea', 'data-field-name': form.description.vars.full_name|replace({'__name__': '__delta__'}) } }) }}#}
-                {#{{ form_widget(form.filename, {attr: {'data-field-name': form.filename.vars.full_name|replace({'__name__': '__delta__'})} }) }}#}
-                {#{{ form_widget(form.path, {attr: {'data-field-name': form.path.vars.full_name|replace({'__name__': '__delta__'})} }) }}#}
-                {#{{ form_widget(form.url, {attr: {'data-field-name': form.url.vars.full_name|replace({'__name__': '__delta__'})} }) }}#}
-                {#{{ form_widget(form.size, {attr: {'data-field-name': form.size.vars.full_name|replace({'__name__': '__delta__'})} }) }}#}
-                {#{{ form_widget(form.status, {attr: {'data-field-name': form.status.vars.full_name|replace({'__name__': '__delta__'})} }) }}#}
-            </div>
-        </div>
-    {% endspaceless %}
-{% endmacro %}
-
-{% macro libraryItem() %}
-{% endmacro %}
-
-{% set randId = random() %}
-
 {% stylesheets
     filter="compass" output="cms/file/css/file.css"
     "@GravityFileBundle/Resources/assets/sass/file.scss"
     %}
 <link rel="stylesheet" href="{{ asset_url }}" />
 {% endstylesheets %}
-<div class="file-browser"
-     {#data-data-url="{{ path('gravity_api_get_files') }}"#}
-     {#data-prototype="{{ _self.fileItem()|e('html_attr') }}"#}
-        >
-        <div ng-file-browser upload-url="{{ path('gravity_admin_file_upload') }}"
-                files-url="{{ path('gravity_api_get_files') }}"></div>
-    {#<div class="file-browser-header">#}
-        {#<ul class="nav nav-tabs">#}
-            {#<li class="active"><a href="#browser-upload-{{ randId }}">Upload</a></li>#}
-            {#<li><a href="#browser-library-{{ randId }}">Library</a></li>#}
-        {#</ul>#}
-    {#</div>#}
-    {#<div class="tab-content">#}
-        {#<div class="tab-pane fade active" id="browser-upload-{{ randId }}">#}
-            {#<div class="dropzone dropzone-box"#}
-                 {#data-url="{{ path('gravity_admin_file_upload') }}"#}
-                 {#data-prototype="{{ _self.uploadItem()|e('html_attr') }}">#}
-                {#<!-- dropzone -->#}
-            {#</div>#}
-        {#</div>#}
-        {#<div class="tab-pane fade" id="browser-library-{{ randId }}">#}
-            {#<div class="browser-library-items" data-prototype="{{ _self.libraryItem()|e('html_attr') }}">#}
-                {#<div class="col-xs-6 col-md-3 browser-library-item">#}
-                    {#<a href="__url__" class="thumbnail">#}
-                        {#<img src="__src__" >#}
-                        {#<div class="caption">#}
-                            {#<h3>__name__</h3>#}
-                        {#</div>#}
-                    {#</a>#}
-                {#</div>#}
-            {#</div>#}
-        {#</div>#}
-    {#</div>#}
+<div class="file-browser">
+    <div ng-file-browser upload-url="{{ path('gravity_admin_file_upload') }}"
+        files-url="{{ path('gravity_api_get_files') }}"></div>
 </div>
