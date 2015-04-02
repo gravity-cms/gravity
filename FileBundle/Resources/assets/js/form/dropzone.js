@@ -39,14 +39,15 @@
                 options = $.extend(true, {
                     maxFiles: null,
                     url: $dropzone.data('url'),
-                    template: $dropzone.data('prototype')
+                    template: $dropzone.data('prototype'),
+                    acceptedFiles: 'image/*'
                 }, options);
 
                 var formCount = parseInt($dropzone.data('count'));
                 var dz = new Dropzone($dropzone[0], {
                     url: options.url,
                     maxFiles: options.maxFiles,
-                    acceptedFiles: 'image/*',
+                    acceptedFiles: options.acceptedFiles,
                     thumbnailWidth: null,
                     thumbnailHeight: null,
                     addRemoveLinks : true,
@@ -59,7 +60,7 @@
                         });
                         this.on("error", function(file, response) {
                             this.removeFile(file);
-                            alert("Cannot add file: "+response);
+                            alert("Cannot add file: "+response.error);
                         });
                     },
                     previewTemplate: options.template

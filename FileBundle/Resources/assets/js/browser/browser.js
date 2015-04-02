@@ -107,6 +107,7 @@ define(['jquery', 'angular', 'cms/file/form/dropzone', 'cms/core/api'], function
 
                     dropzone.dropzone(element.find('.dropzone'), {
                         url: attrs.uploadUrl,
+                        acceptedFiles: 'text/*',
                         template:
                             '<div class="dz-preview dz-file-preview">' +
                             '    <div class="dz-details">' +
