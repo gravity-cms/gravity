@@ -73,7 +73,7 @@
 
 {% block file_collection_widget %}
     <button type="button" class="btn btn-default launch-file-browser-button"
-        data-browser="{{ include('GravityFileBundle:Form:file-browser-modal.html.twig')|e('html_attr') }}"
+        data-browser="{{ include('GravityFileBundle:Form:file-browser-modal.html.twig', {mime_types: form.vars.mime_types})|e('html_attr') }}"
         data-prototype="{{ _self.file_collection_widget_row(form.vars.prototype)|e('html_attr') }}">
         Add Files
     </button>

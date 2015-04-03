@@ -17,10 +17,18 @@
         <one-to-many target-entity="Node" mapped-by="contentType" field="nodes" orphan-removal="true">
         </one-to-many>
 
-        <one-to-many target-entity="ContentTypeField" mapped-by="contentType" field="contentTypeFields" orphan-removal="true">
+        <many-to-many target-entity="GravityCMS\CoreBundle\Entity\Field" field="fields" orphan-removal="false">
             <order-by>
-                <order-by-field name="order" direction="ASC"/>
+                <order-by-field name="delta" direction="ASC"/>
             </order-by>
-        </one-to-many>
+            <join-table name="content_type_field">
+                <join-columns>
+                    <join-column name="content_type_id"/>
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="field_id"/>
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
     </entity>
 </doctrine-mapping>

@@ -19,7 +19,7 @@ content_type_edit_fields:
   defaults: { _controller: GravityNodeBundle:ContentType:editFields }
 
 content_type_edit_field:
-  path:     /content/type/{type}/fields/{typeField}/edit
+  path:     /content/type/{type}/fields/{field}/edit
   defaults: { _controller: GravityNodeBundle:ContentType:editField }
 
 content_type_create_fields:
@@ -27,7 +27,7 @@ content_type_create_fields:
   defaults: { _controller: GravityNodeBundle:ContentType:createFields, _method: POST }
 
 content_type_edit_field_settings:
-  path:     /content/type/{type}/fields/{typeField}/settings
+  path:     /content/type/{type}/fields/{field}/settings
   defaults: { _controller: GravityNodeBundle:ContentType:editFieldSettings }
 
 content_type_edit_form_view:
@@ -35,11 +35,11 @@ content_type_edit_form_view:
   defaults: { _controller: GravityNodeBundle:ContentType:editFormView }
 
 content_type_edit_form_view_change:
-  path:     /content/type/{type}/form-view/{typeField}/change
+  path:     /content/type/{type}/form-view/{field}/change
   defaults: { _controller: GravityNodeBundle:ContentTypeField:changeFormView }
 
 content_type_edit_form_view_settings:
-  path:     /content/type/{type}/form-view/{typeField}/settings
+  path:     /content/type/{type}/form-view/{field}/settings
   defaults: { _controller: GravityNodeBundle:ContentTypeField:editFormViewSettings }
 
 node_create_select:

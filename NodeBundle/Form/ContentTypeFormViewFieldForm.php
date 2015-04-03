@@ -15,7 +15,7 @@ class ContentTypeFormViewFieldForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('order', 'hidden')
+            ->add('delta', 'hidden')
         ;
     }
 
@@ -25,7 +25,7 @@ class ContentTypeFormViewFieldForm extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Gravity\NodeBundle\Entity\ContentTypeField'
+            'data_class' => 'GravityCMS\CoreBundle\Entity\Field'
         ));
     }
 

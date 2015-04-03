@@ -134,7 +134,7 @@ class FileController extends Controller
      * @return Response
      * @throws AccessDeniedException
      */
-    public function uploadAction(Request $request)
+    public function uploadAction(Request $request, Field $field)
     {
         // TODO: permissions!
 //        $user = $this->getUser();

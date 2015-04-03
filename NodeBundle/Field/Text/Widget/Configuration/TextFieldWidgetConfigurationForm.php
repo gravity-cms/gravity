@@ -1,38 +1,39 @@
 <?php
 
-namespace Gravity\NodeBundle\Field\Text\Widget\Form;
+namespace Gravity\NodeBundle\Field\Text\Widget\Configuration;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * Class TextFieldWidgetSettingsForm
+ * Class TextFieldWidgetConfigurationForm
  *
- * @package Gravity\NodeBundle\Field\Text\Widget\Form
+ * @package Gravity\NodeBundle\Field\Text\Widget\Configuration
  * @author  Andy Thorne <contrabandvr@gmail.com>
  */
-class TextFieldWidgetSettingsForm extends AbstractType
+class TextFieldWidgetConfigurationForm extends AbstractType
 {
     /**
-     * @param FormBuilderInterface $builder
-     * @param array                $options
+     * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('useEditor', 'checkbox', array(
+            ->add('useEditor', 'checkbox', [
                 'required' => false,
-            ));
+            ]);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_type' => 'Gravity\NodeBundle\Entity\FieldText'
-        ));
+        $resolver->setDefaults([
+            'data_type' => 'Gravity\NodeBundle\Field\Text\Widget\Configuration\TextFieldWidgetConfiguration'
+        ]);
     }
-
 
     /**
      * {@inheritdoc}

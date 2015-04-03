@@ -7,11 +7,6 @@
 
     <entity name="Gravity\NodeBundle\Entity\Node" table="node">
 
-        <id name="id" type="integer" column="id">
-            <generator strategy="AUTO"/>
-        </id>
-
-
         <field name="title" type="string" column="title" length="150" nullable="true"/>
         <field name="description" type="string" column="description" length="100" nullable="true"/>
         <field name="published" type="boolean" column="published" nullable="false"/>
@@ -26,18 +21,6 @@
         <field name="createdOn" type="datetime" column="created_on" nullable="false">
             <gedmo:timestampable on="create"/>
         </field>
-
-        <one-to-many target-entity="Gravity\NodeBundle\Entity\NodeContent" field="fields" mapped-by="entity"
-                     orphan-removal="true">
-            <order-by>
-                <order-by-field name="delta" direction="ASC" />
-            </order-by>
-            <cascade>
-                <cascade-persist/>
-                <cascade-merge/>
-                <cascade-refresh/>
-            </cascade>
-        </one-to-many>
 
         <many-to-one target-entity="Gravity\NodeBundle\Entity\ContentType" field="contentType" inversed-by="nodes"
                      orphan-removal="true">

@@ -2,7 +2,8 @@
 
 namespace Gravity\NodeBundle\Entity;
 
-use GravityCMS\Component\Entity\Entity\AbstractEntity;
+use GravityCMS\CoreBundle\Entity\Entity;
+use GravityCMS\CoreBundle\Entity\FieldData;
 use GravityCMS\CoreBundle\Entity\Route;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -13,9 +14,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @package Gravity\NodeBundle\Entity
  * @author  Andy Thorne <contrabandvr@gmail.com>
  */
-class Node extends AbstractEntity
+class Node extends Entity
 {
-
     /**
      * @var string
      */
@@ -37,7 +37,7 @@ class Node extends AbstractEntity
     protected $contentType;
 
     /**
-     * @var NodeContent[]
+     * @var FieldData[]
      */
     protected $fields;
 

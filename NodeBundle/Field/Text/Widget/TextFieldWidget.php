@@ -2,11 +2,11 @@
 
 namespace Gravity\NodeBundle\Field\Text\Widget;
 
+use Gravity\NodeBundle\Field\Text\Asset\TextFieldWidgetLibrary;
+use Gravity\NodeBundle\Field\Text\Widget\Configuration\TextFieldWidgetConfiguration;
 use GravityCMS\Component\Field\FieldInterface;
 use GravityCMS\Component\Field\Widget\AbstractWidget;
 use GravityCMS\Component\Field\Widget\WidgetSettingsInterface;
-use Gravity\NodeBundle\Field\Text\Asset\TextFieldWidgetLibrary;
-use Gravity\NodeBundle\Field\Text\Widget\Form\TextFieldWidgetForm;
 
 /**
  * Class TextFieldWidget
@@ -45,7 +45,7 @@ class TextFieldWidget extends AbstractWidget
      */
     protected function getDefaultSettings()
     {
-        return new TextFieldWidgetSettings();
+        return new TextFieldWidgetConfiguration();
     }
 
     public function getForm()
@@ -60,9 +60,9 @@ class TextFieldWidget extends AbstractWidget
 
     public function getAssetLibraries()
     {
-        return array(
+        return [
             new TextFieldWidgetLibrary(),
-        );
+        ];
     }
 
     /**

@@ -1,8 +1,8 @@
 <?php
 
-namespace Gravity\NodeBundle\Field\Text\Widget\Form;
+namespace Gravity\NodeBundle\Field\Text\Widget;
 
-use Gravity\NodeBundle\Entity\ContentTypeField;
+use GravityCMS\CoreBundle\Entity\Field;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -16,27 +16,25 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class TextFieldWidgetForm extends AbstractType
 {
     /**
-     * @param FormBuilderInterface $builder
-     * @param array                $options
+     * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        /** @var ContentTypeField $contentTypeField */
-        $contentTypeField = $options['content_type_field'];
-        $limit = $contentTypeField->getConfig()->getLimit();
+        /** @var Field $field */
+        $field = $options['field'];
+        $limit = $field->getConfig()->getLimit();
         $builder
             ->add('body', 'textarea', [
-                'label' => $limit == 1 ? $contentTypeField->getLabel() : false,
-                'attr' => [
-                    'class' => 'form-control wysiwyg-editor',
+                'label' => $limit == 1 ? $field->getLabel() : false,
+                'attr'  => [
+                    'class'      => 'form-control wysiwyg-editor',
                     'data-limit' => $limit,
                 ],
             ]);
     }
 
     /**
-     *
-     * @param OptionsResolverInterface $resolver
+     * {@inheritdoc}
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
@@ -45,11 +43,11 @@ class TextFieldWidgetForm extends AbstractType
                 'data_class' => 'Gravity\NodeBundle\Entity\FieldText',
             ]
         );
+    }
 
-        $resolver->setRequired(['content_type_field']);
-        $resolver->setAllowedTypes([
-            'content_type_field' => 'Gravity\NodeBundle\Entity\ContentTypeField',
-        ]);
+    public function getParent()
+    {
+        return 'field_widget';
     }
 
     /**

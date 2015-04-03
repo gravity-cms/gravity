@@ -3,6 +3,7 @@
 namespace Gravity\NodeBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use GravityCMS\CoreBundle\Entity\FieldData;
 
 /**
  * Class FieldText
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @package Gravity\NodeBundle\Entity
  * @author  Andy Thorne <contrabandvr@gmail.com>
  */
-class FieldText extends NodeContent
+class FieldText extends FieldData
 {
     /**
      * @var string

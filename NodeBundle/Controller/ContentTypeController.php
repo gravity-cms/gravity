@@ -27,9 +27,9 @@ class ContentTypeController extends Controller
 
         return $this->render(
             'GravityNodeBundle:ContentType:index.html.twig',
-            array(
+            [
                 'contentTypes' => $contentTypes,
-            )
+            ]
         );
     }
 
@@ -45,20 +45,20 @@ class ContentTypeController extends Controller
         $form = $this->createForm(
             new ContentTypeForm(),
             $newContentType,
-            array(
-                'attr' => array(
+            [
+                'attr' => [
                     'class' => 'api-save'
-                ),
+                ],
                 'method' => 'POST',
                 'action' => $this->generateUrl('gravity_api_post_type'),
-            )
+            ]
         );
 
         return $this->render(
             'GravityNodeBundle:ContentType:new.html.twig',
-            array(
+            [
                 'form' => $form->createView(),
-            )
+            ]
         );
     }
 
@@ -74,22 +74,22 @@ class ContentTypeController extends Controller
         $form = $this->createForm(
             new ContentTypeForm(),
             $contentType,
-            array(
-                'attr' => array(
+            [
+                'attr' => [
                     'class' => 'api-save'
-                ),
+                ],
                 'method' => 'PUT',
                 'action' => $this->generateUrl('gravity_api_put_type',
-                    array('id' => $contentType->getId())),
-            )
+                    ['id' => $contentType->getId()]),
+            ]
         );
 
         return $this->render(
             'GravityNodeBundle:ContentType:edit-tab-content-type.html.twig',
-            array(
+            [
                 'contentType' => $contentType,
                 'form' => $form->createView(),
-            )
+            ]
         );
     }
 
@@ -105,102 +105,101 @@ class ContentTypeController extends Controller
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
-        $contentTypeFieldForm = new ContentTypeFieldForm();
-        $contentTypeFields = new ContentTypeField();
-        $contentTypeFields->setOrder(count($contentType->getContentTypeFields()));
-        $form = $this->createForm($contentTypeFieldForm, $contentTypeFields, array(
-            'attr' => array(
+        $field = new Field();
+        $field->setDelta(count($contentType->getFields()));
+        $form = $this->createForm('gravity_field', $field, [
+            'attr' => [
                 'class' => 'api-save'
-            ),
+            ],
             'method' => 'POST',
-            'action' => $this->generateUrl('gravity_api_post_type_field', array(
+            'action' => $this->generateUrl('gravity_api_post_type_field', [
                 'contentType' => $contentType->getId(),
-            )),
-        ));
+            ]),
+        ]);
 
         $form->remove('name');
 
-        $fields = $em->getRepository('GravityCMSCoreBundle:Field')->findAll();
+        $fieldTypes = $this->get('gravity_cms.field_manager')->getFields();
 
         return $this->render(
             'GravityNodeBundle:ContentType:edit-tab-fields.html.twig',
-            array(
+            [
                 'contentType' => $contentType,
-                'fields' => $fields,
+                'fieldTypes' => $fieldTypes,
                 'form' => $form->createView(),
-            )
+            ]
         );
     }
 
     /**
-     * @param ContentType      $contentType
-     * @param ContentTypeField $contentTypeField
+     * @param ContentType $contentType
+     * @param Field $field
      *
      * @return Response
      *
+     *
      * @ParamConverter("contentType", options={"mapping": {"type" = "name"}})
-     * @ParamConverter("contentTypeField", options={"mapping": {"typeField" = "name"}})
+     * @ParamConverter("field", options={"mapping": {"field" = "name"}})
      */
-    public function editFieldAction(ContentType $contentType, ContentTypeField $contentTypeField)
+    public function editFieldAction(ContentType $contentType, Field $field)
     {
         $form = $this->createForm(
-            new ContentTypeFieldForm(),
-            $contentTypeField,
-            array(
-                'attr' => array(
+            'gravity_field',
+            $field,
+            [
+                'attr' => [
                     'class' => 'api-save'
-                ),
+                ],
                 'method' => 'PUT',
-                'action' => $this->generateUrl('gravity_api_put_type_field', array(
+                'action' => $this->generateUrl('gravity_api_put_type_field', [
                     'contentType' => $contentType->getId(),
-                    'contentTypeField' => $contentTypeField->getId(),
-                )),
-            )
+                    'contentTypeField' => $field->getId(),
+                ]),
+            ]
         );
 
         $form->remove('field');
 
         return $this->render(
             'GravityNodeBundle:ContentType:edit-tab-field-edit.html.twig',
-            array(
-                'contentType' => $contentTypeField->getContentType(),
-                'contentTypeField' => $contentTypeField,
+            [
+                'contentType' => $contentType,
+                'field' => $field,
                 'form' => $form->createView(),
-            )
+            ]
         );
     }
 
     /**
      * @param ContentType      $contentType
-     * @param ContentTypeField $contentTypeField
+     * @param Field $field
      *
      * @return Response
      *
      * @ParamConverter("contentType", options={"mapping": {"type" = "name"}})
-     * @ParamConverter("contentTypeField", options={"mapping": {"typeField" = "name"}})
+     * @ParamConverter("field", options={"mapping": {"field" = "name"}})
      */
-    public function editFieldSettingsAction(ContentType $contentType, ContentTypeField $contentTypeField)
+    public function editFieldSettingsAction(ContentType $contentType, Field $field)
     {
-        $config = $contentTypeField->getConfig();
-        $form   = $config->getForm();
+        $config = $field->getConfig();
 
-        $form = $this->createForm($form, $config, array(
-            'attr' => array(
+        $form = $this->createForm($config->getForm(), $config, [
+            'attr' => [
                 'class' => 'api-save'
-            ),
+            ],
             'method' => 'PUT',
-            'action' => $this->generateUrl('gravity_api_put_type_field_settings', array(
+            'action' => $this->generateUrl('gravity_api_put_type_field_settings', [
                 'contentType' => $contentType->getId(),
-                'contentTypeField' => $contentTypeField->getId(),
-            )),
-        ));
+                'field' => $field->getId(),
+            ]),
+        ]);
 
         return $this->render(
             'GravityNodeBundle:ContentType:edit-tab-field-settings.html.twig',
-            array(
+            [
                 'contentType' => $contentType,
                 'form' => $form->createView(),
-            )
+            ]
         );
     }
 
@@ -213,22 +212,22 @@ class ContentTypeController extends Controller
      */
     public function editFormViewAction(ContentType $contentType)
     {
-        $form = $this->createForm(new ContentTypeFormViewForm(), $contentType, array(
-            'attr' => array(
+        $form = $this->createForm(new ContentTypeFormViewForm(), $contentType, [
+            'attr' => [
                 'class' => 'api-save'
-            ),
+            ],
             'method' => 'PUT',
-            'action' => $this->generateUrl('gravity_api_put_type_form_view', array(
+            'action' => $this->generateUrl('gravity_api_put_type_form_view', [
                 'id' => $contentType->getId(),
-            )),
-        ));
+            ]),
+        ]);
 
         return $this->render(
             'GravityNodeBundle:ContentType:edit-tab-form-view.html.twig',
-            array(
+            [
                 'contentType' => $contentType,
                 'form' => $form->createView(),
-            )
+            ]
         );
     }
 

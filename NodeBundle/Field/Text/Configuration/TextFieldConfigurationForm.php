@@ -1,18 +1,18 @@
 <?php
 
-namespace Gravity\NodeBundle\Field\Text\Configuration\Form;
+namespace Gravity\NodeBundle\Field\Text\Configuration;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * Class TextFieldSettingsForm
+ * Class TextFieldConfigurationForm
  *
- * @package Gravity\NodeBundle\Field\Text\Configuration\Form
+ * @package Gravity\NodeBundle\Field\Text\Configuration
  * @author  Andy Thorne <contrabandvr@gmail.com>
  */
-class TextFieldSettingsForm extends AbstractType
+class TextFieldConfigurationForm extends AbstractType
 {
 
     /**
@@ -40,7 +40,7 @@ class TextFieldSettingsForm extends AbstractType
      */
     public function getName()
     {
-        return 'gravity_field_text_settings';
+        return 'gravity_field_text_configuration';
     }
 
     public function getParent()

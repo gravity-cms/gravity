@@ -16,7 +16,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for i,fieldType in form.contentTypeFields %}
+                {% for i,fieldType in form.fields %}
                     {% spaceless %}
                         <tr>
                             <td><button type="button" class="btn-link drag-handle"><i class="fa-arrows"></i></button> {{ form_widget(fieldType, {
@@ -24,18 +24,18 @@
                                         class: 'table-sort-order'
                                     }
                                 }) }}</td>
-                            <td>{{ contentType.contentTypeFields[i].label|capitalize }}</td>
-                            <td>{{ contentType.contentTypeFields[i].field.label|capitalize }}</a></td>
+                            <td>{{ contentType.fields[i].label|capitalize }}</td>
+                            <td>{{ contentType.fields[i].label|capitalize }}</a></td>
                             <td>
-                                {{ contentType.contentTypeFields[i].viewWidget.label }}
+                                {{ contentType.fields[i].widget.label }}
                             </td>
                             <td>
 
                                 <div class="btn-group pull-right">
-                                    {% if contentType.contentTypeFields[i].viewWidget.config %}
+                                    {% if contentType.fields[i].widget.config %}
                                     <a href="{{ url('gravity_admin_content_type_edit_form_view_settings', {
                                         type: contentType.name,
-                                        typeField: contentType.contentTypeFields[i].name
+                                        field: contentType.fields[i].name
                                     }) }}" class="btn btn-default">
                                         <i class="fa-cog"></i>
                                     </a>
@@ -49,7 +49,7 @@
                                     <ul class="dropdown-menu dropdown-menu-right pull-right">
                                         <li><a class="field-type-remove" href="{{ url('gravity_admin_content_type_edit_form_view_change', {
                                                 type: contentType.name,
-                                                typeField: contentType.contentTypeFields[i].name
+                                                field: contentType.fields[i].name
                                             }) }}"><i class="fa-pencil"></i> Change</a></li>
                                     </ul>
                                 </div>

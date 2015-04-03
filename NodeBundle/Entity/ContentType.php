@@ -4,6 +4,7 @@ namespace Gravity\NodeBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use GravityCMS\CoreBundle\Entity\Field;
 
 /**
  * Class ContentType
@@ -34,9 +35,9 @@ class ContentType
     protected $description;
 
     /**
-     * @var ContentTypeField[]
+     * @var Field[]
      */
-    protected $contentTypeFields;
+    protected $fields;
 
     /**
      * @var Node[]
@@ -48,7 +49,7 @@ class ContentType
      */
     function __construct()
     {
-        $this->contentTypeFields = new ArrayCollection();
+        $this->fields = new ArrayCollection();
         $this->nodes             = new ArrayCollection();
     }
 
@@ -110,28 +111,27 @@ class ContentType
 
 
     /**
-     * @param ContentTypeField $contentTypeField
+     * @param Field $contentTypeField
      */
-    public function addContentTypeField(ContentTypeField $contentTypeField)
+    public function addField(Field $contentTypeField)
     {
-        $this->contentTypeFields[] = $contentTypeField;
-        $contentTypeField->setContentType($this);
+        $this->fields[] = $contentTypeField;
     }
 
     /**
-     * @param ContentTypeField $typeField
+     * @param Field $typeField
      */
-    public function removeContentTypeField(ContentTypeField $typeField)
+    public function removeField(Field $typeField)
     {
-        $this->contentTypeFields->removeElement($typeField);
+        $this->fields->removeElement($typeField);
     }
 
     /**
-     * @return ContentTypeField[]
+     * @return Field[]
      */
-    public function getContentTypeFields()
+    public function getFields()
     {
-        return $this->contentTypeFields;
+        return $this->fields;
     }
 
 

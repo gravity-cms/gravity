@@ -26,20 +26,6 @@ services:
 
   #
   # Forms - field collection
-  gravity_node.form.type.field_collection:
-    class: %gravity_node.form.type.field_collection.class%
-    arguments:
-        - @gravity_cms.field_manager
-        - @gravity_cms.config_manager
-    tags:
-        - { name: form.type, alias: field_collection }
-
-  gravity_node.form.type.field_content_collection:
-    class: %gravity_node.form.type.field_content_collection.class%
-    tags:
-        - { name: form.type, alias: field_content_collection }
-
-
   gravity_node.form.type.field_content_type_field_view_change:
     class: Gravity\NodeBundle\Form\ContentTypeFieldViewChangeForm
     arguments:

@@ -3,8 +3,7 @@
 namespace Gravity\FileBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Gravity\FileBundle\Entity\File;
-use Gravity\NodeBundle\Entity\NodeContent;
+use GravityCMS\CoreBundle\Entity\FieldData;
 
 /**
  * Class FieldFile
@@ -12,7 +11,7 @@ use Gravity\NodeBundle\Entity\NodeContent;
  * @package Gravity\FileBundle\Entity
  * @author  Andy Thorne <contrabandvr@gmail.com>
  */
-class FieldFile extends NodeContent
+class FieldFile extends FieldData
 {
     /**
      * @var File[]

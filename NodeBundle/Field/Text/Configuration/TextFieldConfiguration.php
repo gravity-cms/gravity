@@ -3,7 +3,6 @@
 namespace Gravity\NodeBundle\Field\Text\Configuration;
 
 use GravityCMS\Component\Field\Configuration\FieldSettingsConfiguration;
-use Gravity\NodeBundle\Field\Text\Configuration\Form\TextFieldSettingsForm;
 
 /**
  * Class TextFieldConfiguration
@@ -27,6 +26,6 @@ class TextFieldConfiguration extends FieldSettingsConfiguration
      */
     public function getForm()
     {
-        return new TextFieldSettingsForm();
+        return new TextFieldConfigurationForm();
     }
 } 

@@ -50,37 +50,8 @@
     %}
 <link rel="stylesheet" href="{{ asset_url }}" />
 {% endstylesheets %}
-<div class="file-browser"
-     {#data-data-url="{{ path('gravity_api_get_files') }}"#}
-     {#data-prototype="{{ _self.fileItem()|e('html_attr') }}"#}
-        >
-        <div ng-file-browser upload-url="{{ path('gravity_admin_file_upload') }}"
-                files-url="{{ path('gravity_api_get_files') }}"></div>
-    {#<div class="file-browser-header">#}
-        {#<ul class="nav nav-tabs">#}
-            {#<li class="active"><a href="#browser-upload-{{ randId }}">Upload</a></li>#}
-            {#<li><a href="#browser-library-{{ randId }}">Library</a></li>#}
-        {#</ul>#}
-    {#</div>#}
-    {#<div class="tab-content">#}
-        {#<div class="tab-pane fade active" id="browser-upload-{{ randId }}">#}
-            {#<div class="dropzone dropzone-box"#}
-                 {#data-url="{{ path('gravity_admin_file_upload') }}"#}
-                 {#data-prototype="{{ _self.uploadItem()|e('html_attr') }}">#}
-                {#<!-- dropzone -->#}
-            {#</div>#}
-        {#</div>#}
-        {#<div class="tab-pane fade" id="browser-library-{{ randId }}">#}
-            {#<div class="browser-library-items" data-prototype="{{ _self.libraryItem()|e('html_attr') }}">#}
-                {#<div class="col-xs-6 col-md-3 browser-library-item">#}
-                    {#<a href="__url__" class="thumbnail">#}
-                        {#<img src="__src__" >#}
-                        {#<div class="caption">#}
-                            {#<h3>__name__</h3>#}
-                        {#</div>#}
-                    {#</a>#}
-                {#</div>#}
-            {#</div>#}
-        {#</div>#}
-    {#</div>#}
+<div class="file-browser">
+    <div ng-file-browser upload-url="{{ path('gravity_admin_file_upload') }}"
+        files-url="{{ path('gravity_api_get_files') }}"
+            mime-types="{{ mime_types|join(',') }}"></div>
 </div>

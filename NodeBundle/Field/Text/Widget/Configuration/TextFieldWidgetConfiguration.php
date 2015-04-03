@@ -1,18 +1,18 @@
 <?php
 
-namespace Gravity\NodeBundle\Field\Text\Widget;
+namespace Gravity\NodeBundle\Field\Text\Widget\Configuration;
 
 use GravityCMS\Component\Configuration\AbstractConfiguration;
 use GravityCMS\Component\Field\Widget\WidgetSettingsInterface;
 use Gravity\NodeBundle\Field\Text\Widget\Form\TextFieldWidgetSettingsForm;
 
 /**
- * Class WidgetBodySettings
+ * Class TextFieldWidgetConfiguration
  *
- * @package Gravity\NodeBundle\Field\Text\Widget
+ * @package Gravity\NodeBundle\Field\Text\Widget\Configuration
  * @author  Andy Thorne <contrabandvr@gmail.com>
  */
-class TextFieldWidgetSettings extends AbstractConfiguration implements WidgetSettingsInterface
+class TextFieldWidgetConfiguration extends AbstractConfiguration implements WidgetSettingsInterface
 {
     /**
      * @var bool
@@ -36,7 +36,7 @@ class TextFieldWidgetSettings extends AbstractConfiguration implements WidgetSet
      */
     public function getForm()
     {
-        return new TextFieldWidgetSettingsForm();
+        return new TextFieldWidgetConfigurationForm();
     }
 
     /**
