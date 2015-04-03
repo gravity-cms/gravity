@@ -1,0 +1,3 @@
+api_file:
+  type:         rest
+  resource:     Gravity\FileBundle\Controller\Api\FileController

@@ -1,0 +1,14 @@
+{% extends 'GravityFileBundle::base.html.twig' %}
+{% set page_modules = ['cms/file/list'] %}
+
+{% block page_title %}
+    View File
+{% endblock %}
+
+{% block page_desc %}
+    All File Nodes
+{% endblock %}
+
+{% block plugin %}
+    {{ include('GravityFileBundle:Form:file-browser.html.twig') }}
+{% endblock %}

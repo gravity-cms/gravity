@@ -1,0 +1,34 @@
+{% import 'GravityFileBundle:Form:tile.html.twig' as fn %}
+
+<div class="row">
+    <div class="col-xs-12">
+        {% if init_node is not defined %}
+            {% set init_node = null %}
+        {% endif %}
+        {% if exclude_nodes is not defined %}
+            {% set exclude_nodes = null %}
+        {% endif %}
+        {% if input is not defined %}
+            {% set input = '.file-form-category' %}
+        {% endif %}
+        {{ include('GravityFileBundle:Form:filetreebrowser.html.twig', {
+            url: url('gravity_api_get_category_tree'),
+            init_node: init_node,
+            exclude_nodes: exclude_nodes,
+            input: input
+        }) }}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="dropzone"
+             data-url="{{ path('linestorm_cms_admin_module_file_upload') }}"
+             data-prototype="{{ fn.dzPreview(form)|e('html_attr') }}">
+            <!-- dropzone -->
+            {% if form.vars.value %}
+                {{ fn.dzPreview(form) }}
+            {% endif %}
+        </div>
+    </div>
+</div>

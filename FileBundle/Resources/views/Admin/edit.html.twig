@@ -1,0 +1,36 @@
+{% extends 'GravityFileBundle:Admin:form.html.twig' %}
+
+{% block page_title %}Edit File{% endblock %}
+{% block page_desc %}{% endblock %}
+
+{% block file_form_buttons %}
+    <button type="button" class="btn btn-danger file-form-delete" data-url="{{ path
+    ('gravity_api_delete_file', {id: image.id}) }}">
+        <i class="fa-trash-o"></i> Delete
+    </button>
+{% endblock %}
+
+{% block module_bread %}
+    <li><a href="#" class="active">Edit File</a></li>
+{% endblock %}
+
+{% block module %}
+
+    {{ form_start(form, {attr: {class: 'file-api-save'} }) }}
+        <div class="thumbnail">
+            <img src="{{ form.src.vars.value }}">
+        </div>
+        {{ form_row(form.title) }}
+        {{ form_row(form.alt) }}
+        {{ form_row(form.credits) }}
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-default file-api-save" data-url="{{ url('gravity_api_put_file', {id: image.id}) }}">
+                <i class="fa-save"></i> Save
+            </button>
+            <button type="button" class="btn btn-danger api-delete" data-url="{{ url('gravity_api_delete_file', {id: image.id}) }}">
+                <i class="fa-trash-o"></i> Delete
+            </button>
+        </div>
+    {{ form_end(form) }}
+{% endblock %}

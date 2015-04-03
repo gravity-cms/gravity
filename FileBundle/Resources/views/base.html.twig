@@ -1,0 +1,13 @@
+{% extends '@theme/layout.html.twig' %}
+
+{% block breadcrumbs %}
+    <li><a href="{{ url('gravity_admin_file_list') }}">File</a></li>
+    {% block module_bread %}
+
+    {% endblock %}
+{% endblock %}
+
+
+{% block page_icon %}
+    <i class="page-header-icon fa-file-o"></i>
+{% endblock %}

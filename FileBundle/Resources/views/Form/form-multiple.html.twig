@@ -1,0 +1,15 @@
+{{ form_start(form) }}
+    {% include 'GravityFileBundle:Form:multiple.html.twig' %}
+
+    {% if button_show is defined and button_show %}
+        <div class="row">
+            <div class="col-xs-12">
+                <button type="submit" class="btn btn-default file-api-save">
+                    <i class="fa-save"></i> Save
+                </button>
+            </div>
+        </div>
+    {% endif %}
+
+    {{ form_widget(form.file) }}
+{{ form_end(form) }}

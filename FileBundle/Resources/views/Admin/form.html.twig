@@ -1,0 +1,22 @@
+{% extends 'GravityFileBundle::layout.html.twig' %}
+
+{% block head %}
+    {% block requirejs %}
+        {{
+            include('LineStormCmsBundle::requirejs.html.twig', {
+                requirejs_module: ['cms_main', 'cms_file', 'cms_file_treebrowser']
+            })
+        }}
+    {% endblock %}
+
+    {% stylesheets
+        filter="compass" output="cms/file/css/file.css"
+        "@GravityFileBundle/Resources/assets/sass/file.scss"
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block module %}
+    {% include 'GravityFileBundle:Form:form-multiple.html.twig' %}
+{% endblock %}

@@ -1,0 +1,84 @@
+.browser-library-header {
+  padding: 11px;
+  margin: 0 0 15px 0;
+  background-color: #ddd;
+}
+
+.dropzone-box {
+  .file-fields {
+    margin-top: 5px;
+    input, textarea{
+      width: 100%;
+      box-sizing: border-box;
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-bottom-width: 3px;
+      margin-bottom: 2px;
+    }
+  }
+
+  /* slide up progress bar on success */
+  .dz-success {
+    .progress {
+      overflow-y: hidden;
+      max-height: 0px;
+      transition-property: all;
+      transition-duration: .5s;
+      transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+    }
+    .dz-success-mark {
+      visibility: 0;
+      transition-property: all;
+      transition-duration: .5s;
+      transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+    }
+  }
+
+  .dz-preview {
+    width: 260px;
+    .dz-thumbnail {
+      width: 238px;
+      height: 160px;
+
+      > img {
+        max-height: 160px;
+      }
+    }
+  }
+}
+
+.file-browser{
+  .browser-library-items {
+    .browser-library-item {
+      label {
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+
+        &:hover {
+          border: 1px solid #00CC00;
+        }
+
+        .file-selected {
+          color: #00CC00;
+          display: none;
+          font-size: 250px;
+          position: absolute;
+          bottom: -56px;
+          right: -33px;
+          opacity: 0.2;
+        }
+      }
+    }
+    .browser-library-item > input[type="checkbox"] {
+      display: none;
+    }
+    .browser-library-item > input[type="checkbox"]:checked ~ label {
+      border: 1px solid #00CC00;
+
+      .file-selected {
+        display: block;
+      }
+    }
+  }
+}

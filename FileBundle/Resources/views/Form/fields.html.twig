@@ -1,0 +1,85 @@
+{% macro dropzoneItem(form) %}
+    {% spaceless %}
+        <div class="dz-preview dz-file-preview">
+            <div class="dz-details">
+                <div class="dz-filename">
+                    <span data-dz-name>{{ form.filename.vars.value }}</span>
+                </div>
+                <div class="dz-size">File size: <span data-dz-size></span></div>
+                <div class="dz-thumbnail-wrapper">
+                    <div class="dz-thumbnail">
+                        <img data-dz-thumbnail {% if form.url.vars.value %}src="{{ form.url.vars.value }}"{% endif %}>
+                        <span class="dz-nopreview">No preview</span>
+                        <div class="dz-error-mark"><i class="fa fa-times-circle-o"></i></div>
+                        <div class="dz-error-message"><span data-dz-errormessage></span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="progress progress-striped active">
+                <div class="progress-bar progress-bar-success" data-dz-uploadprogress></div>
+            </div>
+            <div class="file-form-container file-fields">
+                {{ form_widget(form.name, {attr: {placeholder: 'Title', class: 'media-textarea', 'data-field-name': form.name.vars.full_name|replace({'__name__': '__delta__'}) } }) }}
+                {{ form_widget(form.description, {attr: {placeholder: 'Description', class: 'media-textarea', 'data-field-name': form.description.vars.full_name|replace({'__name__': '__delta__'}) } }) }}
+                {{ form_widget(form.filename, {attr: {'data-field-name': form.filename.vars.full_name|replace({'__name__': '__delta__'})} }) }}
+                {{ form_widget(form.path, {attr: {'data-field-name': form.path.vars.full_name|replace({'__name__': '__delta__'})} }) }}
+                {{ form_widget(form.url, {attr: {'data-field-name': form.url.vars.full_name|replace({'__name__': '__delta__'})} }) }}
+                {{ form_widget(form.size, {attr: {'data-field-name': form.size.vars.full_name|replace({'__name__': '__delta__'})} }) }}
+                {{ form_widget(form.status, {attr: {'data-field-name': form.status.vars.full_name|replace({'__name__': '__delta__'})} }) }}
+            </div>
+        </div>
+    {% endspaceless %}
+{% endmacro %}
+
+{% block file_dropzone_widget %}
+    <!-- dropzone -->
+    <div class="dropzone-box"
+         data-mime-types="{{ form.vars.mimeTypes|join(',') }}"
+         data-url="{{ path('nefarian_web_plugin_field_file_api_file_upload', {form: form.vars.form_id}) }}"
+         data-count="{{ form.children|length }}"
+         {% if form.vars.limit > 0 %}data-limit="{{ form.vars.limit }}"{% endif %}
+         data-items="{{ form.vars.files|serialize }}"
+         data-prototype="{{ _self.dropzoneItem(form.vars.prototype)|e('html_attr') }}">
+
+        <div class="dz-default dz-message">
+            <i class="fa fa-cloud-upload"></i>
+            Drop files in here<br><span class="dz-text-small">or click to pick manually</span>
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block file_browser_widget %}
+    {{ form_widget(form) }}
+{% endblock %}
+
+{% macro file_collection_widget_row(form) %}
+    <div class="media file-item">
+        {{ form_widget(form) }}
+        <div class="media-left">
+            <i class="fa fa-file-o"></i>
+        </div>
+        <div class="media-body">
+            <a class="media-heading file-item-title"
+               href="{% if form.vars.entity %}{{ form.vars.entity.url }}{% endif %}">
+                {% if form.vars.entity %}{{ form.vars.entity.name }}{% endif %}
+            </a>
+            <div class="pull-right">
+                <a class="text-danger file-item-remove" href="#"><i class="fa fa-times"></i></a>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+{% block file_collection_widget %}
+    <button type="button" class="btn btn-default launch-file-browser-button"
+        data-browser="{{ include('GravityFileBundle:Form:file-browser-modal.html.twig')|e('html_attr') }}"
+        data-prototype="{{ _self.file_collection_widget_row(form.vars.prototype)|e('html_attr') }}">
+        Add Files
+    </button>
+    <div class="file-items">
+        {% for child in form %}
+            {{ _self.file_collection_widget_row(child) }}
+        {% endfor %}
+    </div>
+{% endblock %}

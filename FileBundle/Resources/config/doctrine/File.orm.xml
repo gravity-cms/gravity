@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                    http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Gravity\FileBundle\Entity\File" table="file">
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <field name="name" type="string" length="100" column="name" nullable="false" />
+        <field name="description" type="string" length="255" column="description" nullable="true" />
+
+        <field name="filename" type="string" length="150" column="filename" nullable="false" />
+        <field name="path" type="string" length="255" column="path" nullable="false" />
+        <field name="url" type="string" length="255" column="url" nullable="false" />
+
+        <field name="size" type="integer" column="size" nullable="false" />
+        <field name="status" type="integer" column="status" nullable="false" />
+
+        <field name="createdOn" type="datetime" column="created_on" nullable="false"/>
+        <field name="editedOn" type="datetime" column="edited_on" nullable="true"/>
+    </entity>
+
+</doctrine-mapping>
