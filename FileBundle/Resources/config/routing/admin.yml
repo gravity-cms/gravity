@@ -31,3 +31,28 @@ file_edit:
 file_upload:
   path: /file/upload
   defaults: { _controller: GravityFileBundle:File:upload }
+
+image_style_list:
+  path: /file/image-styles
+  defaults: { _controller: GravityFileBundle:ImageStyle:list }
+
+image_style_new:
+  path: /file/image-styles/new
+  defaults: { _controller: GravityFileBundle:ImageStyle:new }
+
+image_style_edit:
+  path: /file/image-styles/{imageStyle}/edit
+  defaults: { _controller: GravityFileBundle:ImageStyle:edit }
+
+
+image_style_operation_new:
+  path: /file/image-styles/{imageStyle}/operation/new
+  defaults: { _controller: GravityFileBundle:ImageStyle:newOperation }
+
+image_style_operation_edit:
+  path: /file/image-styles/{imageStyle}/operation/{imageStyleOperation}/edit
+  defaults: { _controller: GravityFileBundle:ImageStyle:editOperation }
+
+image_style_operation_settings:
+  path: /file/image-styles/{imageStyle}/operation/{imageStyleOperation}/settings
+  defaults: { _controller: GravityFileBundle:ImageStyle:editOperationSettings }

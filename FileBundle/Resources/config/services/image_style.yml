@@ -1,0 +1,27 @@
+services:
+  gravity.image_style_manager:
+    class: Gravity\FileBundle\ImageStyler\ImageStyleManager
+
+  # Forms
+  gravity.image_style.form:
+    class: Gravity\FileBundle\Form\ImageStyleForm
+    tags:
+      - { name: form.type, alias: image_style }
+
+  gravity.image_style_operation.form:
+    class: Gravity\FileBundle\Form\ImageStyleOperationForm
+    arguments:
+      - @gravity.image_style_manager
+    tags:
+      - { name: form.type, alias: image_style_operation }
+
+  # Image Style Operations
+  gravity.image_style.operation.gd_optimiser:
+    class: Gravity\FileBundle\ImageStyler\Operation\GDOptimiser\GDOptimiser
+    tags:
+      - { name: image_style.operation }
+
+  gravity.image_style.operation.node_optimiser:
+    class: Gravity\FileBundle\ImageStyler\Operation\NodeOptimiser\NodeOptimiser
+    tags:
+      - { name: image_style.operation }

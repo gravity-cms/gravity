@@ -49,8 +49,26 @@
     </div>
 {% endblock %}
 
-{% block file_browser_widget %}
-    {{ form_widget(form) }}
+{% block image_browser_widget %}
+    <div class="file-browser-widget">
+        <button type="button" class="btn btn-default launch-file-browser-button"
+                data-browser="{{ include('GravityFileBundle:Form:file-browser-modal.html.twig', {mime_types: form.vars.mime_types})|e('html_attr') }}">
+            Add File
+        </button>
+
+        <div class="media">
+            <div class="media-left">
+                <a href="#">
+                    <img class="media-object field-image-img" src="{% if form.vars.entity %}{{ form.vars.entity.url }}{% endif %}">
+                </a>
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading field-image-title">{% if form.vars.entity %}{{ form.vars.entity.name }}{% endif %}</h4>
+            </div>
+        </div>
+
+        {{ form_widget(form) }}
+    </div>
 {% endblock %}
 
 {% macro file_collection_widget_row(form) %}
@@ -72,14 +90,16 @@
 {% endmacro %}
 
 {% block file_collection_widget %}
-    <button type="button" class="btn btn-default launch-file-browser-button"
-        data-browser="{{ include('GravityFileBundle:Form:file-browser-modal.html.twig', {mime_types: form.vars.mime_types})|e('html_attr') }}"
-        data-prototype="{{ _self.file_collection_widget_row(form.vars.prototype)|e('html_attr') }}">
-        Add Files
-    </button>
-    <div class="file-items">
-        {% for child in form %}
-            {{ _self.file_collection_widget_row(child) }}
-        {% endfor %}
+    <div class="file-collection-widget">
+        <button type="button" class="btn btn-default launch-file-browser-button"
+            data-browser="{{ include('GravityFileBundle:Form:file-browser-modal.html.twig', {mime_types: form.vars.mime_types})|e('html_attr') }}"
+            data-prototype="{{ _self.file_collection_widget_row(form.vars.prototype)|e('html_attr') }}">
+            Add Files
+        </button>
+        <div class="file-items">
+            {% for child in form %}
+                {{ _self.file_collection_widget_row(child) }}
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}

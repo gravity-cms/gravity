@@ -1,18 +1,18 @@
 <?php
 
-namespace Gravity\FileBundle\Field\File\Display\FileLink\Configuration;
 
-use Gravity\TagBundle\Field\Display\Form\TagHtmlDisplaySettingsForm;
+namespace Gravity\FileBundle\Field\Image\Display\Image\Configuration;
+
 use GravityCMS\Component\Configuration\AbstractConfiguration;
 use GravityCMS\Component\Field\Display\DisplaySettingsInterface;
 
 /**
- * Class FileLinkDisplayConfiguration
+ * Class ImageDisplayConfiguration
  *
- * @package Gravity\FileBundle\Field\File\Display\FileLink\Configuration
- * @author  Andy Thorne <contrabandvr@gmail.com>
+ * @package Gravity\FileBundle\Field\Image\Display\Image\Configuration
+ * @author Andy Thorne <contrabandvr@gmail.com>
  */
-class FileLinkDisplayConfiguration extends AbstractConfiguration implements DisplaySettingsInterface
+class ImageDisplayConfiguration extends AbstractConfiguration implements DisplaySettingsInterface
 {
     /**
      * @var bool
@@ -26,7 +26,7 @@ class FileLinkDisplayConfiguration extends AbstractConfiguration implements Disp
      */
     public function getType()
     {
-        return 'field.file.display.file_link';
+        return 'field.image.display.image';
     }
 
     /**
@@ -36,7 +36,7 @@ class FileLinkDisplayConfiguration extends AbstractConfiguration implements Disp
      */
     public function getForm()
     {
-        return new FileLinkDisplayConfigurationForm();
+        return new ImageDisplayConfigurationForm();
     }
 
     /**

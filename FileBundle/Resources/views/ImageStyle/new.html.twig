@@ -1,0 +1,26 @@
+{% extends 'GravityFileBundle::base.html.twig' %}
+{% set page_modules = ['cms/file/image-style/form'] %}
+
+{% block breadcrumbs %}
+    {{ parent() }}
+    <li><a href="{{ url('gravity_admin_image_style_list') }}">Image Styles</a></li>
+    <li><a href="{{ url('gravity_admin_image_style_edit', { imageStyle: image_style.name }) }}">{{ image_style.name }}</a></li>
+{% endblock %}
+
+{% block page_title %}
+    Create New Image Style
+{% endblock %}
+
+{% block page_desc %}
+    &nbsp;
+{% endblock %}
+
+{% block plugin %}
+    {{ form_start(form) }}
+    {{ form_rest(form) }}
+
+    <button type="submit" class="btn btn-primary">
+        <i class="fa-save"></i> Save
+    </button>
+    {{ form_end(form) }}
+{% endblock %}

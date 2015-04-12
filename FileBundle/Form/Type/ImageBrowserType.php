@@ -9,23 +9,19 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * Class FileBrowserType
+ * Class ImageBrowserType
  *
  * @package Gravity\FileBundle\Form\Type
  * @author  Andy Thorne <contrabandvr@gmail.com>
  */
-class FileBrowserType extends AbstractType
+class ImageBrowserType extends AbstractType
 {
+
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver
-            ->setRequired('mime_types')
-            ->setAllowedTypes([
-                'mime_types' => 'array',
-            ])
             ->setDefaults([
-                'label' => null,
-                'class' => 'Gravity\FileBundle\Entity\File',
+                'mime_types' => ['image/*'],
             ]);
     }
 
@@ -41,11 +37,13 @@ class FileBrowserType extends AbstractType
      */
     public function getName()
     {
-        return 'file_browser';
+        return 'image_browser';
     }
 
     public function getParent()
     {
-        return 'hidden_entity';
+        return 'file_browser';
     }
+
+
 }

@@ -1,3 +1,7 @@
 api_file:
   type:         rest
   resource:     Gravity\FileBundle\Controller\Api\FileController
+
+api_image_size:
+  type:         rest
+  resource:     Gravity\FileBundle\Controller\Api\ImageStyleController

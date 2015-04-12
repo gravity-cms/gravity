@@ -1,0 +1,26 @@
+services:
+  #
+  # Field
+  gravity.file.field.file:
+    class: Gravity\FileBundle\Field\File\FileField
+    tags:
+      - { name: gravity.field }
+
+  #
+  # Field Widgets
+  gravity.file.field.file.widget.file_browser:
+    class: Gravity\FileBundle\Field\File\Widget\FileBrowserWidget
+    tags:
+      - { name: gravity.field.widget }
+
+  gravity.file.field.file.widget.file_browser.form:
+    class: Gravity\FileBundle\Field\File\Widget\FileBrowserWidgetForm
+    tags:
+      - { name: form.type, alias: field_file_widget_file_browser }
+
+  #
+  # Field Displays
+  gravity.file.field.file.display.file_link:
+    class: Gravity\FileBundle\Field\File\Display\FileLink\FileLinkDisplay
+    tags:
+      - { name: gravity.field.display }

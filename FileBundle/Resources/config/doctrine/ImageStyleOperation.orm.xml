@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                    http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Gravity\FileBundle\Entity\ImageStyleOperation" table="image_style_operation">
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <field name="name" type="string" length="100" column="name" nullable="false" />
+        <field name="label" type="string" length="100" column="label" nullable="false" />
+        <field name="delta" type="integer" column="delta" nullable="false" />
+        <field name="config" type="object" column="config" nullable="false" />
+        <field name="type" type="string" column="type" length="25" />
+
+        <many-to-one target-entity="Gravity\FileBundle\Entity\ImageStyle" field="imageStyle" inversed-by="operations">
+        </many-to-one>
+    </entity>
+
+</doctrine-mapping>

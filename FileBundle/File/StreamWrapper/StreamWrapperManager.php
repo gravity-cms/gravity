@@ -44,7 +44,6 @@ class StreamWrapperManager
     public function addStreamWrapper(StreamWrapperInterface $streamWrapper)
     {
         $this->streamWrappers[$streamWrapper->getScheme()] = $streamWrapper;
-        stream_wrapper_register($streamWrapper->getScheme(), get_class($streamWrapper));
     }
 
     /**
@@ -56,11 +55,22 @@ class StreamWrapperManager
     {
         list($scheme,) = explode('://', $path);
 
-        if($scheme && isset($this->streamWrappers[$scheme])){
+        if ($scheme && isset($this->streamWrappers[$scheme])) {
             $streamWrapper = $this->streamWrappers[$scheme];
-            $stream = $streamWrapper::create();
+            $stream        = $streamWrapper::create();
             $stream->setUri($path);
+
             return $stream;
+        }
+    }
+
+    /**
+     * Register all configured stream wrappers with php
+     */
+    public function register()
+    {
+        foreach ($this->streamWrappers as $streamWrapper) {
+            stream_wrapper_register($streamWrapper->getScheme(), get_class($streamWrapper));
         }
     }
 }

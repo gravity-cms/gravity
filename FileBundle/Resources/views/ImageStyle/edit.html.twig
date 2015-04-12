@@ -1,0 +1,65 @@
+{% extends 'GravityFileBundle::base.html.twig' %}
+{% set page_modules = ['cms/file/image-style/form'] %}
+
+{% block breadcrumbs %}
+    {{ parent() }}
+    <li><a href="{{ url('gravity_admin_image_style_list') }}">Image Styles</a></li>
+    <li><a href="{{ url('gravity_admin_image_style_edit', { imageStyle: image_style.name }) }}">{{ image_style.name }}</a></li>
+{% endblock %}
+
+{% block page_title %}
+    {{ image_style.name|title }}
+{% endblock %}
+
+{% block page_desc %}
+    Edit Image Style
+{% endblock %}
+
+{% block plugin %}
+    {{ form_start(form) }}
+    {{ form_rest(form) }}
+
+    <button type="submit" class="btn btn-primary">
+        <i class="fa-save"></i> Save
+    </button>
+    {{ form_end(form) }}
+
+    <hr>
+
+    <a class="btn btn-primary" href="{{ path('gravity_admin_image_style_operation_new', {imageStyle: image_style.name}) }}">
+        <i class="fa fa-plus"></i> Add Image Operation
+    </a>
+
+    <div class="responsive-table">
+        <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for operation in image_style.operations %}
+                <tr>
+                    <td>{{ operation.label|capitalize }}</td>
+                    <td>
+                        {{ operation.type }}
+                    </td>
+                    <td>
+                        <a class="btn btn-primary" href="{{ path('gravity_admin_image_style_operation_edit', {imageStyle: image_style.name, imageStyleOperation: operation.name}) }}">
+                            <i class="fa fa-pencil"></i> Edit
+                        </a>
+
+                        {% if operation.config %}
+                            <a class="btn btn-primary" href="{{ path('gravity_admin_image_style_operation_settings', {imageStyle: image_style.name, imageStyleOperation: operation.name}) }}">
+                                <i class="fa fa-cog"></i> Settings
+                            </a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

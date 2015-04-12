@@ -1,0 +1,26 @@
+services:
+  #
+  # Field
+  gravity.file.field.image:
+    class: Gravity\FileBundle\Field\Image\ImageField
+    tags:
+      - { name: gravity.field }
+
+  #
+  # Field Widgets
+  gravity.file.field.image.widget.image_browser:
+    class: Gravity\FileBundle\Field\Image\Widget\ImageBrowser\ImageBrowserWidget
+    tags:
+      - { name: gravity.field.widget }
+
+  gravity.file.field.image.widget.image_browser.form:
+    class: Gravity\FileBundle\Field\Image\Widget\ImageBrowser\ImageBrowserWidgetForm
+    tags:
+      - { name: form.type, alias: field_image_widget_image_browser }
+
+  #
+  # Field Displays
+  gravity.file.field.image.display.image:
+    class: Gravity\FileBundle\Field\Image\Display\Image\ImageDisplay
+    tags:
+      - { name: gravity.field.display }
