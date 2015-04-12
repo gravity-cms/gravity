@@ -3,7 +3,7 @@
 {% block tab %}
     {% form_theme form 'GravityNodeBundle:ContentType:Fields/form.html.twig' %}
 
-    <h4 class="text-light-gray text-semibold text-md">{{ contentTypeField.field.name|capitalize }} field settings</h4>
+    <h4 class="text-light-gray text-semibold text-md">{{ field.label|capitalize }} field settings</h4>
     {{ form_start(form) }}
         {{ form_row(form.name) }}
         {{ form_row(form.label) }}

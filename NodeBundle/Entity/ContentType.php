@@ -111,11 +111,11 @@ class ContentType
 
 
     /**
-     * @param Field $contentTypeField
+     * @param Field $field
      */
-    public function addField(Field $contentTypeField)
+    public function addField(Field $field)
     {
-        $this->fields[] = $contentTypeField;
+        $this->fields[] = $field;
     }
 
     /**

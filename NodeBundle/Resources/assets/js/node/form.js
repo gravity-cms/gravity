@@ -2,12 +2,15 @@
 
 define(['jquery', 'jqueryui', 'bootstrap', 'bootbox', 'cms/core/api'], function ($, ui, bs, bootbox, api) {
 
-    var widgets = {};
+    var $form,
+        widgets = {};
 
     var nodeForm = {
         registerWidget: function (name, callback) {
             widgets[name] = callback;
-            callback($(document));
+            if($form){
+                callback($form);
+            }
         },
         bindWidget: function (name, $widget) {
             var callback = widgets[name];
@@ -19,7 +22,7 @@ define(['jquery', 'jqueryui', 'bootstrap', 'bootbox', 'cms/core/api'], function 
 
     $(document).ready(function () {
 
-        var $form = $('form.api-save');
+        $form = $('form.api-save');
 
         $form.on('submit', function (e) {
             e.stopPropagation();
@@ -117,6 +120,11 @@ define(['jquery', 'jqueryui', 'bootstrap', 'bootbox', 'cms/core/api'], function 
             }
             refreshWidgetState();
         });
+
+        // register the widgets
+        for(var i in widgets){
+            widgets[i]($form);
+        }
     });
 
     return nodeForm

@@ -5,13 +5,13 @@
 {% block breadcrumbs %}
     {{ parent() }}
     <li><a href="#">Fields</a></li>
-    <li><a href="#">{{ contentTypeField.label }}</a></li>
-    <li class="active">{{ contentTypeField.viewWidget.label }}</li>
+    <li><a href="#">{{ field.label }}</a></li>
+    <li class="active">{{ field.viewWidget.label }}</li>
 {% endblock %}
 
 {% block tab %}
 
-    <h3>Change {{ contentTypeField.label }} Widget</h3>
+    <h3>Change {{ field.label }} Widget</h3>
 
     {% form_theme form 'GravityNodeBundle:ContentType:Fields/form.html.twig' %}
     {{ form_start(form) }}

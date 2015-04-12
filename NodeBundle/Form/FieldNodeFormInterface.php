@@ -2,7 +2,7 @@
 
 namespace Gravity\NodeBundle\Form;
 
-use Gravity\NodeBundle\Entity\ContentTypeField;
+use GravityCMS\CoreBundle\Entity\Field;
 
 /**
  * Interface FieldNodeFormInterface
@@ -13,7 +13,7 @@ use Gravity\NodeBundle\Entity\ContentTypeField;
 interface FieldNodeFormInterface
 {
     /**
-     * @param ContentTypeField $field
+     * @param Field $field
      */
-    function __construct(ContentTypeField $field);
+    function __construct(Field $field);
 } 

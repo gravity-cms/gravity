@@ -6,11 +6,7 @@ use Doctrine\ORM\EntityManager;
 use FOS\RestBundle\Controller\Annotations as FOSRest;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use Gravity\NodeBundle\Entity\ContentType;
-use Gravity\NodeBundle\Entity\ContentTypeField;
-use Gravity\NodeBundle\Entity\ContentTypeFieldDisplay;
-use Gravity\NodeBundle\Entity\ContentTypeFieldWidget;
-use Gravity\NodeBundle\Field\Widget\WidgetSettingsInterface;
-use Gravity\NodeBundle\Form\ContentTypeFieldForm;
+use GravityCMS\Component\Field\Widget\WidgetSettingsInterface;
 use GravityCMS\CoreBundle\Entity\Field;
 use GravityCMS\CoreBundle\Entity\FieldDisplay;
 use GravityCMS\CoreBundle\Entity\FieldWidget;
@@ -99,7 +95,7 @@ class ContentTypeFieldController extends Controller implements ClassResourceInte
                 $view = JsonApiView::create(null, 302, [
                     'location' => $this->generateUrl('gravity_admin_content_type_edit_field_settings',
                         [
-                            'type'      => $contentType->getName(),
+                            'type'  => $contentType->getName(),
                             'field' => $entity->getName(),
                         ]),
                 ]);
@@ -128,8 +124,8 @@ class ContentTypeFieldController extends Controller implements ClassResourceInte
             ],
             'method' => 'PUT',
             'action' => $this->generateUrl('gravity_api_put_type_field', [
-                'contentType'      => $contentType->getId(),
-                'field' => $field->getId(),
+                'contentType' => $contentType->getId(),
+                'field'       => $field->getId(),
             ]),
         ]);
 
@@ -170,8 +166,8 @@ class ContentTypeFieldController extends Controller implements ClassResourceInte
                 'field'  => $field,
                 'method' => 'PATCH',
                 'action' => $this->generateUrl('gravity_api_patch_type_field_widget', [
-                    'contentType'      => $contentType->getId(),
-                    'contentTypeField' => $contentTypeField->getId(),
+                    'contentType' => $contentType->getId(),
+                    'field'       => $field->getId(),
                 ]),
                 'attr'   => [
                     'class' => 'api-save',
@@ -187,7 +183,7 @@ class ContentTypeFieldController extends Controller implements ClassResourceInte
             $fieldManager = $this->get('gravity_cms.field_manager');
             $widget       = $fieldManager->getFieldWidget($form['type']);
 
-            $widgetEntity = $contentTypeField->getViewWidget();
+            $widgetEntity = $field->getWidget();
             $widgetEntity->setName($widget->getName());
             $widgetEntity->setLabel($widget->getLabel());
             $widgetEntity->setDescription($widget->getDescription());
@@ -221,14 +217,14 @@ class ContentTypeFieldController extends Controller implements ClassResourceInte
 
         $payload = json_decode($request->getContent(), true);
 
-        $form = $this->createForm($fieldConfigForm, $contentTypeField, [
+        $form = $this->createForm($fieldConfigForm, $field, [
             'attr'   => [
                 'class' => 'api-save'
             ],
             'method' => 'PUT',
             'action' => $this->generateUrl('gravity_api_put_type_field', [
-                'contentType'      => $contentType->getId(),
-                'contentTypeField' => $contentTypeField->getId(),
+                'contentType' => $contentType->getId(),
+                'field'       => $field->getId(),
             ]),
         ]);
 

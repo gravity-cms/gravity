@@ -3,7 +3,6 @@
 namespace Gravity\NodeBundle\Controller;
 
 use Gravity\NodeBundle\Entity\ContentType;
-use Gravity\NodeBundle\Entity\ContentTypeField;
 use GravityCMS\CoreBundle\Entity\Field;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration as Config;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

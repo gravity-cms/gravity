@@ -4,15 +4,12 @@ namespace Gravity\NodeBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
 use Gravity\NodeBundle\Entity\ContentType;
-use Gravity\NodeBundle\Entity\ContentTypeField;
 use GravityCMS\CoreBundle\Entity\Field;
-use Gravity\NodeBundle\Form\ContentTypeFieldForm;
 use Gravity\NodeBundle\Form\ContentTypeForm;
 use Gravity\NodeBundle\Form\ContentTypeFormViewForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration as Config;
 
 class ContentTypeController extends Controller
 {
@@ -67,7 +64,7 @@ class ContentTypeController extends Controller
      *
      * @return Response
      *
-     * @ParamConverter("contentType", options={"mapping": {"type" = "name"}})
+     * @Config\ParamConverter("contentType", options={"mapping": {"type" = "name"}})
      */
     public function editAction(ContentType $contentType)
     {
@@ -98,7 +95,7 @@ class ContentTypeController extends Controller
      *
      * @return Response
      *
-     * @ParamConverter("contentType", options={"mapping": {"type" = "name"}})
+     * @Config\ParamConverter("contentType", options={"mapping": {"type" = "name"}})
      */
     public function editFieldsAction(ContentType $contentType)
     {
@@ -138,8 +135,8 @@ class ContentTypeController extends Controller
      * @return Response
      *
      *
-     * @ParamConverter("contentType", options={"mapping": {"type" = "name"}})
-     * @ParamConverter("field", options={"mapping": {"field" = "name"}})
+     * @Config\ParamConverter("contentType", options={"mapping": {"type" = "name"}})
+     * @Config\ParamConverter("field", options={"mapping": {"field" = "name"}})
      */
     public function editFieldAction(ContentType $contentType, Field $field)
     {
@@ -153,7 +150,7 @@ class ContentTypeController extends Controller
                 'method' => 'PUT',
                 'action' => $this->generateUrl('gravity_api_put_type_field', [
                     'contentType' => $contentType->getId(),
-                    'contentTypeField' => $field->getId(),
+                    'field' => $field->getId(),
                 ]),
             ]
         );
@@ -176,8 +173,8 @@ class ContentTypeController extends Controller
      *
      * @return Response
      *
-     * @ParamConverter("contentType", options={"mapping": {"type" = "name"}})
-     * @ParamConverter("field", options={"mapping": {"field" = "name"}})
+     * @Config\ParamConverter("contentType", options={"mapping": {"type" = "name"}})
+     * @Config\ParamConverter("field", options={"mapping": {"field" = "name"}})
      */
     public function editFieldSettingsAction(ContentType $contentType, Field $field)
     {
@@ -208,7 +205,7 @@ class ContentTypeController extends Controller
      *
      * @return Response
      *
-     * @ParamConverter("contentType", options={"mapping": {"type" = "name"}})
+     * @Config\ParamConverter("contentType", options={"mapping": {"type" = "name"}})
      */
     public function editFormViewAction(ContentType $contentType)
     {

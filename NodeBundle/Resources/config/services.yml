@@ -2,10 +2,6 @@ parameters:
   gravity_node.doctrine.node_listener.class:  Gravity\NodeBundle\Doctrine\EventListener\NodeEventListener
   gravity_node.doctrine.content_type_listener.class:  Gravity\NodeBundle\Doctrine\EventListener\ContentTypeEventListener
 
-  gravity_node.form.type.field_collection.class: Gravity\NodeBundle\Form\Type\FieldCollectionType
-  gravity_node.form.type.field_content_collection.class: Gravity\NodeBundle\Form\Type\FieldContentCollectionType
-
-
 services:
 
   #

@@ -3,9 +3,9 @@
 namespace Gravity\NodeBundle\Model;
 
 use GravityCMS\Component\Field\Display\DisplaySettingsInterface;
-use Gravity\NodeBundle\Entity\ContentTypeField;
+use GravityCMS\CoreBundle\Entity\Field;
 
-abstract class ContentTypeFieldDisplay
+abstract class FieldDisplay
 {
     /**
      * @var int
@@ -33,7 +33,7 @@ abstract class ContentTypeFieldDisplay
     protected $order;
 
     /**
-     * @var ContentTypeField
+     * @var Field
      */
     protected $typeField;
 
@@ -115,7 +115,7 @@ abstract class ContentTypeFieldDisplay
     }
 
     /**
-     * @return ContentTypeField
+     * @return Field
      */
     public function getTypeField()
     {
@@ -123,11 +123,11 @@ abstract class ContentTypeFieldDisplay
     }
 
     /**
-     * @param ContentTypeField $typeField
+     * @param Field $field
      */
-    public function setTypeField(ContentTypeField $typeField)
+    public function setTypeField(Field $field)
     {
-        $this->typeField = $typeField;
+        $this->typeField = $field;
     }
 
     /**
