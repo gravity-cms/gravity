@@ -1,6 +1,6 @@
 <?php
 
-namespace Gravity\TagBundle\Field\Widget;
+namespace Gravity\TagBundle\Field\Widget\Select;
 
 use GravityCMS\Component\Field\FieldInterface;
 use GravityCMS\Component\Field\Widget\AbstractWidget;

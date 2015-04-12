@@ -1,18 +1,18 @@
 <?php
 
-namespace Gravity\TagBundle\Field\Widget\Form;
+namespace Gravity\TagBundle\Field\Widget\AutoComplete\Configuration;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * Class TagAutoCompleteWidgetSettingsForm
+ * Class TagAutoCompleteWidgetConfigurationForm
  *
- * @package Gravity\TagBundle\Field\Widget\Form
+ * @package Gravity\TagBundle\Field\Widget\AutoComplete\Configuration
  * @author  Andy Thorne <contrabandvr@gmail.com>
  */
-class TagAutoCompleteWidgetSettingsForm extends AbstractType
+class TagAutoCompleteWidgetConfigurationForm extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -24,9 +24,9 @@ class TagAutoCompleteWidgetSettingsForm extends AbstractType
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_type' => 'Gravity\TagBundle\Entity\FieldTag'
-        ));
+        ]);
     }
 
 
@@ -35,7 +35,7 @@ class TagAutoCompleteWidgetSettingsForm extends AbstractType
      */
     public function getName()
     {
-        return 'field_type_text_widget_editor_settings';
+        return 'field_tag_widget_autocomplete_configuration';
     }
 
 }

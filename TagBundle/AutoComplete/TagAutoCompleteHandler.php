@@ -30,7 +30,7 @@ class TagAutoCompleteHandler extends AbstractAutoCompleteHandler
             return [];
         }
 
-        $field = $this->entityManager->getRepository('GravityNodeBundle:ContentTypeField')->find($options['field']);
+        $field = $this->entityManager->getRepository('GravityCMSCoreBundle:Field')->find($options['field']);
         /** @var FieldTagConfiguration $fieldConfig */
         $fieldConfig = $field->getConfig();
 
@@ -89,7 +89,7 @@ class TagAutoCompleteHandler extends AbstractAutoCompleteHandler
             return $objects;
         }
 
-        $field = $this->entityManager->getRepository('GravityNodeBundle:ContentTypeField')->find($options['field']);
+        $field = $this->entityManager->getRepository('GravityCMSCoreBundle:Field')->find($options['field']);
         /** @var FieldTagConfiguration $fieldConfig */
         $fieldConfig = $field->getConfig();
 

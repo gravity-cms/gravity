@@ -11,15 +11,15 @@ services:
         - { name: form.type, alias: tag_choice }
 
   gravity.tag.form.field.widget.tag_autocomplete:
-    class: Gravity\TagBundle\Field\Widget\Form\TagAutoCompleteWidgetForm
+    class: Gravity\TagBundle\Field\Widget\AutoComplete\TagAutoCompleteWidgetForm
     arguments:
       - @doctrine.orm.default_entity_manager
       - @gravity_cms.module.field_tag.form.type.tag_collection_handler
     tags:
-        - { name: form.type, alias: tag_widget_autocomplete }
+        - { name: form.type, alias: field_tag_widget_autocomplete }
 
   gravity.tag.form.field.widget.tag_select:
-    class: Gravity\TagBundle\Field\Widget\Form\TagSelectWidgetForm
+    class: Gravity\TagBundle\Field\Widget\Select\TagSelectWidgetForm
     arguments:
       - @doctrine.orm.default_entity_manager
     tags:
@@ -33,7 +33,7 @@ services:
       - { name: gravity.field }
 
   gravity_cms.module.field_tag.field.widget.tag_autocomplete:
-    class: Gravity\TagBundle\Field\Widget\TagAutoCompleteWidget
+    class: Gravity\TagBundle\Field\Widget\AutoComplete\TagAutoCompleteWidget
     tags:
       - { name: gravity.field.widget }
 
@@ -44,7 +44,7 @@ services:
 
 
   gravity_cms.module.field_tag.field.widget.tag_select:
-    class: Gravity\TagBundle\Field\Widget\TagSelectWidget
+    class: Gravity\TagBundle\Field\Widget\Select\TagSelectWidget
     tags:
       - { name: gravity.field.widget }
 

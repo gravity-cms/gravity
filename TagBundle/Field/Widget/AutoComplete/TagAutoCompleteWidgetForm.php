@@ -1,11 +1,11 @@
 <?php
 
-namespace Gravity\TagBundle\Field\Widget\Form;
+namespace Gravity\TagBundle\Field\Widget\AutoComplete;
 
 use Doctrine\ORM\EntityManager;
 use Gravity\TagBundle\AutoComplete\TagAutoCompleteHandler;
 use Gravity\TagBundle\Field\Configuration\FieldTagConfiguration;
-use Gravity\NodeBundle\Entity\ContentTypeField;
+use GravityCMS\CoreBundle\Entity\Field;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -28,6 +28,10 @@ class TagAutoCompleteWidgetForm extends AbstractType
      */
     protected $handler;
 
+    /**
+     * @param EntityManager          $em
+     * @param TagAutoCompleteHandler $handler
+     */
     function __construct(EntityManager $em, TagAutoCompleteHandler $handler)
     {
         $this->em      = $em;
@@ -35,15 +39,14 @@ class TagAutoCompleteWidgetForm extends AbstractType
     }
 
     /**
-     * @param FormBuilderInterface $builder
-     * @param array                $options
+     * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         /** @var FieldTagConfiguration $configuration */
-        /** @var ContentTypeField $typeField */
-        $typeField     = $options['content_type_field'];
-        $configuration = $typeField->getConfig();
+        /** @var Field $field */
+        $field         = $options['field'];
+        $configuration = $field->getConfig();
         $limit         = $configuration->getLimit();
 
         $builder
@@ -52,7 +55,7 @@ class TagAutoCompleteWidgetForm extends AbstractType
                 'multiple'        => $configuration->isMultiple(),
                 'allow_new'       => $configuration->isAllowNew(),
                 'handler_options' => [
-                    'field' => $typeField->getId(),
+                    'field' => $field->getId(),
                 ],
                 'limit'           => (int)$limit,
                 'label'           => $limit == 1 ? null : $limit,
@@ -63,8 +66,7 @@ class TagAutoCompleteWidgetForm extends AbstractType
     }
 
     /**
-     *
-     * @param OptionsResolverInterface $resolver
+     * {@inheritdoc}
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
@@ -73,18 +75,21 @@ class TagAutoCompleteWidgetForm extends AbstractType
                 'data_class' => 'Gravity\TagBundle\Entity\FieldTag'
             ]
         );
-
-        $resolver->setRequired(['content_type_field']);
-        $resolver->setAllowedTypes([
-            'content_type_field' => '\Gravity\NodeBundle\Entity\ContentTypeField',
-        ]);
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
+     */
+    public function getParent()
+    {
+        return 'field_widget';
+    }
+
+    /**
+     * {@inheritdoc}
      */
     public function getName()
     {
-        return 'tag_widget_autocomplete';
+        return 'field_tag_widget_autocomplete';
     }
 }

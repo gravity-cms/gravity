@@ -1,8 +1,7 @@
 <?php
 
-namespace Gravity\TagBundle\Field\Widget;
+namespace Gravity\TagBundle\Field\Widget\AutoComplete\Configuration;
 
-use Gravity\TagBundle\Field\Widget\Form\TagAutoCompleteWidgetSettingsForm;
 use GravityCMS\Component\Configuration\AbstractConfiguration;
 use GravityCMS\Component\Field\Widget\WidgetSettingsInterface;
 
@@ -12,7 +11,7 @@ use GravityCMS\Component\Field\Widget\WidgetSettingsInterface;
  * @package Gravity\TagBundle\Field\Widget
  * @author  Andy Thorne <contrabandvr@gmail.com>
  */
-class TagAutoCompleteWidgetSettings extends AbstractConfiguration implements WidgetSettingsInterface
+class TagAutoCompleteWidgetConfiguration extends AbstractConfiguration implements WidgetSettingsInterface
 {
     /**
      * Get the type of the config
@@ -31,6 +30,6 @@ class TagAutoCompleteWidgetSettings extends AbstractConfiguration implements Wid
      */
     public function getForm()
     {
-        return new TagAutoCompleteWidgetSettingsForm();
+        return new TagAutoCompleteWidgetConfigurationForm();
     }
 }

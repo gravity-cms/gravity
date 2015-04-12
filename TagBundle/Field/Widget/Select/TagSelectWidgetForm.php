@@ -1,11 +1,11 @@
 <?php
 
-namespace Gravity\TagBundle\Field\Widget\Form;
+namespace Gravity\TagBundle\Field\Widget\Select;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Gravity\TagBundle\Field\Configuration\FieldTagConfiguration;
-use Gravity\NodeBundle\Entity\ContentTypeField;
+use GravityCMS\CoreBundle\Entity\Field;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -23,21 +23,23 @@ class TagSelectWidgetForm extends AbstractType
      */
     protected $em;
 
+    /**
+     * @param EntityManager $em
+     */
     function __construct(EntityManager $em)
     {
         $this->em = $em;
     }
 
     /**
-     * @param FormBuilderInterface $builder
-     * @param array                $options
+     * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         /** @var FieldTagConfiguration $configuration */
-        /** @var ContentTypeField $typeField */
-        $typeField     = $options['content_type_field'];
-        $configuration = $typeField->getConfig();
+        /** @var Field $field */
+        $field     = $options['field'];
+        $configuration = $field->getConfig();
         $limit         = $configuration->getLimit();
         $rootTag       = $configuration->getTag();
 
@@ -63,8 +65,7 @@ class TagSelectWidgetForm extends AbstractType
     }
 
     /**
-     *
-     * @param OptionsResolverInterface $resolver
+     * {@inheritdoc}
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
@@ -73,15 +74,18 @@ class TagSelectWidgetForm extends AbstractType
                 'data_class' => 'Gravity\TagBundle\Entity\FieldTag'
             ]
         );
-
-        $resolver->setRequired(['content_type_field']);
-        $resolver->setAllowedTypes([
-            'content_type_field' => '\Gravity\NodeBundle\Entity\ContentTypeField',
-        ]);
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
+     */
+    public function getParent()
+    {
+        return 'field_widget';
+    }
+
+    /**
+     * {@inheritdoc}
      */
     public function getName()
     {

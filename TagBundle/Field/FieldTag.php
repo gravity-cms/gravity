@@ -4,7 +4,7 @@ namespace Gravity\TagBundle\Field;
 
 use Gravity\TagBundle\Field\Configuration\FieldTagConfiguration;
 use Gravity\TagBundle\Field\Display\TagHtmlDisplay;
-use Gravity\TagBundle\Field\Widget\TagAutoCompleteWidget;
+use Gravity\TagBundle\Field\Widget\AutoComplete\TagAutoCompleteWidget;
 use GravityCMS\Component\Field\AbstractField;
 use GravityCMS\Component\Field\Display\DisplayInterface;
 use GravityCMS\Component\Field\Widget\WidgetInterface;

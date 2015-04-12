@@ -1,8 +1,9 @@
 <?php
 
-namespace Gravity\TagBundle\Field\Widget;
+namespace Gravity\TagBundle\Field\Widget\AutoComplete;
 
 use Gravity\TagBundle\Asset\TagAutoCompleteLibrary;
+use Gravity\TagBundle\Field\Widget\AutoComplete\Configuration\TagAutoCompleteWidgetConfiguration;
 use GravityCMS\Component\Field\FieldInterface;
 use GravityCMS\Component\Field\Widget\AbstractWidget;
 use GravityCMS\Component\Field\Widget\WidgetSettingsInterface;
@@ -38,12 +39,12 @@ class TagAutoCompleteWidget extends AbstractWidget
      */
     protected function getDefaultSettings()
     {
-        return new TagAutoCompleteWidgetSettings();
+        return new TagAutoCompleteWidgetConfiguration();
     }
 
     public function getForm()
     {
-        return 'tag_widget_autocomplete';
+        return 'field_tag_widget_autocomplete';
     }
 
     public function getEntityClass()
