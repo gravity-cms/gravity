@@ -33,9 +33,17 @@ class ContentTypeFieldController extends Controller
     ) {
         $formConfig = $field->getWidget()->getConfig();
         $formClass  = $formConfig->getForm();
-        $formType   = new $formClass();
 
-        $form = $this->createForm($formType, $formConfig, []);
+        $form = $this->createForm($formClass, $formConfig, [
+            'attr'   => [
+                'class' => 'api-save'
+            ],
+            'method' => 'PUT',
+            'action' => $this->generateUrl('gravity_api_put_field_widget_settings', [
+                'field'       => $field->getId(),
+                'widget'       => $field->getWidget()->getId(),
+            ]),
+        ]);
 
         return $this->render('GravityNodeBundle:ContentType:edit-tab-form-view-settings.html.twig', [
             'contentType' => $contentType,
@@ -46,9 +54,9 @@ class ContentTypeFieldController extends Controller
 
 
     /**
-     * @param Request          $request
-     * @param ContentType      $contentType
-     * @param Field $field
+     * @param Request     $request
+     * @param ContentType $contentType
+     * @param Field       $field
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
@@ -70,8 +78,8 @@ class ContentTypeFieldController extends Controller
                 'field'  => $field,
                 'method' => 'PATCH',
                 'action' => $this->generateUrl('gravity_api_patch_type_field_widget', [
-                    'contentType'      => $contentType->getId(),
-                    'field' => $field->getId(),
+                    'contentType' => $contentType->getId(),
+                    'field'       => $field->getId(),
                 ]),
                 'attr'   => [
                     'class' => 'api-save',
@@ -80,9 +88,9 @@ class ContentTypeFieldController extends Controller
         );
 
         return $this->render('GravityNodeBundle:ContentType:edit-tab-form-change.html.twig', [
-            'contentType'   => $contentType,
-            'field'         => $field,
-            'form'          => $form->createView(),
+            'contentType' => $contentType,
+            'field'       => $field,
+            'form'        => $form->createView(),
         ]);
     }
 }

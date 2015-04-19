@@ -17,7 +17,10 @@
         <one-to-many target-entity="Node" mapped-by="contentType" field="nodes" orphan-removal="true">
         </one-to-many>
 
-        <many-to-many target-entity="GravityCMS\CoreBundle\Entity\Field" field="fields" orphan-removal="false">
+        <many-to-many target-entity="GravityCMS\CoreBundle\Entity\Field" field="fields" orphan-removal="true">
+            <cascade>
+                <cascade-all/>
+            </cascade>
             <order-by>
                 <order-by-field name="delta" direction="ASC"/>
             </order-by>

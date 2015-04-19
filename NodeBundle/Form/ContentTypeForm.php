@@ -2,8 +2,11 @@
 
 namespace Gravity\NodeBundle\Form;
 
+use Gravity\NodeBundle\Entity\ContentType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ContentTypeForm extends AbstractType
@@ -15,12 +18,20 @@ class ContentTypeForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', 'text')
             ->add('label', 'text')
-            ->add('description', 'text', array(
+            ->add('description', 'text', [
                 'required' => false
-            ))
+            ])
         ;
+
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event){
+            $data = $event->getData();
+
+            if($data instanceof ContentType && !$data->getId()){
+                $event->getForm()
+                    ->add('name', 'text');
+            }
+        });
     }
 
     /**
@@ -29,9 +40,9 @@ class ContentTypeForm extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => 'Gravity\NodeBundle\Entity\ContentType'
-        ));
+        ]);
     }
 
     /**

@@ -148,8 +148,7 @@ class ContentTypeController extends Controller
                     'class' => 'api-save'
                 ],
                 'method' => 'PUT',
-                'action' => $this->generateUrl('gravity_api_put_type_field', [
-                    'contentType' => $contentType->getId(),
+                'action' => $this->generateUrl('gravity_api_put_field', [
                     'field' => $field->getId(),
                 ]),
             ]
@@ -185,8 +184,7 @@ class ContentTypeController extends Controller
                 'class' => 'api-save'
             ],
             'method' => 'PUT',
-            'action' => $this->generateUrl('gravity_api_put_type_field_settings', [
-                'contentType' => $contentType->getId(),
+            'action' => $this->generateUrl('gravity_api_put_field_settings', [
                 'field' => $field->getId(),
             ]),
         ]);
@@ -214,8 +212,8 @@ class ContentTypeController extends Controller
                 'class' => 'api-save'
             ],
             'method' => 'PUT',
-            'action' => $this->generateUrl('gravity_api_put_type_form_view', [
-                'id' => $contentType->getId(),
+            'action' => $this->generateUrl('gravity_api_put_type_widgets', [
+                'contentType' => $contentType->getId(),
             ]),
         ]);
 

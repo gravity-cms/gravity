@@ -17,12 +17,12 @@
                 {% for field in contentType.fields %}
                     {% spaceless %}
                         <tr>
-                            <td><abbr title="{{ field.name }}" >{{ field.label|capitalize }}</abbr></td>
+                            <td>{{ field.label|capitalize }}</td>
                             <td><abbr title="Edit {{ field.label }} Settings">
                                     <a href="{{ url('gravity_admin_content_type_edit_field_settings', {
                                         type: contentType.name,
                                         field: field.name
-                                    }) }}">{{ field.label|capitalize }}</a>
+                                    }) }}">{{ field.fieldType|capitalize }}</a>
                                 </abbr></td>
                             <td>
                                 {% if field.widget.config %}

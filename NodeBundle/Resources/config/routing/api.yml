@@ -5,7 +5,7 @@ api_content_type:
 
 api_content_type_field:
   type:         rest
-  resource:     Gravity\NodeBundle\Controller\Api\ContentTypeFieldController
+  resource:     Gravity\NodeBundle\Controller\Api\FieldController
   parent:       api_content_type
   prefix: /node
 

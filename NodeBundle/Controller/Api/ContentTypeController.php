@@ -5,10 +5,13 @@ namespace Gravity\NodeBundle\Controller\Api;
 use Doctrine\ORM\EntityManager;
 use FOS\RestBundle\Controller\Annotations as FOSRest;
 use FOS\RestBundle\Routing\ClassResourceInterface;
+use Gravity\NodeBundle\Entity\ContentType;
 use GravityCMS\CoreBundle\Controller\Api\AbstractApiController;
+use GravityCMS\CoreBundle\Controller\Api\ApiEntityServiceControllerTrait;
 use GravityCMS\CoreBundle\FosRest\View\View\JsonApiView;
 use Gravity\NodeBundle\Form\ContentTypeForm;
 use Gravity\NodeBundle\Form\ContentTypeFormViewForm;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -19,130 +22,255 @@ use Symfony\Component\HttpFoundation\Request;
  *
  * @FOSRest\RouteResource("Type")
  */
-class ContentTypeController extends AbstractApiController implements ClassResourceInterface
+class ContentTypeController extends Controller implements ClassResourceInterface
 {
+    use ApiEntityServiceControllerTrait;
+
     /**
-     * @return Form
+     * [GET] A collection of entities
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    function getForm()
+    public function cgetAction()
     {
-        return new ContentTypeForm();
+        $service  = $this->get('gravity.entity_service.content_type');
+        $entities = $service->getEntityRepository()->findAll();
+
+        return $this->cgetEntity($entities);
     }
 
     /**
-     * @return string
+     * [GET] A single entity
+     *
+     * @param ContentType $contentType
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    function getEntityClass()
+    public function getAction(ContentType $contentType)
     {
-        return 'Gravity\NodeBundle\Entity\ContentType';
+        return $this->getEntity($contentType);
     }
 
     /**
-     * @inheritdoc
+     * [POST] Create a new entity
+     *
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    function getUrl($method, $entity = null)
+    public function postAction(Request $request)
     {
-        switch ($method) {
-            case self::METHOD_VIEW_ALL:
-                return $this->generateUrl('gravity_admin_content_type_manage');
-                break;
+        $service = $this->get('gravity.entity_service.content_type');
+        $form    = $this->createForm(
+            'gravity_node_content_type',
+            $service->create(),
+            [
+                'method' => 'POST',
+            ]
+        );
+        $payload = json_decode($request->getContent(), true);
 
-            case self::METHOD_POST:
-                return $this->generateUrl('gravity_api_post_type');
-                break;
+        $entity = $this->postEntity($service, $form, $payload[$form->getName()]);
 
-            case self::METHOD_PUT:
-                return $this->generateUrl('gravity_api_put_type', array('id' => $entity->getId()));
-                break;
-
-            case self::METHOD_DELETE:
-                return $this->generateUrl('gravity_api_delete_type',
-                    array('id' => $entity->getId()));
-                break;
-
-            case self::METHOD_GET:
-                return $this->generateUrl('gravity_admin_content_type_edit',
-                    array('type' => $entity->getName()));
-                break;
+        if (!$entity instanceof ContentType) {
+            return $this->jsonResponse($form, 400);
         }
 
-        return '';
+        $this->getDoctrine()->getManager()->flush();
+
+        return $this->jsonResponse(
+            null,
+            201,
+            [
+                'location' => $this->generateUrl(
+                    'gravity_api_get_type',
+                    [
+                        'contentType' => $entity->getId()
+                    ]
+                )
+            ]
+        );
+    }
+
+    /**
+     * [PUT] Update an existing entity
+     *
+     * @param Request $request
+     * @param ContentType   $contentType
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function putAction(Request $request, ContentType $contentType)
+    {
+        $service = $this->get('gravity.entity_service.content_type');
+        $form    = $this->createForm(
+            'gravity_node_content_type',
+            $contentType,
+            [
+                'method' => 'PUT',
+            ]
+        );
+        $payload = json_decode($request->getContent(), true);
+
+        $entity = $this->putEntity($service, $form, $payload[$form->getName()]);
+
+        if (!$entity instanceof ContentType) {
+            return $this->jsonResponse($form, 400);
+        }
+
+        $this->getDoctrine()->getManager()->flush();
+
+        return $this->jsonResponse(
+            null,
+            204,
+            [
+                'location' => $this->generateUrl(
+                    'gravity_api_get_type',
+                    [
+                        'contentType' => $entity->getId()
+                    ]
+                )
+            ]
+        );
+    }
+
+    /**
+     * [PATCH] Partial update an existing entity
+     *
+     * @param Request $request
+     * @param ContentType   $contentType
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function patchAction(Request $request, ContentType $contentType)
+    {
+        $service = $this->get('gravity.entity_service.content_type');
+        $form    = $this->createForm(
+            'gravity_node_content_type',
+            $contentType,
+            [
+                'method' => 'PATCH',
+            ]
+        );
+        $payload = json_decode($request->getContent(), true);
+
+        $entity = $this->patchEntity($service, $form, $payload[$form->getName()]);
+
+        if (!$entity instanceof ContentType) {
+            return $this->jsonResponse($form, 400);
+        }
+
+        $this->getDoctrine()->getManager()->flush();
+
+        return $this->jsonResponse(
+            null,
+            204,
+            [
+                'location' => $this->generateUrl(
+                    'gravity_api_get_type',
+                    [
+                        'contentType' => $entity->getId()
+                    ]
+                )
+            ]
+        );
+    }
+
+    /**
+     * [DELETE] Delete a Field entity
+     *
+     * @param ContentType $contentType
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function deleteAction(ContentType $contentType)
+    {
+        $success = $this->deleteEntity(
+            $this->get('gravity.entity_service.content_type'),
+            $contentType
+        );
+
+        if ($success) {
+            return $this->jsonResponse(
+                null,
+                204
+            );
+        } else {
+            return $this->jsonResponse(
+                null,
+                400
+            );
+        }
+
     }
 
     function hasPermission($method)
     {
         return true;
-        $this->get('security.acl.provider');
-        $userManager = $this->get('nefarian_core.user_manager');
-        switch ($method) {
-            case self::METHOD_NEW:
-            case self::METHOD_POST:
-                return $userManager->hasPermission($this->getUser(), 'content.type.create');
-                break;
-
-            case self::METHOD_EDIT:
-            case self::METHOD_PUT:
-                return $userManager->hasPermission($this->getUser(), 'content.type.update');
-                break;
-
-            case self::METHOD_DELETE:
-                return $userManager->hasPermission($this->getUser(), 'content.type.delete');
-                break;
-
-            case self::METHOD_GET:
-                return $userManager->hasPermission($this->getUser(), 'content.type.get');
-                break;
-        }
-
-        return false;
+//        $this->get('security.acl.provider');
+//        $userManager = $this->get('nefarian_core.user_manager');
+//        switch ($method) {
+//            case self::METHOD_NEW:
+//            case self::METHOD_POST:
+//                return $userManager->hasPermission($this->getUser(), 'content.type.create');
+//                break;
+//
+//            case self::METHOD_EDIT:
+//            case self::METHOD_PUT:
+//                return $userManager->hasPermission($this->getUser(), 'content.type.update');
+//                break;
+//
+//            case self::METHOD_DELETE:
+//                return $userManager->hasPermission($this->getUser(), 'content.type.delete');
+//                break;
+//
+//            case self::METHOD_GET:
+//                return $userManager->hasPermission($this->getUser(), 'content.type.get');
+//                break;
+//        }
+//
+//        return false;
     }
 
     /**
-     * @param Request $request
+     * Set the order of the widgets
+     *
+     * @param Request     $request
+     * @param ContentType $contentType
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function putFormViewAction(Request $request, $id)
+    public function putWidgetsAction(Request $request, ContentType $contentType)
     {
-        $this->authenticate(self::METHOD_PUT);
-
-        /** @var EntityManager $em */
-        $class  = $this->getEntityClass();
-        $em     = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository($class)->find($id);
-
-        if (!$entity instanceof $class) {
-            throw $this->createNotFoundException('Entity Not Found');
-        }
-
+        $service = $this->get('gravity.entity_service.content_type');
+        $form    = $this->createForm(
+            new ContentTypeFormViewForm(),
+            $contentType,
+            [
+                'method' => 'PUT',
+            ]
+        );
         $payload = json_decode($request->getContent(), true);
 
-        $formType = new ContentTypeFormViewForm();
-        $form     = $this->createForm($formType, $entity);
-        $form->submit($payload[$formType->getName()]);
+        $entity = $this->putEntity($service, $form, $payload[$form->getName()]);
 
-        if ($form->isValid()) {
-            $entity = $form->getData();
-
-            $this->preUpdate($entity);
-
-            $em->persist($entity);
-            $em->flush();
-
-            $this->postUpdate($entity);
-
-            $view = JsonApiView::create(null, 201, array(
-                'location' => $this->generateUrl('gravity_admin_content_type_edit_form_view',
-                    array(
-                        'type' => $entity->getName()
-                    ))
-            ));
-        } else {
-            $view = JsonApiView::create($form, 400);
+        if (!$entity instanceof ContentType) {
+            return $this->jsonResponse($form, 400);
         }
 
-        return $this->get('fos_rest.view_handler')->handle($view);
+        $this->getDoctrine()->getManager()->flush();
+
+        return $this->jsonResponse(
+            null,
+            204,
+            [
+                'location' => $this->generateUrl(
+                    'gravity_api_get_type',
+                    [
+                        'contentType' => $entity->getId()
+                    ]
+                )
+            ]
+        );
     }
-
-
 } 

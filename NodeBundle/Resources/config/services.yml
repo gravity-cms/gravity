@@ -21,7 +21,21 @@ services:
       - { name: doctrine.event_subscriber }
 
   #
+  # Entities
+  gravity.entity_service.content_type:
+    class: Gravity\NodeBundle\Entity\Service\ContentTypeEntityService
+    arguments:
+      - @doctrine.orm.default_entity_manager
+
+
+
+  #
   # Forms - field collection
+  gravity_node.form.type.gravity_node_content_type:
+    class: Gravity\NodeBundle\Form\ContentTypeForm
+    tags:
+        - { name: form.type, alias: gravity_node_content_type }
+
   gravity_node.form.type.field_content_type_field_view_change:
     class: Gravity\NodeBundle\Form\ContentTypeFieldViewChangeForm
     arguments:
