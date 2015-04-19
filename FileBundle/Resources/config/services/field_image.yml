@@ -18,6 +18,14 @@ services:
     tags:
       - { name: form.type, alias: field_image_widget_image_browser }
 
+
+  gravity.file.field.image.widget.image_browser_configuration.form:
+    class: Gravity\FileBundle\Field\Image\Widget\ImageBrowser\Configuration\ImageBrowserWidgetConfigurationForm
+    arguments:
+      - @gravity.image_style_manager
+    tags:
+      - { name: form.type, alias: field_image_widget_image_browser_configuration }
+
   #
   # Field Displays
   gravity.file.field.image.display.image:

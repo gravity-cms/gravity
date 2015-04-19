@@ -5,7 +5,6 @@ namespace Gravity\FileBundle\ImageStyler\Operation\GDOptimiser;
 use Gravity\FileBundle\Entity\File;
 use Gravity\FileBundle\ImageStyler\Operation\GDOptimiser\Configuration\GDOptimiserConfiguration;
 use Gravity\FileBundle\ImageStyler\Operation\OperationInterface;
-use GravityCMS\Component\Configuration\ConfigurationInterface;
 
 /**
  * Class GDOptimiser
@@ -40,18 +39,18 @@ class GDOptimiser implements OperationInterface
     }
 
     /**
-     * @return GDOptimiserConfiguration
+     * @return Configuration
      */
     public function getConfiguration()
     {
-        return new GDOptimiserConfiguration();
+        return new Configuration();
     }
 
     /**
-     * @param File                     $file
-     * @param GDOptimiserConfiguration $options
+     * @param File  $file
+     * @param array $options
      */
-    public function process(File $file, ConfigurationInterface $options = null)
+    public function process(File $file, array $options)
     {
         $info = getimagesize($file->getPath());
 
@@ -71,6 +70,6 @@ class GDOptimiser implements OperationInterface
         }
 
         //save file
-        imagejpeg($image, $file->getPath(), $options->getQuality());
+        imagejpeg($image, $file->getPath(), $options['quality']);
     }
 }

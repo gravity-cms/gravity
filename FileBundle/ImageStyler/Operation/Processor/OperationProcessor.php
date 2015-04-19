@@ -6,6 +6,7 @@ namespace Gravity\FileBundle\ImageStyler\Operation\Processor;
 use Gravity\FileBundle\Entity\File;
 use Gravity\FileBundle\Entity\ImageStyle;
 use Gravity\FileBundle\ImageStyler\ImageStyleManager;
+use Gravity\FileBundle\ImageStyler\Operation\OperationInterface;
 
 /**
  * Class OperationProcessor
@@ -15,21 +16,36 @@ use Gravity\FileBundle\ImageStyler\ImageStyleManager;
  */
 class OperationProcessor
 {
+    /**
+     * @var OperationInterface
+     */
+    protected $operation;
 
     /**
-     * @var ImageStyle
+     * @var array
      */
-    protected $imageStyle;
+    protected $settings;
 
-    /**
-     * @var ImageStyleManager
-     */
-    protected $imageStyleManager;
-
-    function __construct(ImageStyleManager $imageStyleManager, ImageStyle $imageStyle)
+    function __construct(OperationInterface $operation, array $settings)
     {
-        $this->imageStyle        = $imageStyle;
-        $this->imageStyleManager = $imageStyleManager;
+        $this->operation = $operation;
+        $this->settings = $settings;
+    }
+
+    /**
+     * @return OperationInterface
+     */
+    public function getOperation()
+    {
+        return $this->operation;
+    }
+
+    /**
+     * @return array
+     */
+    public function getSettings()
+    {
+        return $this->settings;
     }
 
     /**
@@ -39,10 +55,7 @@ class OperationProcessor
      */
     public function process(File $file)
     {
-        foreach ($this->imageStyle->getOperations() as $operationDefinition) {
-            $operation = $this->imageStyleManager->getOperation($operationDefinition->getName());
-            $operation->operate($file);
-        }
+        $this->operation->process($file, $this->settings);
     }
 
 }

@@ -3,6 +3,8 @@
 
 namespace Gravity\FileBundle\Field\Image\Widget\ImageBrowser\Configuration;
 
+use Doctrine\ORM\EntityManager;
+use Gravity\FileBundle\ImageStyler\ImageStyleManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -16,12 +18,32 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class ImageBrowserWidgetConfigurationForm extends AbstractType
 {
     /**
+     * @var EntityManager
+     */
+    protected $imageStyleManager;
+
+    protected $imageStyleOptions = [];
+
+    function __construct(ImageStyleManager $imageStyleManager)
+    {
+        $this->imageStyleManager = $imageStyleManager;
+
+        foreach($imageStyleManager->getImageStyles() as $imageStyle)
+        {
+            $this->imageStyleOptions[$imageStyle->getName()] = ucfirst($imageStyle->getName());
+        }
+    }
+
+
+    /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('imageStyle', 'choice', []);
+            ->add('imageStyle', 'choice', [
+                'choices' => $this->imageStyleOptions
+            ]);
     }
 
     /**

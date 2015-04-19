@@ -51,7 +51,7 @@ class NodeOptimiser implements OperationInterface
     /**
      * {@inheritdoc}
      */
-    public function process(File $file, ConfigurationInterface $options = null)
+    public function process(File $file, array $options)
     {
         $info = getimagesize($file->getPath());
 

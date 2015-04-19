@@ -1,19 +1,16 @@
 services:
   gravity.image_style_manager:
     class: Gravity\FileBundle\ImageStyler\ImageStyleManager
-
-  # Forms
-  gravity.image_style.form:
-    class: Gravity\FileBundle\Form\ImageStyleForm
-    tags:
-      - { name: form.type, alias: image_style }
-
-  gravity.image_style_operation.form:
-    class: Gravity\FileBundle\Form\ImageStyleOperationForm
     arguments:
-      - @gravity.image_style_manager
-    tags:
-      - { name: form.type, alias: image_style_operation }
+      - @gravity.image_style.operation_manager
+
+  gravity.image_style.operation_manager:
+    class: Gravity\FileBundle\ImageStyler\Operation\OperationManager
+
+  gravity.image_style_factory:
+    class: Gravity\FileBundle\ImageStyler\ImageStyleFactory
+    arguments:
+      - @gravity.image_style.operation_manager
 
   # Image Style Operations
   gravity.image_style.operation.gd_optimiser:

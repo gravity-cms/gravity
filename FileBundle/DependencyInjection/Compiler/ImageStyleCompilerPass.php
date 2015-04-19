@@ -2,6 +2,7 @@
 
 namespace Gravity\FileBundle\DependencyInjection\Compiler;
 
+use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -24,6 +25,7 @@ class ImageStyleCompilerPass implements CompilerPassInterface
     public function process(ContainerBuilder $container)
     {
         $operations        = $container->findTaggedServiceIds('image_style.operation');
+        $operationManager = $container->findDefinition('gravity.image_style.operation_manager');
         $imageStyleManager = $container->findDefinition('gravity.image_style_manager');
 
         $operationServices = [];
@@ -34,7 +36,39 @@ class ImageStyleCompilerPass implements CompilerPassInterface
             }
         }
 
-        $imageStyleManager->addMethodCall('setOperations', [$operationServices]);
+        $operationManager->addMethodCall('setOperations', [$operationServices]);
+
+        // configure the styles
+        $styles = $container->getParameter('gravity_file.styles');
+
+        foreach ($styles as $styleName => $style) {
+
+
+            $styleService = $container->register(
+                'gravity_file.style.' . $styleName,
+                "Gravity\\FileBundle\\ImageStyler\\ImageStyle"
+            );
+            $styleService
+                ->setFactory(
+                    [
+                        new Reference('gravity.image_style_factory'),
+                        'createImageStyle',
+                    ]
+                )
+                ->setArguments(
+                    [
+                        $styleName,
+                        $style['operations'],
+                    ]
+                );
+
+            $imageStyleManager->addMethodCall(
+                'addImageStyle',
+                [
+                    $styleService,
+                ]
+            );
+        }
     }
 
 } 

@@ -4,15 +4,15 @@
 namespace Gravity\FileBundle\ImageStyler\Operation;
 
 use Gravity\FileBundle\Entity\File;
-use GravityCMS\Component\Configuration\ConfigurationInterface;
+use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
  * Class OperationInterface
  *
  * @package Gravity\FileBundle\ImageStyler\Operation
- * @author Andy Thorne <contrabandvr@gmail.com>
+ * @author  Andy Thorne <contrabandvr@gmail.com>
  */
-interface OperationInterface 
+interface OperationInterface
 {
     /**
      * Get the operation's config name
@@ -45,10 +45,10 @@ interface OperationInterface
     /**
      * Process the operation
      *
-     * @param File                   $file
-     * @param ConfigurationInterface $options
+     * @param File  $file
+     * @param array $options
      *
      * @return void
      */
-    public function process(File $file, ConfigurationInterface $options = null);
+    public function process(File $file, array $options);
 }

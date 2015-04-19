@@ -3,10 +3,7 @@
 
 namespace Gravity\FileBundle\ImageStyler;
 
-use Gravity\FileBundle\Entity\ImageStyle;
-use Gravity\FileBundle\ImageStyler\Operation\OperationInterface;
-use Gravity\FileBundle\ImageStyler\Operation\Processor\OperationProcessor;
-use GravityCMS\Component\Configuration\ConfigurationManager;
+use Gravity\FileBundle\ImageStyler\Operation\OperationManager;
 
 /**
  * Class ImageStyleManager
@@ -17,48 +14,68 @@ use GravityCMS\Component\Configuration\ConfigurationManager;
 class ImageStyleManager
 {
     /**
-     * @var OperationInterface[]
+     * @var OperationManager
      */
-    protected $operations;
+    protected $operationManager = [];
 
     /**
-     * @return OperationInterface[]
+     * @var ImageStyle[]
      */
-    public function getOperations()
+    protected $imageStyles = [];
+
+    /**
+     * @param OperationManager $operationManager
+     */
+    function __construct(OperationManager $operationManager)
     {
-        return $this->operations;
+        $this->operationManager = $operationManager;
     }
 
     /**
-     * @param OperationInterface[] $operations
+     * @return OperationManager
      */
-    public function setOperations($operations)
+    public function getOperationManager()
     {
-        foreach ($operations as $operation) {
-            $this->addOperation($operation);
-        }
+        return $this->operationManager;
     }
 
     /**
-     * @param OperationInterface $operation
+     * @return ImageStyle[]
      */
-    public function addOperation(OperationInterface $operation)
+    public function getImageStyles()
     {
-        $this->operations[$operation->getName()] = $operation;
+        return $this->imageStyles;
     }
 
     /**
-     * @param string $name
+     * @param $name
      *
-     * @return OperationInterface
+     * @return ImageStyle
      */
-    public function getOperation($name)
+    public function getImageStyle($name)
     {
-        return $this->operations[$name];
+        return $this->imageStyles[$name];
     }
 
-    public function createProcessor(ImageStyle $imageStyle)
+    /**
+     * @param ImageStyle[] $imageStyles
+     */
+    public function setImageStyles(array $imageStyles)
     {
-        return new OperationProcessor($this, $imageStyle);
+        foreach($imageStyles as $imageStyle)
+        {
+            $this->addImageStyle($imageStyle);
+        }
+
     }
+
+    /**
+     * @param ImageStyle $imageStyle
+     */
+    public function addImageStyle(ImageStyle $imageStyle)
+    {
+        $this->imageStyles[$imageStyle->getName()] = $imageStyle;
+    }
+
+
 }

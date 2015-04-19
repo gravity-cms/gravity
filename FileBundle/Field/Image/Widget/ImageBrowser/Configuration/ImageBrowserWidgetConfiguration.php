@@ -36,7 +36,7 @@ class ImageBrowserWidgetConfiguration extends AbstractConfiguration implements W
      */
     public function getForm()
     {
-        return new ImageBrowserWidgetConfigurationForm();
+        return 'field_image_widget_image_browser_configuration';
     }
 
     /**

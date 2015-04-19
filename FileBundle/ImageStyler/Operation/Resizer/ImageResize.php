@@ -4,6 +4,7 @@ namespace Gravity\FileBundle\ImageStyler\Operation\Resizer;
 
 use Gravity\FileBundle\Entity\File;
 use Gravity\FileBundle\ImageStyler\Operation\OperationInterface;
+use GravityCMS\Component\Configuration\ConfigurationInterface;
 
 /**
  * Resize image class will allow you to resize an image
@@ -30,23 +31,42 @@ class ImageResize implements OperationInterface
 
     public function getName()
     {
-        // TODO: Implement getName() method.
+        return 'php_resizer';
     }
 
     public function getLabel()
     {
-        // TODO: Implement getLabel() method.
+        return 'Resizer';
     }
 
     public function getDescription()
     {
-        // TODO: Implement getDescription() method.
+        return 'Resize an image to new dimensions';
     }
 
-    public function operate(File $file)
+    /**
+     * Get the operation's configuration
+     *
+     * @return ConfigurationInterface
+     */
+    public function getConfiguration()
     {
-        // TODO: Implement operate() method.
+        // TODO: Implement getConfiguration() method.
     }
+
+    /**
+     * Process the operation
+     *
+     * @param File                   $file
+     * @param ConfigurationInterface $options
+     *
+     * @return void
+     */
+    public function process(File $file, ConfigurationInterface $options = null)
+    {
+        // TODO: Implement process() method.
+    }
+
 
     /**
      * Save the image as the image type the original image was

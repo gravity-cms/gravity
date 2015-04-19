@@ -1,0 +1,42 @@
+{% extends 'GravityFileBundle::base.html.twig' %}
+
+{% block breadcrumbs %}
+    {{ parent() }}
+    <li><a href="{{ url('gravity_admin_image_style_list') }}">Image Styles</a></li>
+    <li>{{ image_style.name }}</li>
+{% endblock %}
+
+{% block page_title %}
+    {{ image_style.name|title }}
+{% endblock %}
+
+{% block page_desc %}
+    {{ image_style.operationProcessors|length }} Configured Operation{% if image_style.operationProcessors|length != 1 %}s{% endif %}
+{% endblock %}
+
+{% block plugin %}
+    <div class="responsive-table">
+        <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Settings</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for imageProcessor in image_style.operationProcessors %}
+                <tr>
+                    <td>{{ imageProcessor.operation.name }}</td>
+                    <td>
+                        {% if imageProcessor.settings %}
+                            {% for key,value in imageProcessor.settings %}
+                                <span class="text-bold">{{ key|capitalize }}</span>: {{ value }}<br>
+                            {% endfor %}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
