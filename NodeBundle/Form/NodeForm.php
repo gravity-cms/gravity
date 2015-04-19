@@ -78,6 +78,6 @@ class NodeForm extends AbstractType
      */
     public function getName()
     {
-        return 'gravity_node_node';
+        return 'gravity_node';
     }
 }

@@ -3,173 +3,278 @@
 namespace Gravity\NodeBundle\Controller\Api;
 
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\QueryBuilder;
 use FOS\RestBundle\Controller\Annotations as FOSRest;
 use FOS\RestBundle\Routing\ClassResourceInterface;
-use GravityCMS\CoreBundle\Controller\Api\AbstractApiController;
-use GravityCMS\CoreBundle\Controller\Api\ApiControllerInterface;
-use GravityCMS\CoreBundle\FosRest\View\View\JsonApiView;
 use Gravity\NodeBundle\Entity\ContentType;
 use Gravity\NodeBundle\Entity\Node;
 use Gravity\NodeBundle\Form\NodeForm;
-use Symfony\Component\Form\Form;
+use GravityCMS\CoreBundle\Controller\Api\ApiEntityServiceControllerTrait;
+use GravityCMS\CoreBundle\FosRest\View\View\JsonApiView;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
- * Class ContentTypeController
+ * Class NodeController
  *
  * @package Gravity\NodeBundle\Controller\Api
  *
  * @FOSRest\RouteResource("Node")
  */
-class NodeController extends AbstractApiController implements ClassResourceInterface, ApiControllerInterface
+class NodeController extends Controller implements ClassResourceInterface
 {
+    use ApiEntityServiceControllerTrait;
 
     /**
-     * Configure the query builder
+     * [GET] A collection of entities
      *
-     * @param QueryBuilder $qb
-     *
-     * @return mixed
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    function setupQueryBuilder(QueryBuilder $qb)
+    public function cgetAction()
     {
+        $service  = $this->get('gravity.entity_service.node');
+        $entities = $service->getEntityRepository()->findAll();
+
+        return $this->cgetEntity($entities);
     }
 
     /**
-     * Get the template for the form
+     * [GET] A single entity
      *
-     * @param $method
+     * @param Node $node
      *
-     * @return string
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    function getFormTemplate($method)
+    public function getAction(Node $node)
     {
-        return '@theme/Api/form.html.twig';
+        return $this->getEntity($node);
     }
 
     /**
-     * @return Form
+     * [POST] Create a new entity
+     *
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    function getForm()
+    public function postAction(Request $request)
     {
-        return new NodeForm($this->get('gravity_cms.field_manager'));
-    }
+        $service = $this->get('gravity.entity_service.node');
+        $form    = $this->createForm(
+            'gravity_node',
+            $service->create(),
+            [
+                'method' => 'POST',
+            ]
+        );
+        $payload = json_decode($request->getContent(), true);
 
-    /**
-     * @return string
-     */
-    function getEntityClass()
-    {
-        return 'Gravity\NodeBundle\Entity\Node';
-    }
+        $entity = $this->postEntity($service, $form, $payload[$form->getName()]);
 
-    /**
-     * @inheritdoc
-     */
-    function getUrl($method, $entity = null)
-    {
-        switch ($method) {
-            case self::METHOD_VIEW_ALL:
-                return $this->generateUrl('gravity_admin_content_type_manage');
-                break;
-
-            case self::METHOD_POST:
-                return $this->generateUrl('gravity_api_post_node_type');
-                break;
-
-            case self::METHOD_PUT:
-                return $this->generateUrl('gravity_api_put_node', array('id' => $entity->getId()));
-                break;
-
-            case self::METHOD_DELETE:
-                return $this->generateUrl('gravity_api_delete_node',
-                    array('id' => $entity->getId()));
-                break;
-
-            case self::METHOD_GET:
-                return $this->generateUrl('gravity_admin_node_edit',
-                    array('id' => $entity->getId()));
-                break;
+        if (!$entity instanceof Node) {
+            return $this->jsonResponse($form, 400);
         }
 
-        return '';
+        $this->getDoctrine()->getManager()->flush();
+
+        return $this->jsonResponse(
+            null,
+            201,
+            [
+                'location' => $this->generateUrl(
+                    'gravity_api_get_node',
+                    [
+                        'node' => $entity->getId()
+                    ]
+                )
+            ]
+        );
     }
 
-    function hasPermission($method)
+    /**
+     * [PUT] Update an existing entity
+     *
+     * @param Request $request
+     * @param Node    $node
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function putAction(Request $request, Node $node)
     {
-        return true;
-        $userManager = $this->get('nefarian_core.user_manager');
-        switch ($method) {
-            case self::METHOD_NEW:
-            case self::METHOD_POST:
-                return $userManager->hasPermission($this->getUser(), 'content.type.create');
-                break;
+        $service = $this->get('gravity.entity_service.node');
+        $form    = $this->createForm(
+            'gravity_node',
+            $node,
+            [
+                'method' => 'PUT',
+            ]
+        );
+        $payload = json_decode($request->getContent(), true);
 
-            case self::METHOD_EDIT:
-            case self::METHOD_PUT:
-                return $userManager->hasPermission($this->getUser(), 'content.type.update');
-                break;
+        $entity = $this->putEntity($service, $form, $payload[$form->getName()]);
 
-            case self::METHOD_DELETE:
-                return $userManager->hasPermission($this->getUser(), 'content.type.delete');
-                break;
-
-            case self::METHOD_GET:
-                return $userManager->hasPermission($this->getUser(), 'content.type.get');
-                break;
+        if (!$entity instanceof Node) {
+            return $this->jsonResponse($form, 400);
         }
 
-        return false;
+        $this->getDoctrine()->getManager()->flush();
+
+        return $this->jsonResponse(
+            null,
+            204,
+            [
+                'location' => $this->generateUrl(
+                    'gravity_api_get_node',
+                    [
+                        'node' => $entity->getId()
+                    ]
+                )
+            ]
+        );
     }
+
+    /**
+     * [PATCH] Partial update an existing entity
+     *
+     * @param Request $request
+     * @param Node    $node
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function patchAction(Request $request, Node $node)
+    {
+        $service = $this->get('gravity.entity_service.node');
+        $form    = $this->createForm(
+            'gravity_node',
+            $node,
+            [
+                'method' => 'PATCH',
+            ]
+        );
+        $payload = json_decode($request->getContent(), true);
+
+        $entity = $this->patchEntity($service, $form, $payload[$form->getName()]);
+
+        if (!$entity instanceof Node) {
+            return $this->jsonResponse($form, 400);
+        }
+
+        $this->getDoctrine()->getManager()->flush();
+
+        return $this->jsonResponse(
+            null,
+            204,
+            [
+                'location' => $this->generateUrl(
+                    'gravity_api_get_node',
+                    [
+                        'node' => $entity->getId()
+                    ]
+                )
+            ]
+        );
+    }
+
+    /**
+     * [DELETE] Delete a Field entity
+     *
+     * @param Node $node
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function deleteAction(Node $node)
+    {
+        $success = $this->deleteEntity(
+            $this->get('gravity.entity_service.node'),
+            $node
+        );
+
+        if ($success) {
+            return $this->jsonResponse(
+                null,
+                204
+            );
+        } else {
+            return $this->jsonResponse(
+                null,
+                400
+            );
+        }
+
+    }
+
 
     /**
      * @param Request     $request
      * @param ContentType $contentType
      *
-     * @throws AccessDeniedException
-     * @throws NotFoundHttpException
      * @return Response
      */
     public function postTypeAction(Request $request, ContentType $contentType)
     {
-        $this->authenticate(self::METHOD_POST);
+        $service = $this->get('gravity.entity_service.node');
+        $node = $service->create();
+        $node->setContentType($contentType);
 
-        if (!$contentType instanceof ContentType) {
-            throw $this->createNotFoundException('Content Type Not Found');
-        }
-
-        /** @var EntityManager $em */
-        $em = $this->getDoctrine()->getManager();
-
+        $form    = $this->createForm(
+            'gravity_node',
+            $node,
+            [
+                'csrf_protection' => false,
+                'method' => 'POST',
+            ]
+        );
         $payload = json_decode($request->getContent(), true);
 
-        $class = $this->getEntityClass();
+        $entity = $this->postEntity($service, $form, $payload[$form->getName()]);
 
-        /** @var Node $newEntity */
-        $newEntity = new $class();
-        $newEntity->setContentType($contentType);
-        $formType = new NodeForm($this->get('gravity_cms.field_manager'), $contentType);
-        $form     = $this->createForm($formType, $newEntity);
-        $form->submit($payload[$formType->getName()]);
-
-        if ($form->isValid()) {
-            /** @var Node $entity */
-            $entity = $form->getData();
-            $em->persist($entity);
-            $em->flush();
-
-            $view = JsonApiView::create($entity, 200, array(
-                'location' => $this->getUrl(self::METHOD_GET, $entity)
-            ));
-        } else {
-            $view = JsonApiView::create($form);
+        if (!$entity instanceof Node) {
+            return $this->jsonResponse($form, 400);
         }
 
-        return $this->get('fos_rest.view_handler')->handle($view);
+        $this->getDoctrine()->getManager()->flush();
+
+        return $this->jsonResponse(
+            null,
+            201,
+            [
+                'location' => $this->generateUrl(
+                    'gravity_api_get_node',
+                    [
+                        'node' => $entity->getId()
+                    ]
+                )
+            ]
+        );
+    }
+
+    function hasPermission($method)
+    {
+        return true;
+        //        $userManager = $this->get('nefarian_core.user_manager');
+        //        switch ($method) {
+        //            case self::METHOD_NEW:
+        //            case self::METHOD_POST:
+        //                return $userManager->hasPermission($this->getUser(), 'content.type.create');
+        //                break;
+        //
+        //            case self::METHOD_EDIT:
+        //            case self::METHOD_PUT:
+        //                return $userManager->hasPermission($this->getUser(), 'content.type.update');
+        //                break;
+        //
+        //            case self::METHOD_DELETE:
+        //                return $userManager->hasPermission($this->getUser(), 'content.type.delete');
+        //                break;
+        //
+        //            case self::METHOD_GET:
+        //                return $userManager->hasPermission($this->getUser(), 'content.type.get');
+        //                break;
+        //        }
+        //
+        //        return false;
     }
 
 } 

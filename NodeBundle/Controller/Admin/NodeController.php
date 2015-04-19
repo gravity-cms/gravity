@@ -92,7 +92,7 @@ class NodeController extends Controller
             ),
             'method' => 'PUT',
             'action' => $this->generateUrl('gravity_api_put_node', array(
-                'id' => $node->getId()
+                'node' => $node->getId()
             )),
         ));
 

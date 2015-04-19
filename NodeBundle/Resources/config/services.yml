@@ -27,10 +27,22 @@ services:
     arguments:
       - @doctrine.orm.default_entity_manager
 
+  gravity.entity_service.node:
+    class: Gravity\NodeBundle\Entity\Service\NodeEntityService
+    arguments:
+      - @doctrine.orm.default_entity_manager
+
 
 
   #
   # Forms - field collection
+  gravity_node.form.type.gravity_node:
+    class: Gravity\NodeBundle\Form\NodeForm
+    arguments:
+        - @gravity_cms.field_manager
+    tags:
+        - { name: form.type, alias: gravity_node }
+
   gravity_node.form.type.gravity_node_content_type:
     class: Gravity\NodeBundle\Form\ContentTypeForm
     tags:
