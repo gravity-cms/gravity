@@ -12,6 +12,7 @@
         <field name="name" type="string" length="100" column="name" nullable="false" />
         <field name="description" type="string" length="255" column="description" nullable="true" />
 
+        <field name="filesystem" type="string" length="50" column="filesystem" nullable="false" />
         <field name="filename" type="string" length="150" column="filename" nullable="false" />
         <field name="path" type="string" length="255" column="path" nullable="false" />
         <field name="url" type="string" length="255" column="url" nullable="false" />

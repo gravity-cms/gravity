@@ -2,7 +2,9 @@
 
 namespace Gravity\FileBundle\Configuration;
 
+use Gaufrette\Filesystem;
 use Gravity\FileBundle\File\StreamWrapper\StreamWrapperManager;
+use Knp\Bundle\GaufretteBundle\FilesystemMap;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -15,25 +17,26 @@ use Symfony\Component\Form\FormBuilderInterface;
 class FileConfigurationForm extends AbstractType
 {
     /**
-     * @var StreamWrapperManager
+     * @var FilesystemMap
      */
-    protected $streamWrapperManager;
+    protected $filesystemMap;
 
-    function __construct(StreamWrapperManager $streamWrapperManager)
+    function __construct(FilesystemMap $filesystemMap)
     {
-        $this->streamWrapperManager = $streamWrapperManager;
+        $this->filesystemMap = $filesystemMap;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $streamWrappers = [];
-        foreach ($this->streamWrapperManager->getStreamWrappers() as $streamWrapper) {
-            $streamWrappers[$streamWrapper->getScheme()] = $streamWrapper->getName();
+        $filesystems = [];
+        /** @var Filesystem $filesystem */
+        foreach ($this->filesystemMap as $name => $filesystem) {
+            $filesystems[$name] = ucfirst($name);
         }
 
-        $builder->add('defaultStreamWrapperScheme', 'choice', [
-            'label'    => 'Default Stream Wrapper',
-            'choices'  => $streamWrappers,
+        $builder->add('defaultFilesystem', 'choice', [
+            'label'    => 'Default Filesystem',
+            'choices'  => $filesystems,
             'expanded' => true,
             'multiple' => false,
         ])

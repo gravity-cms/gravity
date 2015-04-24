@@ -11,8 +11,4 @@ file:
       route: gravity_admin_file_list
       title: View Files
       description: Add, Edit and Delete Files
-    image_styles:
-      route: gravity_admin_image_style_list
-      title: Image Styles
-      description: Add, Edit and Delete Image Styles
 

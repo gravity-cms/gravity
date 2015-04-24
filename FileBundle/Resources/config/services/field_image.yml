@@ -22,7 +22,7 @@ services:
   gravity.file.field.image.widget.image_browser_configuration.form:
     class: Gravity\FileBundle\Field\Image\Widget\ImageBrowser\Configuration\ImageBrowserWidgetConfigurationForm
     arguments:
-      - @gravity.image_style_manager
+      - @liip_imagine.filter.configuration
     tags:
       - { name: form.type, alias: field_image_widget_image_browser_configuration }
 

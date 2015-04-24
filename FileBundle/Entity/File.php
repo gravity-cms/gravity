@@ -37,6 +37,13 @@ class File
     protected $description;
 
     /**
+     * filesystem name to use
+     *
+     * @var string
+     */
+    protected $filesystem;
+
+    /**
      * @var string
      */
     protected $filename;
@@ -157,6 +164,22 @@ class File
     public function setEditedOn(\DateTime $editedOn)
     {
         $this->editedOn = $editedOn;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFilesystem()
+    {
+        return $this->filesystem;
+    }
+
+    /**
+     * @param string $filesystem
+     */
+    public function setFilesystem($filesystem)
+    {
+        $this->filesystem = $filesystem;
     }
 
     /**

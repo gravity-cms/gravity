@@ -3,14 +3,15 @@
 namespace Gravity\FileBundle\File;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use Gaufrette\Filesystem;
+use GaufretteExtras\ResolvableFilesystem;
 use Gravity\FileBundle\Configuration\FileConfiguration;
 use Gravity\FileBundle\Entity\File;
 use Gravity\FileBundle\File\Exception\FileUploadException;
 use Gravity\FileBundle\File\Exception\FileUploadExtensionDeniedException;
 use Gravity\FileBundle\File\Exception\FileUploadFailedException;
-use Gravity\FileBundle\File\StreamWrapper\StreamWrapperInterface;
-use Gravity\FileBundle\File\StreamWrapper\StreamWrapperManager;
 use GravityCMS\Component\Configuration\ConfigurationManager;
+use Knp\Bundle\GaufretteBundle\FilesystemMap;
 use Symfony\Component\HttpFoundation\File\File as SymfonyFile;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -22,11 +23,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  */
 class FileManager
 {
-    /**
-     * @var StreamWrapperManager
-     */
-    protected $streamWrapperManager;
-
     /**
      * @var ConfigurationManager
      */
@@ -42,15 +38,20 @@ class FileManager
      */
     protected $objectManager;
 
+    /**
+     * @var ResolvableFilesystem
+     */
+    protected $fileSystem;
+
     function __construct(
         ConfigurationManager $configurationManager,
         ObjectManager $objectManager,
-        StreamWrapperManager $streamWrapperManager
+        FilesystemMap $filesystemMap
     ) {
-        $this->streamWrapperManager = $streamWrapperManager;
         $this->configurationManager = $configurationManager;
         $this->config               = $configurationManager->get('file:settings');
         $this->objectManager        = $objectManager;
+        $this->fileSystem           = $filesystemMap->get($this->config->getDefaultFilesystem());
     }
 
     /**
@@ -62,152 +63,33 @@ class FileManager
     }
 
     /**
-     * @return StreamWrapperInterface
+     * @return ResolvableFilesystem
      */
-    public function getDefaultStreamWrapper()
+    public function getFileSystem()
     {
-        return $this->streamWrapperManager->getStreamWrapper(
-            $this->config->getDefaultStreamWrapperScheme()
-        );
+        return $this->fileSystem;
     }
 
-    /**
-     * @param $path
-     *
-     * @return StreamWrapperInterface
-     */
-    public function createStreamForPath($path)
+    public function getScheme()
     {
-        return $this->streamWrapperManager->createStreamForPath($path);
+        return 'gravity://' . $this->config->getDefaultFilesystem() . '/';
     }
-
-    /**
-     * Search the file providers for
-     *
-     * @param string $id       Image identifier
-     * @param string $provider Provider Identifier
-     *
-     * @return null
-     */
-    public function find($id, $provider = null)
-    {
-        if ($provider && array_key_exists($provider, $this->fileProviders)) {
-            return $this->fileProviders[$provider]->find($id);
-        } else {
-            $provider = $this->getDefaultProviderInstance();
-
-            return $provider->find($id);
-        }
-    }
-
-    /**
-     * Search the file providers for
-     *
-     * @param array  $terms
-     * @param string $provider Provider Identifier
-     *
-     * @internal param string $id Image identifier
-     * @return null
-     */
-    public function findBy(array $terms, $provider = null)
-    {
-        if ($provider && array_key_exists($provider, $this->fileProviders)) {
-            return $this->fileProviders[$provider]->findBy($terms);
-        } else {
-            $provider = $this->getDefaultProviderInstance();
-
-            return $provider->findBy($terms);
-        }
-    }
-
-    /**
-     * Search for file by text
-     *
-     * @param string $query
-     * @param null   $provider
-     *
-     * @return mixed
-     */
-    public function search($query, $provider = null)
-    {
-        if ($provider && array_key_exists($provider, $this->fileProviders)) {
-            return $this->fileProviders[$provider]->searchBy($query);
-        } else {
-            $provider = $this->getDefaultProviderInstance();
-
-            return $provider->search($query);
-        }
-    }
-
-
-    /**
-     * Store the file into the bank
-     *
-     * @param File   $file
-     * @param string $provider
-     *
-     * @return File
-     */
-    public function store(File $file, $provider = null)
-    {
-        if ($provider && array_key_exists($provider, $this->fileProviders)) {
-            return $this->fileProviders[$provider]->store($file);
-        } else {
-            return $this->fileProviders[$this->defaultProvider]->store($file);
-        }
-    }
-
-    /**
-     * Update a file model
-     *
-     * @param File $file
-     * @param null $provider
-     *
-     * @return File
-     */
-    public function update(File $file, $provider = null)
-    {
-        if ($provider && array_key_exists($provider, $this->fileProviders)) {
-            return $this->fileProviders[$provider]->update($file);
-        } else {
-            return $this->fileProviders[$this->defaultProvider]->update($file);
-        }
-    }
-
-
-    /**
-     * Delete a file model
-     *
-     * @param File $file
-     * @param null $provider
-     *
-     * @return File
-     */
-    public function delete(File $file, $provider = null)
-    {
-        if ($provider && array_key_exists($provider, $this->fileProviders)) {
-            $this->fileProviders[$provider]->delete($file);
-        } else {
-            $this->fileProviders[$this->defaultProvider]->delete($file);
-        }
-    }
-
 
     /**
      * Handle a file upload
      *
      * @param SymfonyFile|UploadedFile $file
-     * @param StreamWrapperInterface   $streamWrapper If left null, default stream is used
+     * @param Filesystem               $filesystem If left null, default filesystem is used
      *
      * @return File
      * @throws FileUploadException
      * @throws FileUploadFailedException
      */
-    public function upload(SymfonyFile $file, StreamWrapperInterface $streamWrapper = null)
+    public function upload(SymfonyFile $file, Filesystem $filesystem = null)
     {
         if ($file->isValid()) {
-            if (!$streamWrapper instanceof StreamWrapperInterface) {
-                $streamWrapper = $this->getDefaultStreamWrapper();
+            if (!$filesystem instanceof Filesystem) {
+                $filesystem = $this->fileSystem;
             }
 
             if ($file instanceof UploadedFile) {
@@ -221,9 +103,8 @@ class FileManager
             $fileMime          = $file->getMimeType();
             $allowedExtensions = $this->getConfig()->getAllowedExtensions();
             if (in_array(strtolower($extension), $allowedExtensions)) {
-
-                $baseFileName  = str_replace(' ', '_' ,pathinfo($name, PATHINFO_FILENAME));
-                $baseFilePath  = $streamWrapper->getScheme() . '://files/';
+                $baseFileName  = str_replace(' ', '_', pathinfo($name, PATHINFO_FILENAME));
+                $baseFilePath  = $this->getScheme();
                 $baseExtension = '.' . $extension;
                 if (file_exists($baseFilePath . $baseFileName . $baseExtension)) {
                     $exists = true;
@@ -239,24 +120,27 @@ class FileManager
                     }
                 }
 
-                $file = $file->move($streamWrapper->getScheme() . '://files', $name);
+                $filesystem->write(
+                    $name,
+                    file_get_contents($file->getPathname())
+                );
+
+                $newFile = $filesystem->get($name);
             } else {
                 throw new FileUploadExtensionDeniedException();
             }
 
-            if (!($file instanceof SymfonyFile)) {
+            if (!($newFile instanceof \Gaufrette\File)) {
                 throw new FileUploadException('Upload Invalid');
             }
 
             $fileEntity = new File();
             $fileEntity->setCreatedOn(new \DateTime());
-            $fileEntity->setName($file->getFilename());
-            $fileEntity->setFilename($file->getFilename());
-            $fileEntity->setSize($file->getSize());
-            $fileEntity->setPath($file->getPathname());
-
-            $fileStream = $this->createStreamForPath($file->getPathname());
-            $fileEntity->setUrl($fileStream->getExternalUrl());
+            $fileEntity->setName($newFile->getName());
+            $fileEntity->setFilename($newFile->getName());
+            $fileEntity->setSize($newFile->getSize());
+            $fileEntity->setPath($this->getScheme() . $newFile->getKey());
+            $fileEntity->setUrl($filesystem->resolve($newFile->getName()));
 
             $this->objectManager->persist($fileEntity);
             $this->objectManager->flush($fileEntity);

@@ -1,11 +1,9 @@
 imports:
   - { resource: services/field_file.yml }
   - { resource: services/field_image.yml }
-  - { resource: services/image_style.yml }
 
 parameters:
-  gravity.file_manager.class:    Gravity\FileBundle\File\FileManager
-  gravity.stream_wrapper_manager.class: Gravity\FileBundle\File\StreamWrapper\StreamWrapperManager
+  gravity.file_manager.class: Gravity\FileBundle\File\FileManager
 
 services:
 
@@ -16,28 +14,14 @@ services:
     arguments:
       - @gravity_cms.config_manager
       - @doctrine.orm.default_entity_manager
-      - @gravity.stream_wrapper_manager
-
-  #
-  # Stream Wrapping
-  gravity.stream_wrapper_manager:
-    class: %gravity.stream_wrapper_manager.class%
-
-
-  gravity.stream_wrapper.public:
-    class: Gravity\FileBundle\File\StreamWrapper\Local\PublicStreamWrapper
-    calls:
-      - ['setDirPaths', [%kernel.root_dir%/../web/files, /files]]
-    tags:
-      - { name: gravity.stream_wrapper }
-
+      - @knp_gaufrette.filesystem_map
 
   #
   # Forms
   gravity.file.form.file_configuration:
     class: Gravity\FileBundle\Configuration\FileConfigurationForm
     arguments:
-      - @gravity.stream_wrapper_manager
+      - @knp_gaufrette.filesystem_map
     tags:
       - { name: form.type, alias: file_configuration }
 
@@ -60,3 +44,17 @@ services:
     class: Gravity\FileBundle\Form\Type\FileCollectionType
     tags:
       - { name: form.type, alias: file_collection }
+
+
+  #
+  # Liip imagine stream cache respolver:
+  liip.cache.resolver.stream_cache:
+    class: Gravity\FileBundle\Liip\Imagine\Cache\Resolver\StreamCacheResolver
+    arguments:
+      - @filesystem
+      - @router.request_context
+      - @knp_gaufrette.filesystem_map
+      - %gravity_default_filesystem%
+      - styles/
+    tags:
+      - { name: liip_imagine.cache.resolver, resolver: stream }

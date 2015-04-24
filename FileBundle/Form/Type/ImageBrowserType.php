@@ -3,7 +3,6 @@
 namespace Gravity\FileBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -16,18 +15,21 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  */
 class ImageBrowserType extends AbstractType
 {
-
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver
-            ->setDefaults([
-                'mime_types' => ['image/*'],
-            ]);
+            ->setRequired('image_style')
+            ->setDefaults(
+                [
+                    'mime_types' => ['image/*'],
+                ]
+            );
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        $view->vars['mime_types'] = $options['mime_types'];
+        $view->vars['image_style'] = $options['image_style'];
+        $view->vars['mime_types']  = $options['mime_types'];
     }
 
     /**

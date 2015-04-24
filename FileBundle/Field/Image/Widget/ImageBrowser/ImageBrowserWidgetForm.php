@@ -3,7 +3,8 @@
 
 namespace Gravity\FileBundle\Field\Image\Widget\ImageBrowser;
 
-use Gravity\FileBundle\Field\File\Configuration\FileFieldConfiguration;
+use Gravity\FileBundle\Field\Image\Configuration\ImageFieldConfiguration;
+use Gravity\FileBundle\Field\Image\Widget\ImageBrowser\Configuration\ImageBrowserWidgetConfiguration;
 use GravityCMS\CoreBundle\Entity\Field;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -13,7 +14,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  * Class ImageBrowserWidgetForm
  *
  * @package Gravity\FileBundle\Field\Image\Widget\ImageBrowser
- * @author Andy Thorne <contrabandvr@gmail.com>
+ * @author  Andy Thorne <contrabandvr@gmail.com>
  */
 class ImageBrowserWidgetForm extends AbstractType
 {
@@ -23,17 +24,25 @@ class ImageBrowserWidgetForm extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        /** @var FileFieldConfiguration $configuration */
+        /** @var ImageFieldConfiguration $configuration */
         /** @var Field $field */
         $field         = $options['field'];
         $configuration = $field->getConfig();
         $limit         = $configuration->getLimit();
 
+        /** @var ImageBrowserWidgetConfiguration $widgetConfig */
+        $widgetConfig = $field->getWidget()->getConfig();
+
         $builder
-            ->add('file', 'image_browser', [
-                'label'      => $limit == 1 ? null : $field->getLabel(),
-                'mime_types' => ['image/*'],
-            ])
+            ->add(
+                'file',
+                'image_browser',
+                [
+                    'label'       => $limit == 1 ? null : $field->getLabel(),
+                    'mime_types'  => ['image/*'],
+                    'image_style' => $widgetConfig->getImageStyle(),
+                ]
+            )
             ->add('alt', 'text')
             ->add('title', 'text');
     }

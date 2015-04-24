@@ -21,17 +21,6 @@ class GravityFileBundle extends GravityBundle
      */
     public function build(ContainerBuilder $container)
     {
-        $container->addCompilerPass(new Compilers\FileCompilerPass());
-        $container->addCompilerPass(new Compilers\StreamWrapperCompilerPass());
-        $container->addCompilerPass(new Compilers\ImageStyleCompilerPass());
-    }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function boot()
-    {
-        $streamWrapperManager = $this->container->get('gravity.stream_wrapper_manager');
-        $streamWrapperManager->register();
     }
 }

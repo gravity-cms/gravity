@@ -16,7 +16,7 @@ class FileConfiguration extends AbstractConfiguration
     /**
      * @var string
      */
-    protected $defaultStreamWrapperScheme;
+    protected $defaultFilesystem;
 
     /**
      * @var string[]
@@ -52,17 +52,17 @@ class FileConfiguration extends AbstractConfiguration
     /**
      * @return string
      */
-    public function getDefaultStreamWrapperScheme()
+    public function getDefaultFilesystem()
     {
-        return $this->defaultStreamWrapperScheme;
+        return $this->defaultFilesystem;
     }
 
     /**
-     * @param string $defaultStreamWrapperScheme
+     * @param string $defaultFilesystem
      */
-    public function setDefaultStreamWrapperScheme($defaultStreamWrapperScheme)
+    public function setDefaultFilesystem($defaultFilesystem)
     {
-        $this->defaultStreamWrapperScheme = $defaultStreamWrapperScheme;
+        $this->defaultFilesystem = $defaultFilesystem;
     }
 
     /**

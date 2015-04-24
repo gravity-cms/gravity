@@ -3,8 +3,7 @@
 
 namespace Gravity\FileBundle\Field\Image\Widget\ImageBrowser\Configuration;
 
-use Doctrine\ORM\EntityManager;
-use Gravity\FileBundle\ImageStyler\ImageStyleManager;
+use Liip\ImagineBundle\Imagine\Filter\FilterConfiguration;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -13,24 +12,21 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  * Class ImageBrowserWidgetConfigurationForm
  *
  * @package Gravity\FileBundle\Field\Image\Widget\ImageBrowser\Configuration
- * @author Andy Thorne <contrabandvr@gmail.com>
+ * @author  Andy Thorne <contrabandvr@gmail.com>
  */
 class ImageBrowserWidgetConfigurationForm extends AbstractType
 {
     /**
-     * @var EntityManager
+     * @var FilterConfiguration
      */
-    protected $imageStyleManager;
+    protected $filterConfiguration;
 
-    protected $imageStyleOptions = [];
-
-    function __construct(ImageStyleManager $imageStyleManager)
+    function __construct(FilterConfiguration $filterConfiguration)
     {
-        $this->imageStyleManager = $imageStyleManager;
+        $this->filterConfiguration = $filterConfiguration;
 
-        foreach($imageStyleManager->getImageStyles() as $imageStyle)
-        {
-            $this->imageStyleOptions[$imageStyle->getName()] = ucfirst($imageStyle->getName());
+        foreach ($filterConfiguration->all() as $name => $filter) {
+            $this->imageStyleOptions[$name] = ucfirst($name);
         }
     }
 
@@ -41,9 +37,13 @@ class ImageBrowserWidgetConfigurationForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('imageStyle', 'choice', [
-                'choices' => $this->imageStyleOptions
-            ]);
+            ->add(
+                'imageStyle',
+                'choice',
+                [
+                    'choices' => $this->imageStyleOptions
+                ]
+            );
     }
 
     /**
@@ -51,9 +51,11 @@ class ImageBrowserWidgetConfigurationForm extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults([
-            'data_type' => 'Gravity\FileBundle\Entity\FieldImage'
-        ]);
+        $resolver->setDefaults(
+            [
+                'data_type' => 'Gravity\FileBundle\Entity\FieldImage'
+            ]
+        );
     }
 
     /**

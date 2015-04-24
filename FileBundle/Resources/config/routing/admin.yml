@@ -31,11 +31,3 @@ file_edit:
 file_upload:
   path: /file/upload
   defaults: { _controller: GravityFileBundle:File:upload }
-
-image_style_list:
-  path: /file/image-styles
-  defaults: { _controller: GravityFileBundle:ImageStyle:list }
-
-image_style_view:
-  path: /file/image-styles/{name}
-  defaults: { _controller: GravityFileBundle:ImageStyle:view }
