@@ -50,7 +50,7 @@
                                     <li><a href="{{ url('gravity_admin_content_type_edit', {type: contentType.name}) }}">Edit</a></li>
                                     <li><a href="{{ url('gravity_admin_content_type_edit', {type: contentType.name}) }}">View</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="{{ url('gravity_api_delete_type', {id: contentType.id}) }}" class="content-type-delete text-danger"><i class="fa-trash-o"></i> Delete</a></li>
+                                    <li><a href="{{ url('gravity_api_delete_type', {contentType: contentType.id}) }}" class="content-type-delete text-danger"><i class="fa-trash-o"></i> Delete</a></li>
                                 </ul>
                             </div>
                         </td>
