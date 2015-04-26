@@ -22,9 +22,14 @@ class GravityFileExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $container->setParameter('gravity_file.styles', $config['styles']);
-
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
+
+        $fileManager = $container->findDefinition('gravity.file_manager');
+
+        $fileManager->replaceArgument(0, $config['filesystem']);
+        $fileManager->addMethodCall('setAllowedFileExtensions', [
+            $config['extensions'],
+        ]);
     }
 }

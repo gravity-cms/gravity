@@ -3,9 +3,7 @@
 namespace Gravity\FileBundle\File;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Gaufrette\Filesystem;
 use GaufretteExtras\ResolvableFilesystem;
-use Gravity\FileBundle\Configuration\FileConfiguration;
 use Gravity\FileBundle\Entity\File;
 use Gravity\FileBundle\File\Exception\FileUploadException;
 use Gravity\FileBundle\File\Exception\FileUploadExtensionDeniedException;
@@ -29,11 +27,6 @@ class FileManager
     protected $configurationManager;
 
     /**
-     * @var FileConfiguration
-     */
-    protected $config;
-
-    /**
      * @var ObjectManager
      */
     protected $objectManager;
@@ -43,23 +36,45 @@ class FileManager
      */
     protected $fileSystem;
 
+    /**
+     * @var string
+     */
+    protected $defaultFilesystem;
+
+    /**
+     * @var array
+     */
+    protected $allowedFileExtensions;
+
+    /**
+     * @param string        $defaultFilesystem
+     * @param ObjectManager $objectManager
+     * @param FilesystemMap $filesystemMap
+     */
     function __construct(
-        ConfigurationManager $configurationManager,
+        $defaultFilesystem,
         ObjectManager $objectManager,
         FilesystemMap $filesystemMap
     ) {
-        $this->configurationManager = $configurationManager;
-        $this->config               = $configurationManager->get('file:settings');
-        $this->objectManager        = $objectManager;
-        $this->fileSystem           = $filesystemMap->get($this->config->getDefaultFilesystem());
+        $this->defaultFilesystem = $defaultFilesystem;
+        $this->objectManager     = $objectManager;
+        $this->fileSystem        = $filesystemMap->get($defaultFilesystem);
     }
 
     /**
-     * @return FileConfiguration
+     * @return array
      */
-    public function getConfig()
+    public function getAllowedFileExtensions()
     {
-        return $this->config;
+        return $this->allowedFileExtensions;
+    }
+
+    /**
+     * @param array $allowedFileExtensions
+     */
+    public function setAllowedFileExtensions(array $allowedFileExtensions)
+    {
+        $this->allowedFileExtensions = $allowedFileExtensions;
     }
 
     /**
@@ -72,25 +87,21 @@ class FileManager
 
     public function getScheme()
     {
-        return 'gravity://' . $this->config->getDefaultFilesystem() . '/';
+        return 'gravity://' . $this->defaultFilesystem . '/';
     }
 
     /**
      * Handle a file upload
      *
      * @param SymfonyFile|UploadedFile $file
-     * @param Filesystem               $filesystem If left null, default filesystem is used
      *
      * @return File
      * @throws FileUploadException
      * @throws FileUploadFailedException
      */
-    public function upload(SymfonyFile $file, Filesystem $filesystem = null)
+    public function upload(SymfonyFile $file)
     {
         if ($file->isValid()) {
-            if (!$filesystem instanceof Filesystem) {
-                $filesystem = $this->fileSystem;
-            }
 
             if ($file instanceof UploadedFile) {
                 $extension = $file->getClientOriginalExtension();
@@ -120,12 +131,12 @@ class FileManager
                     }
                 }
 
-                $filesystem->write(
+                $this->fileSystem->write(
                     $name,
                     file_get_contents($file->getPathname())
                 );
 
-                $newFile = $filesystem->get($name);
+                $newFile = $this->fileSystem->get($name);
             } else {
                 throw new FileUploadExtensionDeniedException();
             }
@@ -139,8 +150,9 @@ class FileManager
             $fileEntity->setName($newFile->getName());
             $fileEntity->setFilename($newFile->getName());
             $fileEntity->setSize($newFile->getSize());
-            $fileEntity->setPath($this->getScheme() . $newFile->getKey());
-            $fileEntity->setUrl($filesystem->resolve($newFile->getName()));
+            $fileEntity->setPath('/' . $newFile->getKey());
+            $fileEntity->setFilesystem($this->config->getDefaultFilesystem());
+            $fileEntity->setUrl($this->fileSystem->resolve($newFile->getName()));
 
             $this->objectManager->persist($fileEntity);
             $this->objectManager->flush($fileEntity);

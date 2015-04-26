@@ -214,6 +214,11 @@ class File
         $this->path = $path;
     }
 
+    public function getSchemeFilename()
+    {
+        return 'gravity://' . $this->filesystem . $this->path;
+    }
+
     /**
      * @return string
      */

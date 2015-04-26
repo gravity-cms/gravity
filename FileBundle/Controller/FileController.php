@@ -23,38 +23,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class FileController extends Controller
 {
 
-    public function settingsAction()
-    {
-        $configManager = $this->get('gravity_cms.config_manager');
-
-        try {
-            $config = $configManager->get('file:settings');
-        }
-        catch (ConfigurationNotFoundException $e) {
-            $config = new FileConfiguration();
-            $configManager->create($config);
-        }
-
-        $form = $configManager->getForm(
-            $config,
-            [
-                'method' => 'PUT',
-                'action' => $this->generateUrl('gravity_api_put_file_settings'),
-                'attr'   => [
-                    'class' => 'api-save'
-                ],
-            ]
-        );
-
-        return $this->render(
-            'GravityFileBundle:Admin:settings.html.twig',
-            [
-                'form'   => $form->createView(),
-                'config' => $config,
-            ]
-        );
-    }
-
     /**
      * List all file items
      *
@@ -75,6 +43,7 @@ class FileController extends Controller
         return $this->render(
             'GravityFileBundle:Admin:list.html.twig',
             [
+                'mime_types' => '*/*',
                 'form' => $form->createView(),
             ]
         );

@@ -12,9 +12,16 @@ services:
   gravity.file_manager:
     class: %gravity.file_manager.class%
     arguments:
-      - @gravity_cms.config_manager
+      - ~
       - @doctrine.orm.default_entity_manager
       - @knp_gaufrette.filesystem_map
+
+  #
+  # Entity Services
+  gravity.entity_service.file:
+    class: Gravity\FileBundle\Entity\Service\FileEntityService
+    arguments:
+      - @doctrine.orm.default_entity_manager
 
   #
   # Forms

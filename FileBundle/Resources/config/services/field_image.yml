@@ -32,3 +32,12 @@ services:
     class: Gravity\FileBundle\Field\Image\Display\Image\ImageDisplay
     tags:
       - { name: gravity.field.display }
+
+
+  gravity.file.serializer.image_style:
+    class: Gravity\FileBundle\Image\Serializer\ImageStyleSerializerEventSubscriber
+    arguments:
+      - @liip_imagine.filter.configuration
+      - @liip_imagine.cache.manager
+    tags:
+      - { name: jms_serializer.event_subscriber, direction: serialization }

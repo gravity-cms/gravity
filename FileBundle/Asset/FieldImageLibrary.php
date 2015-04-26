@@ -6,6 +6,9 @@ use GravityCMS\Component\Asset\AbstractAssetLibrary;
 
 class FieldImageLibrary extends AbstractAssetLibrary
 {
+    /**
+     * {@inheritdoc}
+     */
     public function getJavascripts()
     {
         return [
@@ -13,4 +16,13 @@ class FieldImageLibrary extends AbstractAssetLibrary
         ];
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function getStylesheets()
+    {
+        return [
+            '@GravityFileBundle/sass/fields/image.scss',
+        ];
+    }
 }

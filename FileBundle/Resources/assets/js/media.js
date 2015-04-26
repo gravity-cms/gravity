@@ -21,7 +21,7 @@ define(['jquery', 'jqueryui', 'bootstrap', 'dropzone', 'typeahead', 'cms_api', '
             var dz = mDz.dropzone($dropzone, {
                 max: 0
             });
-
+ 
             dz.on('success', function(file, response) {
                 if($form.data('category-id')){
                     $form.find('.file-form-category').val($form.data('category-id'));

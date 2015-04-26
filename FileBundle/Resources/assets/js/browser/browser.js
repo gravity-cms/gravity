@@ -53,7 +53,7 @@ define(['jquery', 'angular', 'cms/file/form/dropzone', 'cms/core/api'], function
                     '               <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2 browser-library-item" ng-repeat="file in files">' +
                     '                   <input type="checkbox" value="{{ file.id }}" ng-model="selected[file.id]" id="file-check-{{ file.id }}" name="files[]" ng-src="{{ file.url }}" ng-change="selectFile(file)" >' +
                     '                   <label class="thumbnail" for="file-check-{{ file.id }}">' +
-                    '                       <img ng-src="{{ file.url }}" >' +
+                    '                       <img ng-src="{{ file.styles.thumbnail }}" >' +
                     '                       <div class="caption">' +
                     '                           <h4>{{ file.name }}</h4>' +
                     '                       </div>' +

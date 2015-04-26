@@ -46,14 +46,14 @@ class FieldImage extends FieldData
     }
 
     /**
-     * @param File[] $file
+     * @param File $file
      */
-    public function setFile($file)
+    public function setFile(File $file)
     {
         $this->file = $file;
 
         // calculate height and width
-        list($width, $height) = getimagesize($file);
+        list($width, $height) = getimagesize($file->getSchemeFilename());
         $this->width  = $width;
         $this->height = $height;
     }
