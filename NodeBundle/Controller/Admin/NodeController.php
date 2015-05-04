@@ -68,6 +68,7 @@ class NodeController extends Controller
             'attr'   => array(
                 'class' => 'api-save'
             ),
+            'csrf_protection' => false,
             'method' => 'POST',
             'action' => $this->generateUrl('gravity_api_post_node_type', array(
                     'contentType' => $contentType->getId()
