@@ -56,7 +56,7 @@ class TagSelectWidget extends AbstractWidget
      */
     public function supportsField(FieldInterface $field)
     {
-        return ($field->getName() === 'field.type.tag');
+        return ($field->getName() === 'tag');
     }
 
 }

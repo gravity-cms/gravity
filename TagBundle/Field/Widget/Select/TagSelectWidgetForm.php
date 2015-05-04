@@ -8,6 +8,8 @@ use Gravity\TagBundle\Field\Configuration\FieldTagConfiguration;
 use GravityCMS\CoreBundle\Entity\Field;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
@@ -44,23 +46,20 @@ class TagSelectWidgetForm extends AbstractType
         $rootTag       = $configuration->getTag();
 
         $builder
-            ->add('tags', 'collection', [
-                'type'    => 'entity',
-                'options' => [
-                    'class'         => 'Gravity\TagBundle\Entity\Tag',
-                    'query_builder' => function (EntityRepository $er) use ($rootTag) {
-                        return $er->createQueryBuilder('u')
-                            ->where('u.parentTag = :tag')
-                            ->orderBy('u.name', 'ASC')
-                            ->setParameter('tag', $rootTag);
-                    },
-                    'multiple'      => $configuration->isMultiple(),
-                    'property'      => 'name',
-                    'empty_value'   => '',
-                    'empty_data'    => null,
-                    'required'      => true,
-                    'label'         => false,
-                ],
+            ->add('tags', 'entity', [
+                'class'         => 'Gravity\TagBundle\Entity\Tag',
+                'query_builder' => function (EntityRepository $er) use ($rootTag) {
+                    return $er->createQueryBuilder('u')
+                        ->where('u.parentTag = :tag')
+                        ->orderBy('u.name', 'ASC')
+                        ->setParameter('tag', $rootTag);
+                },
+                'multiple'      => $configuration->isMultiple(),
+                'property'      => 'name',
+                'empty_value'   => '',
+                'empty_data'    => null,
+                'required'      => true,
+                'label'         => null
             ]);
     }
 
