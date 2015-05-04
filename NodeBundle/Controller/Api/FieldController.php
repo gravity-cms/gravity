@@ -2,6 +2,7 @@
 
 namespace Gravity\NodeBundle\Controller\Api;
 
+use Doctrine\ORM\EntityManager;
 use FOS\RestBundle\Controller\Annotations as FOSRest;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use Gravity\NodeBundle\Entity\ContentType;
@@ -98,15 +99,17 @@ class FieldController extends Controller implements ClassResourceInterface
      */
     public function deleteAction(ContentType $contentType, Field $field)
     {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        $contentType->removeField($field);
+        $em->persist($contentType);
+
         $success = $this->deleteEntity(
             $this->get('gravity.entity_service.field'),
             $field
         );
 
         if($success){
-            $em = $this->getDoctrine()->getManager();
-            $contentType->removeField($field);
-            $em->persist($contentType);
             $em->flush();
         }
 
