@@ -24,7 +24,6 @@ class FileBrowserType extends AbstractType
                 'mime_types' => 'array',
             ])
             ->setDefaults([
-                'label' => null,
                 'class' => 'Gravity\FileBundle\Entity\File',
             ]);
     }

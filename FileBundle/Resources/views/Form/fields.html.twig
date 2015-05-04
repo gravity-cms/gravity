@@ -51,9 +51,9 @@
 
 {% block image_browser_widget %}
     <div class="file-browser-widget">
-        <button type="button" class="btn btn-default launch-file-browser-button"
-                data-preview-style="{{ image_style }}"
-                data-browser="{{ include('GravityFileBundle:Form:file-browser-modal.html.twig', {mime_types: form.vars.mime_types})|e('html_attr') }}">
+        {{ include('GravityFileBundle:Form:file-browser-modal.html.twig', {mime_types: form.vars.mime_types, title: 'Image Browser'}) }}
+        <button type="button" class="btn btn-default launch-image-browser-button"
+                data-preview-style="{{ image_style }}">
             Add File
         </button>
 
@@ -90,8 +90,8 @@
 
 {% block file_collection_widget %}
     <div class="file-collection-widget">
+        {{ include('GravityFileBundle:Form:file-browser-modal.html.twig', {mime_types: form.vars.mime_types, title: 'File Browser'}) }}
         <button type="button" class="btn btn-default launch-file-browser-button"
-            data-browser="{{ include('GravityFileBundle:Form:file-browser-modal.html.twig', {mime_types: form.vars.mime_types})|e('html_attr') }}"
             data-prototype="{{ _self.file_collection_widget_row(form.vars.prototype)|e('html_attr') }}">
             Add Files
         </button>

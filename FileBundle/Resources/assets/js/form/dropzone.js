@@ -39,10 +39,10 @@
                 options = $.extend(true, {
                     maxFiles: null,
                     url: $dropzone.data('url'),
-                    template: $dropzone.data('prototype')
+                    template: $dropzone.data('prototype'),
+                    count: $dropzone.data('count')
                 }, options);
 
-                var formCount = parseInt($dropzone.data('count'));
                 var dz = new Dropzone($dropzone[0], {
                     url: options.url,
                     maxFiles: options.maxFiles,

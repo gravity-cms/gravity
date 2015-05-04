@@ -38,7 +38,7 @@ class ImageBrowserWidgetForm extends AbstractType
                 'file',
                 'image_browser',
                 [
-                    'label'       => $limit == 1 ? null : $field->getLabel(),
+//                    'label'       => $limit == 1 ? null : $field->getLabel(),
                     'mime_types'  => ['image/*'],
                     'image_style' => $widgetConfig->getImageStyle(),
                 ]

@@ -7,12 +7,12 @@ define(['jquery', 'jqueryui', 'bootbox', 'cms/node/node/form', 'cms/file/browser
             var $field = $(this),
                 $launchButton = $field.find('.launch-file-browser-button'),
                 $fieldContainer = $field.find('.file-items'),
+                box = $field.find('.file-browser-modal'),
+                $browser = $field.find('.file-browser'),
                 fileTemplate = $launchButton.data('prototype'),
-                browserTemplate = $launchButton.data('browser'),
                 fieldCount = $fieldContainer.children().length;
 
-            var box = $(browserTemplate);
-            var browser = browserFactory.create(box);
+            var browser = browserFactory.create($browser, $browser.data());
 
             browser.addListener(browserFactory.EVENTS.SELECT, function (data) {
                 for (var i in data) {
@@ -28,11 +28,10 @@ define(['jquery', 'jqueryui', 'bootbox', 'cms/node/node/form', 'cms/file/browser
                 box.modal('hide');
             });
 
-            box.modal({
-                show: false
-            });
             $field.find('.launch-file-browser-button').on('click', function () {
-                box.modal('show');
+                box.modal({
+                    show: true
+                });
             });
 
             $fieldContainer.on('click', '.file-item-remove', function () {

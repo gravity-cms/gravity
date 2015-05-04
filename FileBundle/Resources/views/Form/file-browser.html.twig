@@ -1,6 +1,7 @@
 {% macro fileItem() %}
     <div class="file-browser-item">
         <img class="file-img" src="">
+
         <div class="file-name"></div>
     </div>
 {% endmacro %}
@@ -17,6 +18,7 @@
                     <div class="dz-thumbnail">
                         <img data-dz-thumbnail>
                         <span class="dz-nopreview">No preview</span>
+
                         <div class="dz-error-mark"><i class="fa fa-times-circle-o"></i></div>
                         <div class="dz-error-message"><span data-dz-errormessage></span></div>
                     </div>
@@ -26,7 +28,7 @@
                 <div class="progress-bar progress-bar-success" data-dz-uploadprogress></div>
             </div>
             <div class="file-form-container file-fields">
-                <input type="text" placeholder="Name" class="form-control media-textarea" >
+                <input type="text" placeholder="Name" class="form-control media-textarea">
                 {#{{ form_widget(form.name, {attr: {placeholder: 'Title', class: 'media-textarea', 'data-field-name': form.name.vars.full_name|replace({'__name__': '__delta__'}) } }) }}#}
                 {#{{ form_widget(form.description, {attr: {placeholder: 'Description', class: 'media-textarea', 'data-field-name': form.description.vars.full_name|replace({'__name__': '__delta__'}) } }) }}#}
                 {#{{ form_widget(form.filename, {attr: {'data-field-name': form.filename.vars.full_name|replace({'__name__': '__delta__'})} }) }}#}
@@ -39,19 +41,60 @@
     {% endspaceless %}
 {% endmacro %}
 
-{% macro libraryItem() %}
+{% macro libraryItem(file) %}
+    {% set randId = random() %}
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2 browser-library-item">
+        <input type="checkbox" value="{% if file %}{{ file.id }}{% else %}__file_id__{% endif %}"
+               class="browser-library-item-input"
+               name="files[]" id="file-check-{{ randId }}-{% if file %}{{ file.id }}{% else %}__file_id__{% endif %}">
+        <label class="thumbnail" for="file-check-{{ randId }}-{% if file %}{{ file.id }}{% else %}__file_id__{% endif %}">
+            <img src="{% if file %}{{ file.styles.thumbnail }}{% else %}__file_thumbnail__{% endif %}">
+
+            <div class="caption">
+                <h6>{% if file %}{{ file.name }}{% else %}__file_name__{% endif %}</h6>
+            </div>
+            <i class="file-selected fa fa-check"></i>
+        </label>
+    </div>
 {% endmacro %}
 
 {% set randId = random() %}
 
 {% stylesheets
-    filter="compass" output="cms/file/css/file.css"
-    "@GravityFileBundle/Resources/assets/sass/file.scss"
-    %}
-<link rel="stylesheet" href="{{ asset_url }}" />
+filter="compass" output="cms/file/css/file.css"
+"@GravityFileBundle/Resources/assets/sass/file.scss" %}
+<link rel="stylesheet" href="{{ asset_url }}"/>
 {% endstylesheets %}
-<div class="file-browser">
-    <div ng-file-browser upload-url="{{ path('gravity_admin_file_upload') }}"
-        files-url="{{ path('gravity_api_get_files') }}"
-            mime-types="{{ mime_types|join(',') }}"></div>
+
+<div class="file-browser" data-upload-url="{{ path('gravity_admin_file_upload') }}"
+     data-files-url="{{ path('gravity_api_get_files') }}"
+     data-mime-types="{{ mime_types|join(',') }}">
+    <div class="file-browser-header">
+        <ul class="nav nav-tabs">
+            <li>
+                <a href="#browser-upload-{{ randId }}" data-toggle="tab">Upload</a>
+            </li>
+            <li>
+                <a href="#browser-library-{{ randId }}" data-toggle="tab">Library</a>
+            </li>
+        </ul>
+    </div>
+    <div class="tab-content">
+        <div class="tab-pane fade" id="browser-upload-{{ randId }}">
+            <div class="dropzone dropzone-box">
+                <!-- dropzone -->
+            </div>
+        </div>
+        <div class="tab-pane fade" id="browser-library-{{ randId }}">
+            <div class="browser-library-header clearfix">
+                <div class="pull-right">
+                    <button type="button" class="btn btn-primary browser-select-files-button">
+                        <i class="fa fa-check"></i> Select
+                    </button>
+                </div>
+            </div>
+            <div class="browser-library-items" data-prototype="{{ _self.libraryItem()|e('html_attr') }}">
+            </div>
+        </div>
+    </div>
 </div>

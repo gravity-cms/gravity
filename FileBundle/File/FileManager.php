@@ -112,7 +112,7 @@ class FileManager
             }
 
             $fileMime          = $file->getMimeType();
-            $allowedExtensions = $this->getConfig()->getAllowedExtensions();
+            $allowedExtensions = $this->allowedFileExtensions;
             if (in_array(strtolower($extension), $allowedExtensions)) {
                 $baseFileName  = str_replace(' ', '_', pathinfo($name, PATHINFO_FILENAME));
                 $baseFilePath  = $this->getScheme();
@@ -151,7 +151,7 @@ class FileManager
             $fileEntity->setFilename($newFile->getName());
             $fileEntity->setSize($newFile->getSize());
             $fileEntity->setPath('/' . $newFile->getKey());
-            $fileEntity->setFilesystem($this->config->getDefaultFilesystem());
+            $fileEntity->setFilesystem($this->defaultFilesystem);
             $fileEntity->setUrl($this->fileSystem->resolve($newFile->getName()));
 
             $this->objectManager->persist($fileEntity);

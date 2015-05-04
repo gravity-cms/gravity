@@ -4,13 +4,15 @@ define(['jquery', 'jqueryui', 'bootbox', 'cms/node/node/form', 'cms/file/browser
 
         $scope.find('.file-browser-widget').each(function(){
             var $field = $(this),
-                $launchButton = $field.find('.launch-file-browser-button'),
+                $launchButton = $field.find('.launch-image-browser-button'),
                 previewStyle = $launchButton.data('preview-style'),
-                browserTemplate = $launchButton.data('browser'),
+                box = $field.find('.file-browser-modal'),
+                $browser = $field.find('.file-browser'),
                 $entityInput = $field.find('input[type="hidden"]');
 
-            var box = $(browserTemplate);
-            var browser = browserFactory.create(box);
+
+            var browser = browserFactory.create($browser, $browser.data());
+
             browser.addListener(browserFactory.EVENTS.SELECT, function(data){
                 for(var i in data){
                     $entityInput.val(data[i].id);
@@ -20,11 +22,11 @@ define(['jquery', 'jqueryui', 'bootbox', 'cms/node/node/form', 'cms/file/browser
                 box.modal('hide');
             });
 
-            box.modal({
-                show: false
-            });
-            $scope.find('.launch-file-browser-button').on('click', function(){
-                box.modal('show');
+
+            $launchButton.on('click', function(){
+                box.modal({
+                    show: true
+                });
             });
 
             //$fieldContainer.on('click', '.file-item-remove', function(){
