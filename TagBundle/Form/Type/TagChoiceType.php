@@ -21,16 +21,9 @@ class TagChoiceType extends AbstractType
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        /** @var Tag[] $options */
-        $options = $this->em->getRepository('GravityTagBundle:Tag')->findAllRootTags();
-
-        $entityOptions = $this->getChildTags($options);
-
         $resolver
             ->setDefaults([
                 'class'    => 'Gravity\TagBundle\Entity\Tag',
-                'root_tag' => null,
-                //'choices' => $entityOptions,
                 'property' => 'name',
             ]);
     }
