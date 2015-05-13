@@ -3,16 +3,15 @@
 
 namespace Gravity\FileBundle\Field\Image\Widget\ImageBrowser\Configuration;
 
-use GravityCMS\Component\Configuration\AbstractConfiguration;
-use GravityCMS\Component\Field\Widget\WidgetSettingsInterface;
+use GravityCMS\Component\Field\Widget\AbstractWidgetConfiguration;
 
 /**
  * Class ImageBrowserWidgetConfiguration
  *
  * @package Gravity\FileBundle\Field\Image\Widget\ImageBrowser\Configuration
- * @author Andy Thorne <contrabandvr@gmail.com>
+ * @author  Andy Thorne <contrabandvr@gmail.com>
  */
-class ImageBrowserWidgetConfiguration extends AbstractConfiguration implements WidgetSettingsInterface
+class ImageBrowserWidgetConfiguration extends AbstractWidgetConfiguration
 {
     /**
      * @var string

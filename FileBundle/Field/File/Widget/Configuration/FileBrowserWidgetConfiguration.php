@@ -2,8 +2,7 @@
 
 namespace Gravity\FileBundle\Field\File\Widget\Configuration;
 
-use GravityCMS\Component\Configuration\AbstractConfiguration;
-use GravityCMS\Component\Field\Widget\WidgetSettingsInterface;
+use GravityCMS\Component\Field\Widget\AbstractWidgetConfiguration;
 
 /**
  * Class FileBrowserWidgetConfiguration
@@ -11,7 +10,7 @@ use GravityCMS\Component\Field\Widget\WidgetSettingsInterface;
  * @package Gravity\TagBundle\Field\File\Widget\Configuration
  * @author  Andy Thorne <contrabandvr@gmail.com>
  */
-class FileBrowserWidgetConfiguration extends AbstractConfiguration implements WidgetSettingsInterface
+class FileBrowserWidgetConfiguration extends AbstractWidgetConfiguration
 {
     /**
      * Get the type of the config
