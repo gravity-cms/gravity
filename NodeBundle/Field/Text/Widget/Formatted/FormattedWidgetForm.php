@@ -1,6 +1,6 @@
 <?php
 
-namespace Gravity\NodeBundle\Field\Text\Widget;
+namespace Gravity\NodeBundle\Field\Text\Widget\Formatted;
 
 use GravityCMS\CoreBundle\Entity\Field;
 use Symfony\Component\Form\AbstractType;
@@ -8,12 +8,12 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * Class TextFieldWidgetForm
+ * Class FormattedWidgetForm
  *
  * @package Gravity\NodeBundle\Field\Text\Widget\Form
  * @author  Andy Thorne <contrabandvr@gmail.com>
  */
-class TextFieldWidgetForm extends AbstractType
+class FormattedWidgetForm extends AbstractType
 {
     /**
      * {@inheritdoc}

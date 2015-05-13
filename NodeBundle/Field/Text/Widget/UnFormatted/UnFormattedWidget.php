@@ -1,27 +1,28 @@
 <?php
 
-namespace Gravity\NodeBundle\Field\Text\Widget;
+namespace Gravity\NodeBundle\Field\Text\Widget\UnFormatted;
 
-use Gravity\NodeBundle\Field\Text\Asset\TextFieldWidgetLibrary;
-use Gravity\NodeBundle\Field\Text\Widget\Configuration\TextFieldWidgetConfiguration;
+use Gravity\NodeBundle\Entity\FieldText;
+use Gravity\NodeBundle\Field\Text\Widget\UnFormatted\Asset\UnFormattedWidgetLibrary;
+use Gravity\NodeBundle\Field\Text\Widget\UnFormatted\Configuration\UnFormattedWidgetConfiguration;
 use GravityCMS\Component\Field\FieldInterface;
 use GravityCMS\Component\Field\Widget\AbstractWidget;
 use GravityCMS\Component\Field\Widget\WidgetSettingsInterface;
 
 /**
- * Class TextFieldWidget
+ * Class UnFormattedWidget
  *
  * @package Gravity\NodeBundle\Field\Text\Widget
  * @author  Andy Thorne <contrabandvr@gmail.com>
  */
-class TextFieldWidget extends AbstractWidget
+class UnFormattedWidget extends AbstractWidget
 {
     /**
      * {@inheritdoc}
      */
     public function getName()
     {
-        return 'field.type.text.widget.editor';
+        return 'text.unformatted';
     }
 
     /**
@@ -29,7 +30,7 @@ class TextFieldWidget extends AbstractWidget
      */
     public function getLabel()
     {
-        return 'Text Editor';
+        return 'UnFormatted Text Editor';
     }
 
     /**
@@ -37,7 +38,7 @@ class TextFieldWidget extends AbstractWidget
      */
     public function getDescription()
     {
-        return 'WYSIWYG editor for text field';
+        return 'Unformatted text box';
     }
 
     /**
@@ -45,12 +46,12 @@ class TextFieldWidget extends AbstractWidget
      */
     protected function getDefaultSettings()
     {
-        return new TextFieldWidgetConfiguration();
+        return new UnFormattedWidgetConfiguration();
     }
 
     public function getForm()
     {
-        return new TextFieldWidgetForm();
+        return new UnFormattedWidgetForm();
     }
 
     public function getEntityClass()
@@ -61,7 +62,7 @@ class TextFieldWidget extends AbstractWidget
     public function getAssetLibraries()
     {
         return [
-            new TextFieldWidgetLibrary(),
+            new UnFormattedWidgetLibrary(),
         ];
     }
 
@@ -77,4 +78,12 @@ class TextFieldWidget extends AbstractWidget
         return ($field->getName() === 'text');
     }
 
+    /**
+     * @param FieldText                  $entity
+     * @param WidgetSettingsInterface $configuration
+     */
+    public function setDefaults($entity, WidgetSettingsInterface $configuration)
+    {
+        $entity->setBody($configuration->getDefault());
+    }
 }

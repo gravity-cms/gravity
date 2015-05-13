@@ -2,12 +2,12 @@
 
 namespace Gravity\NodeBundle\Field\Text;
 
+use Gravity\NodeBundle\Field\Text\Widget\Formatted\FormattedWidget;
 use GravityCMS\Component\Field\AbstractField;
 use GravityCMS\Component\Field\Display\DisplayInterface;
 use GravityCMS\Component\Field\Widget\WidgetInterface;
 use Gravity\NodeBundle\Field\Text\Configuration\TextFieldConfiguration;
 use Gravity\NodeBundle\Field\Text\Display\TextFieldDisplay;
-use Gravity\NodeBundle\Field\Text\Widget\TextFieldWidget;
 
 class TextField extends AbstractField
 {
@@ -50,7 +50,7 @@ class TextField extends AbstractField
      */
     public function getDefaultWidget()
     {
-        return new TextFieldWidget();
+        return new FormattedWidget();
     }
 
     /**

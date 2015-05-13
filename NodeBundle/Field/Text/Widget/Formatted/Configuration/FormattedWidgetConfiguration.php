@@ -1,18 +1,16 @@
 <?php
 
-namespace Gravity\NodeBundle\Field\Text\Widget\Configuration;
+namespace Gravity\NodeBundle\Field\Text\Widget\Formatted\Configuration;
 
-use GravityCMS\Component\Configuration\AbstractConfiguration;
-use GravityCMS\Component\Field\Widget\WidgetSettingsInterface;
-use Gravity\NodeBundle\Field\Text\Widget\Form\TextFieldWidgetSettingsForm;
+use GravityCMS\Component\Field\Widget\AbstractWidgetConfiguration;
 
 /**
- * Class TextFieldWidgetConfiguration
+ * Class FormattedWidgetConfiguration
  *
  * @package Gravity\NodeBundle\Field\Text\Widget\Configuration
  * @author  Andy Thorne <contrabandvr@gmail.com>
  */
-class TextFieldWidgetConfiguration extends AbstractConfiguration implements WidgetSettingsInterface
+class FormattedWidgetConfiguration extends AbstractWidgetConfiguration
 {
     /**
      * @var bool
@@ -36,7 +34,7 @@ class TextFieldWidgetConfiguration extends AbstractConfiguration implements Widg
      */
     public function getForm()
     {
-        return new TextFieldWidgetConfigurationForm();
+        return new FormattedWidgetConfigurationForm();
     }
 
     /**
@@ -54,7 +52,6 @@ class TextFieldWidgetConfiguration extends AbstractConfiguration implements Widg
     {
         $this->useEditor = $useEditor;
     }
-
 
 
 }

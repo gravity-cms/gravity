@@ -1,18 +1,18 @@
 <?php
 
-namespace Gravity\NodeBundle\Field\Text\Widget\Configuration;
+namespace Gravity\NodeBundle\Field\Text\Widget\UnFormatted\Configuration;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * Class TextFieldWidgetConfigurationForm
+ * Class UnFormattedWidgetConfigurationForm
  *
  * @package Gravity\NodeBundle\Field\Text\Widget\Configuration
  * @author  Andy Thorne <contrabandvr@gmail.com>
  */
-class TextFieldWidgetConfigurationForm extends AbstractType
+class UnFormattedWidgetConfigurationForm extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -20,7 +20,7 @@ class TextFieldWidgetConfigurationForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('useEditor', 'checkbox', [
+            ->add('multiLine', 'checkbox', [
                 'required' => false,
             ]);
     }
@@ -31,7 +31,7 @@ class TextFieldWidgetConfigurationForm extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'data_type' => 'Gravity\NodeBundle\Field\Text\Widget\Configuration\TextFieldWidgetConfiguration'
+            'data_type' => 'Gravity\NodeBundle\Field\Text\Widget\Configuration\UnFormattedWidgetConfiguration'
         ]);
     }
 
@@ -43,4 +43,11 @@ class TextFieldWidgetConfigurationForm extends AbstractType
         return 'gravity_field_text_widget_settings';
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function getParent()
+    {
+        return 'field_widget_configuration';
+    }
 }
