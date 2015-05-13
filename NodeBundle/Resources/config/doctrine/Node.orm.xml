@@ -24,6 +24,9 @@
 
         <many-to-one target-entity="Gravity\NodeBundle\Entity\ContentType" field="contentType" inversed-by="nodes"
                      orphan-removal="true">
+            <cascade>
+                <cascade-all/>
+            </cascade>
         </many-to-one>
 
         <many-to-one target-entity="GravityCMS\CoreBundle\Entity\Route" field="route">
