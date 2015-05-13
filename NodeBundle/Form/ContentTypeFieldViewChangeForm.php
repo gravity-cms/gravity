@@ -38,7 +38,7 @@ class ContentTypeFieldViewChangeForm extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $field = $this->fieldManager->getField($options['field']->getName());
+        $field = $this->fieldManager->getField($options['field']->getFieldType());
         $widgets = $this->fieldManager->getFieldWidgets();
 
         $supportedWidgets = array();
