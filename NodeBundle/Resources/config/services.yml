@@ -88,3 +88,8 @@ services:
 #    class: Gravity\NodeBundle\View\Block\ContentBlock
 #    tags:
 #      - { name: gravity.view.block }
+
+  #
+  # Content Type Repository
+  gravity_node.content_type_repository:
+    class: Gravity\NodeBundle\Structure\Repository\ContentTypeRepository

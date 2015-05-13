@@ -22,6 +22,8 @@ class ContentTypeController extends Controller
         $em           = $this->getDoctrine()->getManager();
         $contentTypes = $em->getRepository('GravityNodeBundle:ContentType')->findAll();
 
+        $contentTypeRepository = $this->get('gravity_node.content_type_repository');
+
         return $this->render(
             'GravityNodeBundle:ContentType:index.html.twig',
             [
