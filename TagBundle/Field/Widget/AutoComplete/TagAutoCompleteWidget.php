@@ -3,19 +3,19 @@
 namespace Gravity\TagBundle\Field\Widget\AutoComplete;
 
 use Gravity\TagBundle\Asset\TagAutoCompleteLibrary;
+use Gravity\TagBundle\Entity\FieldTag;
 use Gravity\TagBundle\Field\Widget\AutoComplete\Configuration\TagAutoCompleteWidgetConfiguration;
-use GravityCMS\Component\Field\FieldInterface;
-use GravityCMS\Component\Field\Widget\AbstractWidget;
-use GravityCMS\Component\Field\Widget\WidgetSettingsInterface;
+use GravityCMS\Component\Field\FieldDefinitionInterface;
+use GravityCMS\Component\Field\Widget\AbstractWidgetDefinition;
 
-class TagAutoCompleteWidget extends AbstractWidget
+class TagAutoCompleteWidget extends AbstractWidgetDefinition
 {
     /**
      * {@inheritdoc}
      */
     public function getName()
     {
-        return 'field.type.tag.widget.autocomplete';
+        return 'tag.autocomplete';
     }
 
     /**
@@ -32,14 +32,6 @@ class TagAutoCompleteWidget extends AbstractWidget
     public function getDescription()
     {
         return 'Tags Using Auto Complete';
-    }
-
-    /**
-     * @return WidgetSettingsInterface
-     */
-    protected function getDefaultSettings()
-    {
-        return new TagAutoCompleteWidgetConfiguration();
     }
 
     public function getForm()
@@ -62,13 +54,23 @@ class TagAutoCompleteWidget extends AbstractWidget
     /**
      * Checks if this widget supports the given field
      *
-     * @param FieldInterface $field
+     * @param FieldDefinitionInterface $field
      *
      * @return string
      */
-    public function supportsField(FieldInterface $field)
+    public function supportsField(FieldDefinitionInterface $field)
     {
         return ($field->getName() === 'tag');
+    }
+
+    /**
+     * @param FieldTag                  $entity
+     * @param WidgetSettingsInterface $configuration
+     */
+    public function setDefaults($entity, WidgetSettingsInterface $configuration)
+    {
+//        $entity->a
+//        $entity->set($configuration->getDefault());
     }
 
 }

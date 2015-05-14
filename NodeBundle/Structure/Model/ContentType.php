@@ -3,7 +3,7 @@
 
 namespace Gravity\NodeBundle\Structure\Model;
 
-use GravityCMS\Component\Field\FieldInterface;
+use GravityCMS\Component\Field\FieldReference;
 
 /**
  * Class ContentType
@@ -29,7 +29,7 @@ class ContentType
     protected $description;
 
     /**
-     * @var FieldInterface[]
+     * @var FieldReference[]
      */
     protected $fields = [];
 
@@ -82,7 +82,7 @@ class ContentType
     }
 
     /**
-     * @return FieldInterface[]
+     * @return FieldReference[]
      */
     public function getFields()
     {
@@ -90,7 +90,7 @@ class ContentType
     }
 
     /**
-     * @param FieldInterface[] $fields
+     * @param FieldReference[] $fields
      */
     public function setFields(array $fields)
     {

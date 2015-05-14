@@ -32,7 +32,7 @@ class Node extends Entity
     protected $route;
 
     /**
-     * @var ContentType
+     * @var string
      */
     protected $contentType;
 
@@ -90,7 +90,7 @@ class Node extends Entity
     function __construct()
     {
         parent::__construct();
-        // setup default values
+
         $this->createdOn = new \DateTime();
         $this->publishedOn = new \DateTime();
     }
@@ -105,19 +105,19 @@ class Node extends Entity
     }
 
     /**
-     * @param ContentType $contentType
-     */
-    public function setContentType(ContentType $contentType)
-    {
-        $this->contentType = $contentType;
-    }
-
-    /**
-     * @return ContentType
+     * @return string
      */
     public function getContentType()
     {
         return $this->contentType;
+    }
+
+    /**
+     * @param string $contentType
+     */
+    public function setContentType($contentType)
+    {
+        $this->contentType = $contentType;
     }
 
     /**

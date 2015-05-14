@@ -11,29 +11,31 @@ use GravityCMS\Component\Field\Widget\WidgetReference;
  * Class ContentTypeFactory
  *
  * @package Gravity\NodeBundle\Structure\Model\Factory
- * @author Andy Thorne <contrabandvr@gmail.com>
+ * @author  Andy Thorne <contrabandvr@gmail.com>
  */
-class ContentTypeFactory 
+class ContentTypeFactory
 {
-    public static function create(FieldManager $fieldManager, $id, array $contentTypeConfig){
+    public static function create(FieldManager $fieldManager, $id, array $contentTypeConfig)
+    {
         $contentType = new ContentType();
         $contentType->setId($id);
         $contentType->setName($contentTypeConfig['name']);
         $contentType->setDescription($contentTypeConfig['description']);
 
         $fields = [];
-        foreach ($contentTypeConfig['fields'] as $fieldConfig) {
-            $field = $fieldManager->getField($fieldConfig['type']);
+        foreach ($contentTypeConfig['fields'] as $fieldName => $fieldConfig) {
 
-            $fieldConfiguration = $field->getSettings();
-            $fieldConfiguration->
-            $fieldWidget = $fieldManager->getFieldWidget($fieldConfig['widget']['type']);
-            new WidgetReference(
-                $field,
-                $fieldConfig['settings'],
-                $fieldWidget,
+            $fields[] = $fieldDefinition = $fieldManager->createField(
+                $fieldConfig['type'],
+                $fieldName,
+                $fieldConfig['settings']
+            );
+
+            $fieldWidget = new WidgetReference(
+                $fieldManager->getFieldWidget($fieldConfig['widget']['type']),
                 $fieldConfig['widget']['settings']
             );
+            $fieldDefinition->setWidget($fieldWidget);
         }
         $contentType->setFields($fields);
 

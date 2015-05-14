@@ -4,7 +4,7 @@
 {% block head_javascripts %}
     {% set page_modules = page_modules | merge(editor.assets) %}
     {% for field in fields %}
-        {% for library in field.widget.assetLibraries %}
+        {% for library in field.widget.definition.assetLibraries %}
             {% set page_modules = page_modules | merge(library.javascripts) %}
         {% endfor %}
     {% endfor %}

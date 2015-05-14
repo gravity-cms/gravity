@@ -9,9 +9,9 @@ use Gravity\NodeBundle\Structure\Model\ContentType;
  * Class ContentTypeRepository
  *
  * @package Gravity\NodeBundle\Structure\Repository
- * @author Andy Thorne <contrabandvr@gmail.com>
+ * @author  Andy Thorne <contrabandvr@gmail.com>
  */
-class ContentTypeRepository 
+class ContentTypeRepository
 {
     /**
      * @var ContentType[]
@@ -31,14 +31,25 @@ class ContentTypeRepository
      */
     public function setContentTypes(array $contentTypes)
     {
-        $this->contentTypes = $contentTypes;
+        foreach ($contentTypes as $contentType) {
+            $this->addContentType($contentType);
+        }
     }
 
     /**
      * @param ContentType $contentType
      */
-    public function addContentType($contentType)
+    public function addContentType(ContentType $contentType)
     {
-        $this->contentTypes[] = $contentType;
+        $this->contentTypes[$contentType->getId()] = $contentType;
+    }
+
+    public function get($name)
+    {
+        if (!isset($this->contentTypes[$name])) {
+            return null;
+        }
+
+        return $this->contentTypes[$name];
     }
 }

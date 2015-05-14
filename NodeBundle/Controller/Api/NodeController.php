@@ -2,19 +2,13 @@
 
 namespace Gravity\NodeBundle\Controller\Api;
 
-use Doctrine\ORM\EntityManager;
 use FOS\RestBundle\Controller\Annotations as FOSRest;
 use FOS\RestBundle\Routing\ClassResourceInterface;
-use Gravity\NodeBundle\Entity\ContentType;
 use Gravity\NodeBundle\Entity\Node;
-use Gravity\NodeBundle\Form\NodeForm;
 use GravityCMS\CoreBundle\Controller\Api\ApiEntityServiceControllerTrait;
-use GravityCMS\CoreBundle\FosRest\View\View\JsonApiView;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Class NodeController
@@ -207,23 +201,27 @@ class NodeController extends Controller implements ClassResourceInterface
 
 
     /**
-     * @param Request     $request
-     * @param ContentType $contentType
+     * @param Request $request
+     * @param string  $contentType
      *
      * @return Response
      */
-    public function postTypeAction(Request $request, ContentType $contentType)
+    public function postTypeAction(Request $request, $contentType)
     {
+        $contentType = $this->get('gravity_node.content_type_repository')->get($contentType);
+
         $service = $this->get('gravity.entity_service.node');
+        /** @var Node $node */
         $node = $service->create();
-        $node->setContentType($contentType);
+        $node->setContentType($contentType->getId());
 
         $form    = $this->createForm(
             'gravity_node',
             $node,
             [
+                'content_type'    => $contentType,
                 'csrf_protection' => false,
-                'method' => 'POST',
+                'method'          => 'POST',
             ]
         );
         $payload = json_decode($request->getContent(), true);

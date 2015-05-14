@@ -1,0 +1,41 @@
+{% extends 'GravityNodeBundle::base.html.twig' %}
+
+{% set page_modules = ['cms/node/type/type'] %}
+
+{% block page_title %}
+    {{ contentType.name|title }}
+{% endblock %}
+
+{% block page_desc %}
+    Content Type Configuration
+{% endblock %}
+
+{% block breadcrumbs %}
+    {{ parent() }}
+    <li><a href="#">{{ contentType.name|title }}</a></li>
+{% endblock %}
+
+{% block plugin %}
+    <div class="table-responsive">
+        <table class="table table-striped field-type">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Field Type</th>
+                <th>Widget</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for field in contentType.fields %}
+                {% spaceless %}
+                    <tr>
+                        <td>{{ field.name|capitalize }}</td>
+                        <td>{{ field.definition.name|capitalize }}</td>
+                        <td>{{ field.widget.definition.label }}</td>
+                    </tr>
+                {% endspaceless %}
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

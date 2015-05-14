@@ -2,17 +2,11 @@
 
 namespace Gravity\NodeBundle\Controller\Api;
 
-use Doctrine\ORM\EntityManager;
 use FOS\RestBundle\Controller\Annotations as FOSRest;
-use FOS\RestBundle\Routing\ClassResourceInterface;
-use Gravity\NodeBundle\Entity\ContentType;
-use GravityCMS\CoreBundle\Controller\Api\AbstractApiController;
-use GravityCMS\CoreBundle\Controller\Api\ApiEntityServiceControllerTrait;
-use GravityCMS\CoreBundle\FosRest\View\View\JsonApiView;
-use Gravity\NodeBundle\Form\ContentTypeForm;
 use Gravity\NodeBundle\Form\ContentTypeFormViewForm;
+use Gravity\NodeBundle\Structure\Model\ContentType;
+use GravityCMS\CoreBundle\Controller\Api\ApiEntityServiceControllerTrait;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -22,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
  *
  * @FOSRest\RouteResource("Type")
  */
-class ContentTypeController extends Controller implements ClassResourceInterface
+class ContentTypeController extends Controller
 {
     use ApiEntityServiceControllerTrait;
 
@@ -95,8 +89,8 @@ class ContentTypeController extends Controller implements ClassResourceInterface
     /**
      * [PUT] Update an existing entity
      *
-     * @param Request $request
-     * @param ContentType   $contentType
+     * @param Request     $request
+     * @param ContentType $contentType
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -137,8 +131,8 @@ class ContentTypeController extends Controller implements ClassResourceInterface
     /**
      * [PATCH] Partial update an existing entity
      *
-     * @param Request $request
-     * @param ContentType   $contentType
+     * @param Request     $request
+     * @param ContentType $contentType
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -207,29 +201,29 @@ class ContentTypeController extends Controller implements ClassResourceInterface
     function hasPermission($method)
     {
         return true;
-//        $this->get('security.acl.provider');
-//        $userManager = $this->get('nefarian_core.user_manager');
-//        switch ($method) {
-//            case self::METHOD_NEW:
-//            case self::METHOD_POST:
-//                return $userManager->hasPermission($this->getUser(), 'content.type.create');
-//                break;
-//
-//            case self::METHOD_EDIT:
-//            case self::METHOD_PUT:
-//                return $userManager->hasPermission($this->getUser(), 'content.type.update');
-//                break;
-//
-//            case self::METHOD_DELETE:
-//                return $userManager->hasPermission($this->getUser(), 'content.type.delete');
-//                break;
-//
-//            case self::METHOD_GET:
-//                return $userManager->hasPermission($this->getUser(), 'content.type.get');
-//                break;
-//        }
-//
-//        return false;
+        //        $this->get('security.acl.provider');
+        //        $userManager = $this->get('nefarian_core.user_manager');
+        //        switch ($method) {
+        //            case self::METHOD_NEW:
+        //            case self::METHOD_POST:
+        //                return $userManager->hasPermission($this->getUser(), 'content.type.create');
+        //                break;
+        //
+        //            case self::METHOD_EDIT:
+        //            case self::METHOD_PUT:
+        //                return $userManager->hasPermission($this->getUser(), 'content.type.update');
+        //                break;
+        //
+        //            case self::METHOD_DELETE:
+        //                return $userManager->hasPermission($this->getUser(), 'content.type.delete');
+        //                break;
+        //
+        //            case self::METHOD_GET:
+        //                return $userManager->hasPermission($this->getUser(), 'content.type.get');
+        //                break;
+        //        }
+        //
+        //        return false;
     }
 
     /**

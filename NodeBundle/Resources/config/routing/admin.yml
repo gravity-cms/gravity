@@ -2,6 +2,10 @@ index:
   path:     /
   defaults: { _controller: GravityNodeBundle:ContentType:index }
 
+content_type_view:
+  path:     /content/type/{type}
+  defaults: { _controller: GravityNodeBundle:ContentType:view }
+
 content_type_new:
   path:     /content/new
   defaults: { _controller: GravityNodeBundle:ContentType:new }
@@ -51,10 +55,8 @@ node_index:
   defaults: { _controller: GravityNodeBundle:Admin\Node:index }
 
 node_create:
-  path: /node/{id}/create
+  path: /node/{type}/create
   defaults: { _controller: GravityNodeBundle:Admin\Node:new }
-  requirements:
-    id: \d+
 
 node_edit:
   path: /node/{id}/edit

@@ -27,7 +27,28 @@ class ContentTypeController extends Controller
         return $this->render(
             'GravityNodeBundle:ContentType:index.html.twig',
             [
-                'contentTypes' => $contentTypes,
+                'contentTypes' => $contentTypeRepository->getContentTypes(),
+            ]
+        );
+    }
+
+    /**
+     * @param string $contentTypeName
+     *
+     * @return Response
+     */
+    public function viewAction($type)
+    {
+        $contentType = $this->get('gravity_node.content_type_repository')->get($type);
+
+        if(!$contentType instanceof \Gravity\NodeBundle\Structure\Model\ContentType){
+            throw $this->createNotFoundException('Content Type not found');
+        }
+
+        return $this->render(
+            'GravityNodeBundle:ContentType:view.html.twig',
+            [
+                'contentType' => $contentType,
             ]
         );
     }
