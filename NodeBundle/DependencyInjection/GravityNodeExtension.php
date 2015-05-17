@@ -2,6 +2,7 @@
 
 namespace Gravity\NodeBundle\DependencyInjection;
 
+use Doctrine\Common\Inflector\Inflector;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
@@ -30,6 +31,7 @@ class GravityNodeExtension extends Extension
         $contentTypesConfig    = $config['content_types'];
         $contentTypeRepository = $container->findDefinition('gravity_node.content_type_repository');
 
+        // TODO: put this in a compiler pass
         $contentTypeDefinitions = [];
         foreach ($contentTypesConfig as $contentTypeName => $contentTypeConfig) {
             $contentTypeDefinition = $container->register(

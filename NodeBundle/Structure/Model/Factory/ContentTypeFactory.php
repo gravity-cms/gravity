@@ -24,7 +24,6 @@ class ContentTypeFactory
 
         $fields = [];
         foreach ($contentTypeConfig['fields'] as $fieldName => $fieldConfig) {
-
             $fields[] = $fieldDefinition = $fieldManager->createField(
                 $fieldConfig['type'],
                 $fieldName,

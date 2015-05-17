@@ -17,21 +17,36 @@
 
 {% block plugin %}
     <div class="table-responsive">
-        <table class="table table-striped field-type">
+        <table class="table table-striped table-hover field-type">
             <thead>
             <tr>
                 <th>Name</th>
                 <th>Field Type</th>
                 <th>Widget</th>
+                <th>&nbsp;</th>
             </tr>
             </thead>
             <tbody>
-            {% for field in contentType.fields %}
+            {% for i,field in contentType.fields %}
                 {% spaceless %}
-                    <tr>
-                        <td>{{ field.name|capitalize }}</td>
+                    <tr data-toggle="collapse" data-target="#field-{{ i }}">
+                        <td>
+                            {{ field.settings.label|humanize }}
+                        </td>
                         <td>{{ field.definition.name|capitalize }}</td>
                         <td>{{ field.widget.definition.label }}</td>
+                        <td>
+                            <i class="fa-caret-down"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="hiddenRow"><div class="accordian-body collapse" id="field-{{ i }}">
+                            <ul class="list-unstyled">
+                                {% for key,setting in field.widget.settings %}
+                                    <li><span class="text-bold">{{ key | humanize }}</span>: {% if setting is not null %}{{ setting }}{% else %}<em>null</em>{% endif %}</li>
+                                {% endfor %}
+                            </ul>
+                        </td>
                     </tr>
                 {% endspaceless %}
             {% endfor %}
