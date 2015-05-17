@@ -44,7 +44,6 @@ class TagAutoCompleteWidgetForm extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        /** @var FieldTagConfiguration $configuration */
         /** @var FieldReference $field */
         $field         = $options['field'];
         $configuration = $field->getSettings();
