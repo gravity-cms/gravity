@@ -88,29 +88,3 @@ services:
 #    class: Gravity\NodeBundle\View\Block\ContentBlock
 #    tags:
 #      - { name: gravity.view.block }
-
-
-  #
-  # Fields
-  gravity_node.field.text:
-    class: Gravity\NodeBundle\Field\Text\TextField
-    tags:
-      - { name: gravity.field }
-
-
-  gravity_node.field.text.widget.unformatted:
-    class: Gravity\NodeBundle\Field\Text\Widget\UnFormatted\UnFormattedWidget
-    tags:
-      - { name: gravity.field.widget }
-
-  gravity_node.field.text.display:
-    class: Gravity\NodeBundle\Field\Text\Display\TextFieldDisplay
-    tags:
-      - { name: gravity.field.display }
-
-
-  # Formatted
-  gravity_node.field.text.widget.formatted:
-    class: Gravity\NodeBundle\Field\Text\Widget\Formatted\FormattedWidget
-    tags:
-      - { name: gravity.field.widget }
