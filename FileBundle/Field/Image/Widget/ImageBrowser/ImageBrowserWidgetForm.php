@@ -4,8 +4,7 @@
 namespace Gravity\FileBundle\Field\Image\Widget\ImageBrowser;
 
 use Gravity\FileBundle\Field\Image\Configuration\ImageFieldConfiguration;
-use Gravity\FileBundle\Field\Image\Widget\ImageBrowser\Configuration\ImageBrowserWidgetConfiguration;
-use GravityCMS\CoreBundle\Entity\Field;
+use GravityCMS\Component\Field\Field;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -27,20 +26,19 @@ class ImageBrowserWidgetForm extends AbstractType
         /** @var ImageFieldConfiguration $configuration */
         /** @var Field $field */
         $field         = $options['field'];
-        $configuration = $field->getConfig();
-        $limit         = $configuration->getLimit();
+        $configuration = $field->getSettings();
+        $limit         = $configuration['limit'];
 
-        /** @var ImageBrowserWidgetConfiguration $widgetConfig */
-        $widgetConfig = $field->getWidget()->getConfig();
+        $widgetConfig = $field->getWidget()->getSettings();
 
         $builder
             ->add(
                 'file',
                 'image_browser',
                 [
-//                    'label'       => $limit == 1 ? null : $field->getLabel(),
+                    // 'label'       => $limit == 1 ? null : $field->getLabel(),
                     'mime_types'  => ['image/*'],
-                    'image_style' => $widgetConfig->getImageStyle(),
+                    'image_style' => $widgetConfig['image_style'],
                 ]
             )
             ->add('alt', 'text')

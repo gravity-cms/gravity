@@ -2,14 +2,14 @@
 
 namespace Gravity\TagBundle\Field;
 
-use Gravity\TagBundle\Field\Configuration\FieldTagConfiguration;
 use Gravity\TagBundle\Field\Display\TagHtmlDisplay;
 use Gravity\TagBundle\Field\Widget\AutoComplete\TagAutoCompleteWidget;
-use GravityCMS\Component\Field\AbstractField;
+use GravityCMS\Component\Field\AbstractFieldDefinition;
 use GravityCMS\Component\Field\Display\DisplayInterface;
-use GravityCMS\Component\Field\Widget\WidgetInterface;
+use GravityCMS\Component\Field\Widget\WidgetDefinitionInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class FieldTag extends AbstractField
+class FieldTag extends AbstractFieldDefinition
 {
     /**
      * {@inheritdoc}
@@ -35,16 +35,19 @@ class FieldTag extends AbstractField
         return '';
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getSettings()
+    public function setOptions(OptionsResolver $optionsResolver)
     {
-        return new FieldTagConfiguration();
+        $optionsResolver->setDefaults(
+            [
+                'multiple'  => true,
+                'allow_new' => true,
+            ]
+        );
+        $optionsResolver->setRequired(['tag']);
     }
 
     /**
-     * @return WidgetInterface
+     * @return WidgetDefinitionInterface
      */
     public function getDefaultWidget()
     {

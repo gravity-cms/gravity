@@ -12,6 +12,7 @@
         <field name="published" type="boolean" column="published" nullable="false"/>
         <field name="publishedOn" type="datetime" column="published_on" nullable="true"/>
         <field name="deletedOn" type="datetime" column="deleted_on" nullable="true"/>
+        <field name="contentType" type="string" length="50" column="content_type" nullable="false"/>
 
         <field name="editedOn" type="datetime" column="edited_on" nullable="true">
             <gedmo:timestampable on="update"/>
@@ -21,13 +22,6 @@
         <field name="createdOn" type="datetime" column="created_on" nullable="false">
             <gedmo:timestampable on="create"/>
         </field>
-
-        <many-to-one target-entity="Gravity\NodeBundle\Entity\ContentType" field="contentType" inversed-by="nodes"
-                     orphan-removal="true">
-            <cascade>
-                <cascade-all/>
-            </cascade>
-        </many-to-one>
 
         <many-to-one target-entity="GravityCMS\CoreBundle\Entity\Route" field="route">
         </many-to-one>

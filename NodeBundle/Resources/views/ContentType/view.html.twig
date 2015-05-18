@@ -1,0 +1,56 @@
+{% extends 'GravityNodeBundle::base.html.twig' %}
+
+{% set page_modules = ['cms/node/type/type'] %}
+
+{% block page_title %}
+    {{ contentType.name|title }}
+{% endblock %}
+
+{% block page_desc %}
+    Content Type Configuration
+{% endblock %}
+
+{% block breadcrumbs %}
+    {{ parent() }}
+    <li><a href="#">{{ contentType.name|title }}</a></li>
+{% endblock %}
+
+{% block plugin %}
+    <div class="table-responsive">
+        <table class="table table-striped table-hover field-type">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Field Type</th>
+                <th>Widget</th>
+                <th>&nbsp;</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for i,field in contentType.fields %}
+                {% spaceless %}
+                    <tr data-toggle="collapse" data-target="#field-{{ i }}">
+                        <td>
+                            {{ field.settings.label }}
+                        </td>
+                        <td>{{ field.definition.name|capitalize }}</td>
+                        <td>{{ field.widget.definition.label }}</td>
+                        <td>
+                            <i class="fa-caret-down"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="hiddenRow"><div class="accordian-body collapse" id="field-{{ i }}">
+                            <ul class="list-unstyled">
+                                {% for key,setting in field.widget.settings %}
+                                    <li><span class="text-bold">{{ key | humanize }}</span>: {% if setting is not null %}{{ setting }}{% else %}<em>null</em>{% endif %}</li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                    </tr>
+                {% endspaceless %}
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

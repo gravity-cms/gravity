@@ -53,6 +53,7 @@ services:
   gravity_cms.module.field_tag.form.type.tag_collection_handler:
     class: Gravity\TagBundle\AutoComplete\TagAutoCompleteHandler
     arguments:
+      - @gravity_cms.field_manager
       - @doctrine.orm.default_entity_manager
     tags:
       - { name: auto_complete.handler }

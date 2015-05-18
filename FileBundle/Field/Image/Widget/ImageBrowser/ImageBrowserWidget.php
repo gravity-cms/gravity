@@ -5,10 +5,10 @@ namespace Gravity\FileBundle\Field\Image\Widget\ImageBrowser;
 
 use Gravity\FileBundle\Asset\FieldImageLibrary;
 use Gravity\FileBundle\Field\Image\Widget\ImageBrowser\Configuration\ImageBrowserWidgetConfiguration;
-use GravityCMS\Component\Field\FieldInterface;
-use GravityCMS\Component\Field\Widget\AbstractWidget;
-use GravityCMS\Component\Field\Widget\WidgetSettingsInterface;
+use GravityCMS\Component\Field\FieldDefinitionInterface;
+use GravityCMS\Component\Field\Widget\AbstractWidgetDefinition;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Class ImageBrowserWidget
@@ -16,14 +16,14 @@ use Symfony\Component\Form\AbstractType;
  * @package Gravity\FileBundle\Field\Image\Widget\ImageBrowser
  * @author Andy Thorne <contrabandvr@gmail.com>
  */
-class ImageBrowserWidget extends AbstractWidget
+class ImageBrowserWidget extends AbstractWidgetDefinition
 {
     /**
      * {@inheritdoc}
      */
     public function getName()
     {
-        return 'field.file.widget.image_browser';
+        return 'image.image_browser';
     }
 
     /**
@@ -40,14 +40,6 @@ class ImageBrowserWidget extends AbstractWidget
     public function getDescription()
     {
         return 'Image Browser';
-    }
-
-    /**
-     * @return WidgetSettingsInterface
-     */
-    protected function getDefaultSettings()
-    {
-        return new ImageBrowserWidgetConfiguration();
     }
 
     /**
@@ -71,15 +63,26 @@ class ImageBrowserWidget extends AbstractWidget
     /**
      * Checks if this widget supports the given field
      *
-     * @param FieldInterface $field
+     * @param FieldDefinitionInterface $field
      *
      * @return string
      */
-    public function supportsField(FieldInterface $field)
+    public function supportsField(FieldDefinitionInterface $field)
     {
         return ($field->getName() === 'image');
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function setOptions(OptionsResolver $optionsResolver)
+    {
+        $optionsResolver->setRequired(['image_style']);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getAssetLibraries()
     {
         return [

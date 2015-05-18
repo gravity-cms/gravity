@@ -2,8 +2,8 @@
 
 namespace Gravity\TagBundle\Field\Widget\Select;
 
-use GravityCMS\Component\Field\FieldInterface;
-use GravityCMS\Component\Field\Widget\AbstractWidget;
+use GravityCMS\Component\Field\FieldDefinitionInterface;
+use GravityCMS\Component\Field\Widget\AbstractWidgetDefinition;
 
 /**
  * Class TagSelectWidget
@@ -11,14 +11,14 @@ use GravityCMS\Component\Field\Widget\AbstractWidget;
  * @package Gravity\TagBundle\Field\Widget
  * @author  Andy Thorne <contrabandvr@gmail.com>
  */
-class TagSelectWidget extends AbstractWidget
+class TagSelectWidget extends AbstractWidgetDefinition
 {
     /**
      * {@inheritdoc}
      */
     public function getName()
     {
-        return 'field.type.tag.widget.select';
+        return 'tag.select';
     }
 
     /**
@@ -50,11 +50,11 @@ class TagSelectWidget extends AbstractWidget
     /**
      * Checks if this widget supports the given field
      *
-     * @param FieldInterface $field
+     * @param FieldDefinitionInterface $field
      *
      * @return string
      */
-    public function supportsField(FieldInterface $field)
+    public function supportsField(FieldDefinitionInterface $field)
     {
         return ($field->getName() === 'tag');
     }

@@ -19,7 +19,36 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('gravity_cms_node');
+        $rootNode = $treeBuilder->root('gravity_node');
+
+        $rootNode
+            ->children()
+            ->arrayNode('content_types')
+                ->prototype('array')
+                ->children()
+                    ->scalarNode('name')->isRequired()->end()
+                    ->scalarNode('description')->defaultValue('')->end()
+                    ->arrayNode('fields')
+                        ->prototype('array')
+                        ->children()
+                            ->scalarNode('type')->isRequired()->end()
+                            ->scalarNode('label')->defaultNull()->end()
+                            ->arrayNode('settings')
+                                ->prototype('scalar')->end()
+                            ->end()
+                            ->arrayNode('widget')
+                                ->children()
+                                    ->scalarNode('type')->isRequired()->end()
+                                    ->arrayNode('settings')
+                                        ->prototype('scalar')->end()
+                                    ->end()
+                                ->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end()
+            ;
 
         return $treeBuilder;
     }

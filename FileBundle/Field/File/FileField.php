@@ -5,12 +5,12 @@ namespace Gravity\FileBundle\Field\File;
 use Gravity\FileBundle\Field\File\Display\FileLink\FileLinkDisplay;
 use Gravity\FileBundle\Field\File\Configuration\FileFieldConfiguration;
 use Gravity\FileBundle\Field\File\Widget\FileBrowserWidget;
-use GravityCMS\Component\Field\AbstractField;
+use GravityCMS\Component\Field\AbstractFieldDefinition;
 use GravityCMS\Component\Field\Configuration\FieldSettingsConfiguration;
 use GravityCMS\Component\Field\Display\DisplayInterface;
-use GravityCMS\Component\Field\Widget\WidgetInterface;
+use GravityCMS\Component\Field\Widget\WidgetDefinitionInterface;
 
-class FileField extends AbstractField
+class FileField extends AbstractFieldDefinition
 {
     /**
      * Get the identifier name of the field. This must be a unique name and contain only alphanumeric, underscores (_)
@@ -46,15 +46,15 @@ class FileField extends AbstractField
     /**
      * @return DisplayInterface
      */
-    protected function getDefaultDisplay()
+    public function getDefaultDisplay()
     {
         return new FileLinkDisplay();
     }
 
     /**
-     * @return WidgetInterface
+     * @return WidgetDefinitionInterface
      */
-    protected function getDefaultWidget()
+    public function getDefaultWidget()
     {
         return new FileBrowserWidget();
     }

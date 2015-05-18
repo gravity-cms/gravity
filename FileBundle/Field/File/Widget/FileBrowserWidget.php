@@ -4,18 +4,17 @@ namespace Gravity\FileBundle\Field\File\Widget;
 
 use Gravity\FileBundle\Asset\FieldFileLibrary;
 use Gravity\FileBundle\Field\File\Widget\Configuration\FileBrowserWidgetConfiguration;
-use GravityCMS\Component\Field\FieldInterface;
-use GravityCMS\Component\Field\Widget\AbstractWidget;
-use GravityCMS\Component\Field\Widget\WidgetSettingsInterface;
+use GravityCMS\Component\Field\FieldDefinitionInterface;
+use GravityCMS\Component\Field\Widget\AbstractWidgetDefinition;
 
-class FileBrowserWidget extends AbstractWidget
+class FileBrowserWidget extends AbstractWidgetDefinition
 {
     /**
      * {@inheritdoc}
      */
     public function getName()
     {
-        return 'field.file.widget.file_browser';
+        return 'file.file_browser';
     }
 
     /**
@@ -32,14 +31,6 @@ class FileBrowserWidget extends AbstractWidget
     public function getDescription()
     {
         return 'File Browser';
-    }
-
-    /**
-     * @return WidgetSettingsInterface
-     */
-    protected function getDefaultSettings()
-    {
-        return new FileBrowserWidgetConfiguration();
     }
 
     public function getForm()
@@ -62,11 +53,11 @@ class FileBrowserWidget extends AbstractWidget
     /**
      * Checks if this widget supports the given field
      *
-     * @param FieldInterface $field
+     * @param FieldDefinitionInterface $field
      *
      * @return string
      */
-    public function supportsField(FieldInterface $field)
+    public function supportsField(FieldDefinitionInterface $field)
     {
         return ($field->getName() === 'file');
     }

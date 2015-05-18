@@ -2,8 +2,9 @@
 
 namespace Gravity\NodeBundle\Form;
 
-use GravityCMS\Component\Field\FieldManager;
 use Gravity\NodeBundle\Entity\Node;
+use Gravity\NodeBundle\Structure\Model\ContentType;
+use GravityCMS\Component\Field\FieldManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -12,54 +13,55 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class NodeForm extends AbstractType
 {
-
-    /**
-     * @var FieldManager
-     */
-    protected $fieldManager;
-
-    /**
-     * @param FieldManager $fieldManager
-     */
-    function __construct(FieldManager $fieldManager)
-    {
-        $this->fieldManager = $fieldManager;
-    }
-
-
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-            $node = $event->getData();
-            $form = $event->getForm();
+        /** @var ContentType $contentType */
+        $contentType = $options['content_type'];
+        $builder->addEventListener(
+            FormEvents::PRE_SET_DATA,
+            function (FormEvent $event) use ($contentType){
+                $node = $event->getData();
+                $form = $event->getForm();
 
-            if(!$node instanceof Node)
-            {
-                throw new \Exception('Form entity must be of type Node');
+                if (!$node instanceof Node) {
+                    throw new \Exception('Form entity must be of type Node');
+                }
+
+                $form->add(
+                    'fields',
+                    'field_collection',
+                    [
+                        'label'        => false,
+                        'node'         => $node,
+                        'fields'       => $contentType->getFields(),
+                        'by_reference' => false,
+                    ]
+                );
             }
-
-            $form->add('fields', 'field_collection', array(
-                'label' => false,
-                'node'  => $node,
-                'by_reference' => false,
-            ));
-        });
+        );
 
         $builder
             ->add('title', 'text')
-            ->add('description', 'text', array(
-                'required' => false
-            ))
+            ->add(
+                'description',
+                'text',
+                [
+                    'required' => false
+                ]
+            )
             ->add('published', 'checkbox')
-            ->add('publishedOn', 'datetime', array(
-                'date_widget' => 'single_text',
-                'time_widget' => 'single_text',
-            ))
-        ;
+            ->add(
+                'publishedOn',
+                'datetime',
+                [
+                    'date_widget' => 'single_text',
+                    'time_widget' => 'single_text',
+                ]
+            );
     }
 
     /**
@@ -68,9 +70,17 @@ class NodeForm extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Gravity\NodeBundle\Entity\Node',
-        ));
+        $resolver->setRequired(['content_type']);
+        $resolver->setAllowedTypes(
+            [
+                'content_type' => 'Gravity\NodeBundle\Structure\Model\ContentType',
+            ]
+        );
+        $resolver->setDefaults(
+            [
+                'data_class' => 'Gravity\NodeBundle\Entity\Node',
+            ]
+        );
     }
 
     /**

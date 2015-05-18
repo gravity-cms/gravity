@@ -24,7 +24,7 @@
                             {% for node in nodes %}
                                 <tr>
                                     <td><a href="{{ url('gravity_admin_node_edit', {id: node.id}) }}">{{ node.title }}</a></td>
-                                    <td>{{ node.contentType.label|capitalize }}</td>
+                                    <td>{{ contentTypes[node.contentType].name|capitalize }}</td>
                                     <td>{% if node.published %}{{ node.publishedOn|date('Y-m-d') }}{% endif %}</td>
                                 </tr>
                             {% endfor %}

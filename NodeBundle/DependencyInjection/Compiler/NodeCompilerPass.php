@@ -25,6 +25,40 @@ class NodeCompilerPass implements CompilerPassInterface
         foreach($pathProcessors as $sid => $args){
             $pathProcessorManager->addMethodCall('addPathProcessor', array(new Reference($sid)));
         }
+
+
+        $contentTypeRepository = $container->findDefinition('gravity_node.content_type_repository');
+        $fieldManager = $container->findDefinition('gravity_cms.field_manager');
+
+        $contentTypesConfig = $container->getParameter('gravity_node.content_types');
+
+        $contentTypeDefinitions = [];
+        foreach ($contentTypesConfig as $contentTypeName => $contentTypeConfig) {
+            $contentTypeDefinition = $container->register(
+                'gravity_node.content_type.' . $contentTypeName,
+                "Gravity\\NodeBundle\\Structure\\Model\\ContentType"
+            );
+            $contentTypeDefinition->setFactory("Gravity\\NodeBundle\\Structure\\Model\\Factory\\ContentTypeFactory::create");
+            $contentTypeDefinition->setArguments(
+                [
+                    new Reference('gravity_cms.field_manager'),
+                    $contentTypeName,
+                    $contentTypeConfig,
+                ]
+            );
+            $contentTypeDefinition->setPublic(false);
+            $contentTypeDefinitions[] = new Reference('gravity_node.content_type.' . $contentTypeName);
+
+            foreach($contentTypeConfig['fields'] as $fieldName => $fieldConfig){
+                $fieldManager->addMethodCall('registerField', [
+                    $fieldConfig['type'],
+                    $fieldName,
+                    $fieldConfig['settings'],
+                ]);
+            }
+        }
+
+        $contentTypeRepository->addMethodCall('setContentTypes', [$contentTypeDefinitions]);
     }
 
 } 
