@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityManager;
 use FOS\RestBundle\Controller\Annotations as FOSRest;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use FOS\RestBundle\View\View;
-use GravityCMS\CoreBundle\Entity\Route;
+use Gravity\CoreBundle\Entity\Route;
 use Gravity\NodeBundle\Form\RoutingConfigurationForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
@@ -70,7 +70,7 @@ class RoutingController extends Controller implements ClassResourceInterface
     {
         /** @var EntityManager $em */
         $em   = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository('GravityCMSCoreBundle:Route');
+        $repo = $em->getRepository('GravityCoreBundle:Route');
         $queryBuilder = $repo->createQueryBuilder('r');
 
         $dataColumns = array(
@@ -108,7 +108,7 @@ class RoutingController extends Controller implements ClassResourceInterface
 
         $totalRecords = $em->createQuery('
             SELECT count(r)
-            FROM GravityCMSCoreBundle:Route r
+            FROM GravityCoreBundle:Route r
         ')->getSingleScalarResult();
 
         /** @var Route[] $routes */

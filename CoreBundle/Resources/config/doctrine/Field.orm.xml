@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="Gravity\CoreBundle\Entity\Field" table="field">
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <field name="fieldType" type="string" column="field_type" length="100" nullable="false"/>
+        <field name="name" type="string" column="name" length="100" nullable="false"/>
+        <field name="label" type="string" column="label" length="100" nullable="false"/>
+        <field name="delta" type="integer" column="delta" nullable="false"/>
+        <field name="config" type="object" column="config" nullable="false"/>
+
+        <one-to-many target-entity="Gravity\CoreBundle\Entity\FieldData" mapped-by="field" field="data" orphan-removal="true">
+            <cascade>
+                <cascade-remove/>
+            </cascade>
+        </one-to-many>
+
+        <one-to-one target-entity="Gravity\CoreBundle\Entity\FieldDisplay" field="display" inversed-by="field"
+                    orphan-removal="true">
+            <cascade>
+                <cascade-all/>
+            </cascade>
+        </one-to-one>
+        <one-to-one target-entity="Gravity\CoreBundle\Entity\FieldWidget" field="widget" inversed-by="field"
+                    orphan-removal="true">
+            <cascade>
+                <cascade-all/>
+            </cascade>
+        </one-to-one>
+    </entity>
+</doctrine-mapping>

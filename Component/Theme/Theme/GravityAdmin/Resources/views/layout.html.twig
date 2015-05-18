@@ -1,0 +1,42 @@
+{% extends '@theme_gravity_admin/base.html.twig' %}
+
+{% block meta_title %}
+    Dev
+    {# Gravity | {{ parent() }} #}
+{% endblock %}
+
+{% block header %}
+ <em>gravity</em><strong>CMS</strong>
+{% endblock %}
+
+{% block pagetitle %}
+
+{% endblock %}
+
+{% block pagesubtitle %}
+
+{% endblock %}
+
+{% block breadcrumbs %}
+
+{% endblock %}
+
+{% block nav %}
+    {% for category in gravity_menu_manager.categories %}
+        <li class="mm-dropdown">
+            <a class="" href="#-menu-{{ loop.index }}"><i class="menu-icon fa-{{ category.icon }}"></i><span class="mm-text">{{ category.title }}</span></a>
+            <ul id="menu-{{ loop.index }}" class="">
+                {% for link in category.links %}
+                    <li><a href="{{ url(link.route) }}"><span class="mm-text">{{ link.title }}</span></a></li>
+                {% endfor %}
+            </ul>
+        </li>
+    {% endfor %}
+{% endblock %}
+
+{% block body %}
+    <div class="body">
+        {% block plugin %}
+        {% endblock %}
+    </div>
+{% endblock %}

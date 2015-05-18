@@ -2,7 +2,7 @@
 
 namespace Gravity\NodeBundle\Configuration;
 
-use GravityCMS\Component\Configuration\AbstractConfiguration;
+use Gravity\Component\Configuration\AbstractConfiguration;
 
 /**
  * Class FieldConfiguration

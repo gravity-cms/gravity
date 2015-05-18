@@ -3,7 +3,7 @@
 namespace Gravity\FileBundle;
 
 use Gravity\FileBundle\DependencyInjection\Compiler as Compilers;
-use GravityCMS\Component\Bundle\GravityBundle;
+use Gravity\Component\Bundle\GravityBundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class GravityFileBundle extends GravityBundle

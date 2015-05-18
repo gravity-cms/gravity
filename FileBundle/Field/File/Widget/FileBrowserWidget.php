@@ -4,8 +4,8 @@ namespace Gravity\FileBundle\Field\File\Widget;
 
 use Gravity\FileBundle\Asset\FieldFileLibrary;
 use Gravity\FileBundle\Field\File\Widget\Configuration\FileBrowserWidgetConfiguration;
-use GravityCMS\Component\Field\FieldDefinitionInterface;
-use GravityCMS\Component\Field\Widget\AbstractWidgetDefinition;
+use Gravity\Component\Field\FieldDefinitionInterface;
+use Gravity\Component\Field\Widget\AbstractWidgetDefinition;
 
 class FileBrowserWidget extends AbstractWidgetDefinition
 {

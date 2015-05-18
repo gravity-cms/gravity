@@ -2,7 +2,7 @@
 
 namespace Gravity\NodeBundle;
 
-use GravityCMS\Component\Bundle\GravityBundle;
+use Gravity\Component\Bundle\GravityBundle;
 use Gravity\NodeBundle\DependencyInjection\Compiler as Compilers;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 

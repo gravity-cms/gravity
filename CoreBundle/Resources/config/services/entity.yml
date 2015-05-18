@@ -1,0 +1,30 @@
+services:
+  gravity_cms.entity_manager:
+      class: Gravity\Component\Entity\EntityManager
+#      tags:
+#          - { name: gravity.entity }
+
+  gravity_cms.form.view:
+      class: Gravity\Component\Theme\Form\ViewForm
+      arguments:
+        - @gravity_cms.entity_manager
+      tags:
+        - { name: form.type, alias: gravity_cms_view }
+
+  gravity.entity_service.field:
+    class: Gravity\CoreBundle\Entity\Service\FieldEntityService
+    arguments:
+      - @doctrine.orm.default_entity_manager
+      - @gravity_cms.field_manager
+
+  gravity.entity_service.field_widget:
+    class: Gravity\CoreBundle\Entity\Service\FieldWidgetEntityService
+    arguments:
+      - @doctrine.orm.default_entity_manager
+      - @gravity_cms.field_manager
+
+  gravity.entity_service.field_display:
+    class: Gravity\CoreBundle\Entity\Service\FieldDisplayEntityService
+    arguments:
+      - @doctrine.orm.default_entity_manager
+      - @gravity_cms.field_manager

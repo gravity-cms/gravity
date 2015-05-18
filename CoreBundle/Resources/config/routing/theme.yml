@@ -1,0 +1,38 @@
+#
+# Themes
+theme_list:
+  path: /theme
+  defaults: { _controller: GravityCoreBundle:Theme:list }
+
+theme_new:
+  path: /theme/new
+  defaults: { _controller: GravityCoreBundle:Theme:new }
+
+#
+# Layouts
+layout_list:
+  path: /theme/layout
+  defaults: { _controller: GravityCoreBundle:Layout:list }
+
+layout_new:
+  path: /theme/layout/new
+  defaults: { _controller: GravityCoreBundle:Layout:new }
+
+layout_edit:
+  path: /theme/layout/{id}/edit
+  defaults: { _controller: GravityCoreBundle:Layout:edit }
+
+layout_block_new:
+  path: /theme/layout/{layout}/block/{block}/new
+  defaults: { _controller: GravityCoreBundle:Layout:newBlock }
+
+#
+# Views
+theme_view_list:
+  path: /theme/view
+  defaults: { _controller: GravityCoreBundle:View:list }
+
+theme_view_new:
+  path: /theme/view/new
+  defaults: { _controller: GravityCoreBundle:View:new }
+

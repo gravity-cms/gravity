@@ -3,8 +3,8 @@
 
 namespace Gravity\FileBundle\Field\Image\Display\Image\Configuration;
 
-use GravityCMS\Component\Configuration\AbstractConfiguration;
-use GravityCMS\Component\Field\Display\DisplaySettingsInterface;
+use Gravity\Component\Configuration\AbstractConfiguration;
+use Gravity\Component\Field\Display\DisplaySettingsInterface;
 
 /**
  * Class ImageDisplayConfiguration

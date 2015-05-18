@@ -25,7 +25,7 @@ class ContentTypeFormViewFieldForm extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'GravityCMS\CoreBundle\Entity\Field'
+            'data_class' => 'Gravity\CoreBundle\Entity\Field'
         ));
     }
 

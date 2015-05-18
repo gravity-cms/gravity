@@ -4,8 +4,8 @@
 namespace Gravity\NodeBundle\Structure\Model\Factory;
 
 use Gravity\NodeBundle\Structure\Model\ContentType;
-use GravityCMS\Component\Field\FieldManager;
-use GravityCMS\Component\Field\Widget\WidgetReference;
+use Gravity\Component\Field\FieldManager;
+use Gravity\Component\Field\Widget\WidgetReference;
 
 /**
  * Class ContentTypeFactory

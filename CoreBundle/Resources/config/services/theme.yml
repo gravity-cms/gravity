@@ -1,0 +1,134 @@
+parameters:
+  # Theming
+  gravity_cms.theme_manager.class:  Gravity\Component\Theme\ThemeManager
+  gravity_cms.theme_loader.class:   Gravity\Component\Theme\Twig\Loader\ThemeLoader
+
+  templating.form_template_manager.class: Gravity\Component\Theme\Form\FormTemplateManager
+
+  # override the asset factory
+  assetic.asset_factory.class:        Gravity\Component\Theme\Assetic\Factory\GravityAssetFactory
+  gravity_cms.asset_manager.class:    Gravity\Component\Theme\Assetic\GravityAssetManager
+
+  gravity_cms.twig.assets_extension:  Gravity\Component\Theme\Twig\CoreExtension
+
+services:
+
+  #
+  # Theming
+  gravity_cms.theme_manager:
+    class: %gravity_cms.theme_manager.class%
+
+  twig.loader.theme_loader:
+    class: %gravity_cms.theme_loader.class%
+    arguments:
+      - @gravity_cms.theme_manager
+      - @templating.locator.theme_filesystem_locator
+      - @templating.name_parser
+    tags:
+      - { name: twig.loader }
+
+  #
+  # Template loader!
+  templating.locator.theme_locator:
+    class: Gravity\Component\Theme\Templating\Locator\ThemeLocator
+    arguments:
+      - @gravity_cms.theme_manager
+
+  templating.locator.theme_filesystem_locator:
+    class: %templating.locator.class%
+    arguments:
+      - @templating.locator.theme_locator
+      - %kernel.cache_dir%
+
+  templating.loader.theme_loader:
+    class: %templating.loader.filesystem.class%
+    arguments:
+      - @templating.locator.theme_locator
+
+  templating.form_template_manager:
+    class: %templating.form_template_manager.class%
+
+  # Default Theme
+  gravity_cms.theme.gravity_admin:
+    class: Gravity\Component\Theme\Theme\GravityAdmin\GravityAdminTheme
+    tags:
+      - { name: gravity_cms.theme, alias: gravity_admin }
+
+  #
+  # Asset manager
+  gravity_cms.asset_manager:
+    class: %gravity_cms.asset_manager.class%
+
+  #
+  # Twig Functions for plugins
+  gravity_cms.twig.assets_core_extension:
+    class: %gravity_cms.twig.assets_extension%
+    arguments:
+      - @gravity_cms.asset_manager
+    tags:
+      - { name: twig.extension }
+
+  #
+  # Views
+  gravity_cms.view_manager:
+    class: Gravity\Component\Theme\View\ViewManager
+
+  gravity_cms.theme.layout_manager:
+    class: Gravity\Component\Theme\Layout\LayoutManager
+    arguments:
+      - @gravity_cms.config_manager
+      - @gravity_cms.theme.block_manager
+
+  #
+  # Layout Positions
+  gravity_cms.theme.layout.position.header:
+    class: Gravity\Component\Theme\Layout\Position\HeaderPosition
+    tags:
+      - { name: layout.position }
+
+  gravity_cms.theme.layout.position.content:
+    class: Gravity\Component\Theme\Layout\Position\ContentPosition
+    tags:
+      - { name: layout.position }
+
+  gravity_cms.theme.layout.position.footer:
+    class: Gravity\Component\Theme\Layout\Position\FooterPosition
+    tags:
+      - { name: layout.position }
+
+  gravity_cms.theme.layout.position.navigation:
+    class: Gravity\Component\Theme\Layout\Position\NavigationPosition
+    tags:
+      - { name: layout.position }
+
+  gravity_cms.theme.form.layout:
+    class: Gravity\Component\Theme\Form\LayoutForm
+    tags:
+      - { name: form.type, alias: gravity_cms_layout }
+
+
+  gravity_cms.theme.form.layout_block:
+    class: Gravity\Component\Theme\Form\LayoutBlockForm
+    arguments:
+      - @gravity_cms.theme.block_manager
+    tags:
+      - { name: form.type, alias: gravity_cms_layout_block }
+
+  gravity_cms.theme.form.layout_layout_position_block:
+      class: Gravity\Component\Theme\Form\LayoutPositionBlockForm
+      arguments:
+        - @doctrine.orm.default_entity_manager
+      tags:
+        - { name: form.type, alias: gravity_cms_layout_layout_position_block }
+
+  #
+  # Blocks
+  gravity_cms.theme.block_manager:
+    class: Gravity\Component\Theme\Block\BlockManager
+    arguments:
+      - @gravity_cms.config_manager
+
+  gravity_cms.theme.block.text:
+    class: Gravity\CoreBundle\Theme\Block\Text\TextBlock
+    tags:
+      - { name: layout.block }

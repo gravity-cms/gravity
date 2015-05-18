@@ -7,7 +7,7 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
-use GravityCMS\Component\Configuration\ConfigurationManager;
+use Gravity\Component\Configuration\ConfigurationManager;
 use Gravity\NodeBundle\Entity\ContentType;
 use Gravity\NodeBundle\Entity\ContentTypeField;
 use Symfony\Component\DependencyInjection\ContainerInterface;

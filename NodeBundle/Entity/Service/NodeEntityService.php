@@ -7,7 +7,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Gravity\NodeBundle\Entity\ContentType;
 use Gravity\NodeBundle\Entity\Node;
-use GravityCMS\CoreBundle\Entity\Service\EntityServiceInterface;
+use Gravity\CoreBundle\Entity\Service\EntityServiceInterface;
 
 /**
  * Class NodeEntityService

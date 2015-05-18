@@ -8,7 +8,7 @@
 namespace Gravity\NodeBundle\Form;
 
 
-use GravityCMS\Component\Field\FieldManager;
+use Gravity\Component\Field\FieldManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -31,7 +31,7 @@ class ContentTypeFieldViewChangeForm extends AbstractType
             'field'
         ));
         $resolver->setAllowedTypes(array(
-            'field' => '\GravityCMS\CoreBundle\Entity\Field'
+            'field' => '\Gravity\CoreBundle\Entity\Field'
         ));
     }
 

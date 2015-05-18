@@ -1,0 +1,39 @@
+{% extends 'GravityCoreBundle:Theme/View:layout.html.twig' %}
+
+{% block page_title %}
+    Views
+{% endblock %}
+
+{% block page_desc %}
+    Manage and Change Views
+{% endblock %}
+
+{% block plugin %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <a class="btn btn-primary" href="{{ url('gravity_admin_theme_view_new') }}">
+                <i class="fa fa-plus"></i> New View
+            </a>
+        </div>
+    </div>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for view in views %}
+            <tr>
+                <td>{{ theme.name }}</td>
+                <td>{% if theme.adminTheme %}Admin{% else %}Frontend{% endif %}</td>
+                <td>Active</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

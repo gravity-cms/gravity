@@ -5,10 +5,10 @@ namespace Gravity\FileBundle\Field\File;
 use Gravity\FileBundle\Field\File\Display\FileLink\FileLinkDisplay;
 use Gravity\FileBundle\Field\File\Configuration\FileFieldConfiguration;
 use Gravity\FileBundle\Field\File\Widget\FileBrowserWidget;
-use GravityCMS\Component\Field\AbstractFieldDefinition;
-use GravityCMS\Component\Field\Configuration\FieldSettingsConfiguration;
-use GravityCMS\Component\Field\Display\DisplayInterface;
-use GravityCMS\Component\Field\Widget\WidgetDefinitionInterface;
+use Gravity\Component\Field\AbstractFieldDefinition;
+use Gravity\Component\Field\Configuration\FieldSettingsConfiguration;
+use Gravity\Component\Field\Display\DisplayInterface;
+use Gravity\Component\Field\Widget\WidgetDefinitionInterface;
 
 class FileField extends AbstractFieldDefinition
 {

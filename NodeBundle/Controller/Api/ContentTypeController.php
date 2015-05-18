@@ -5,7 +5,7 @@ namespace Gravity\NodeBundle\Controller\Api;
 use FOS\RestBundle\Controller\Annotations as FOSRest;
 use Gravity\NodeBundle\Form\ContentTypeFormViewForm;
 use Gravity\NodeBundle\Structure\Model\ContentType;
-use GravityCMS\CoreBundle\Controller\Api\ApiEntityServiceControllerTrait;
+use Gravity\CoreBundle\Controller\Api\ApiEntityServiceControllerTrait;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 

@@ -4,7 +4,7 @@
 namespace Gravity\FileBundle\Field\Image\Widget\ImageBrowser;
 
 use Gravity\FileBundle\Field\Image\Configuration\ImageFieldConfiguration;
-use GravityCMS\Component\Field\Field;
+use Gravity\Component\Field\Field;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;

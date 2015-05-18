@@ -1,0 +1,118 @@
+//
+// RTL
+// --------------------------------------------------
+
+// ### Variables
+@import "./../../libs/bootstrap-sass-3.1.1/bootstrap/variables"; // Default _variables.scss
+@import "../_variables";
+
+// ### Bootstrap"s mixins
+@import "./../../libs/bootstrap-sass-3.1.1/bootstrap/mixins";
+@import "../_mixins";
+
+.right-to-left {
+  // Base styles
+  //
+
+  direction: rtl !important;
+
+  .pull-right {
+    float: left !important;
+  }
+
+  .pull-left {
+    float: right !important;
+  }
+
+  // Imports
+  //
+
+  @import "grid";
+  @import "breadcrumb";
+  @import "main_navbar";
+  @import "main_menu";
+  @import "progress_bars";
+  @import "navbar";
+  @import "dropdowns";
+  @import "labels";
+  @import "navs";
+  @import "alerts";
+  @import "tables";
+  @import "accordion";
+  @import "popovers";
+  @import "list_groups";
+  @import "forms";
+  @import "pagination";
+  @import "button_groups";
+  @import "input_groups";
+  @import "panels";
+  @import "modals";
+  @import "notes";
+  @import "buttons";
+  @import "stats";
+  @import "counters";
+  @import "utils";
+
+
+  // Widgets
+  //
+
+  @import "widgets/_threads";
+  @import "widgets/_tasks";
+  @import "widgets/_support_tickets";
+  @import "widgets/_profile";
+  @import "widgets/_notifications";
+  @import "widgets/_messages";
+  @import "widgets/_messages_alt";
+  @import "widgets/_comments";
+  @import "widgets/_chat";
+  @import "widgets/_article_comments";
+  @import "widgets/_followers";
+
+
+  // Pages
+  //
+
+  @import "pages/_invoice";
+  @import "pages/_error_pages";
+  @import "pages/_pricing";
+  @import "pages/_search";
+  @import "pages/_signin";
+  @import "pages/_signup";
+  @import "pages/_signin_alt";
+  @import "pages/_signup_alt";
+  @import "pages/_timeline";
+  @import "pages/_mail";
+  @import "pages/_profile";
+
+
+  // jQuery UI
+  //
+
+  @import "plugins/jquery_ui/_accordions";
+  @import "plugins/jquery_ui/_menus";
+  @import "plugins/jquery_ui/_spinners";
+  @import "plugins/jquery_ui/_datepicker";
+
+
+  // Plugins
+  //
+
+  @import "plugins/_pa.switcher";
+  @import "plugins/_pa.wizard";
+  @import "plugins/_pa.file_input";
+  @import "plugins/_jquery.select2";
+  @import "plugins/_bootstrap_datepicker";
+  @import "plugins/_bootstrap_datepaginator";
+  @import "plugins/_bootstrap_tabdrop";
+  @import "plugins/_jquery.minicolors";
+  // {
+    @import "plugins/bootstrap_editable/_bootstrap_editable";
+    @import "plugins/bootstrap_editable/_address";
+  // }
+  @import "plugins/_jquery.datatables";
+  @import "plugins/_dropzone";
+  @import "plugins/_summernote";
+  @import "plugins/_jquery.growl";
+  @import "plugins/_jquery.flot";
+}

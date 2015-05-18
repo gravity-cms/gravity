@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    {% if form|default(false) %}
+        {% form_theme form '@theme_gravity_admin/Form/fields.html.twig' %}
+    {% endif %}
+
+    <title>{% block meta_title %}LineStorm CMS Admin Panel{% endblock %}</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+
+    <!-- START META -->
+    {% block head_meta %}
+
+    {% endblock %}
+    <!-- END META -->
+
+    <!-- START STYLESHEETS -->
+    {% stylesheets
+    filter="compass, cssrewrite" output="css/theme/gravity_admin/main.css"
+        "@theme_gravity_admin/Resources/assets/sass/main.scss"
+        "@gravity_core_css"
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+
+    {% stylesheets
+    filter="compass, cssrewrite" output="css/bundles.css"
+    "@gravity_bundle_css"
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+
+    {% block head_stylesheets %}
+
+
+    {% endblock %}
+    <!-- END STYLESHEETS -->
+
+    <!-- START JAVASCRIPTS -->
+    <script type="text/javascript">
+        window.Gravity = {};
+    </script>
+    {% set page_modules = page_modules|default([]) %}
+    {% block head_javascripts %}
+        {{ include('GravityCoreBundle::requirejs.html.twig', {
+        requirejs_module: ['cms/core/api', 'theme/gravity_admin/main', 'cms/core/form/fields']|merge(page_modules)
+        }) }}
+    {% endblock %}
+    <!-- END JAVASCRIPTS -->
+
+</head>
+<body class="theme-default main-menu-animated">
+
+<div id="main-wrapper">
+
+    <div id="main-navbar" class="navbar navbar-inverse" role="navigation">
+        <!-- Main menu toggle -->
+        <button type="button" id="main-menu-toggle"><i class="navbar-icon fa fa-bars icon"></i><span
+                    class="hide-menu-text">HIDE MENU</span></button>
+
+        <div class="navbar-inner">
+            <div class="navbar-header">
+
+                <a href="#" class="navbar-brand">
+                    {% block header %}Gravity{% endblock %}
+                </a>
+
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#main-navbar-collapse"><i class="navbar-icon fa fa-bars"></i></button>
+
+            </div>
+
+            <div id="main-navbar-collapse" class="collapse navbar-collapse main-navbar-collapse">
+                <div>
+
+                    <div class="right clearfix">
+                        <ul class="nav navbar-nav pull-right right-navbar-nav">
+                            <li class="dropdown">
+                                <a href="{{ url('fos_user_profile_edit') }}" class="dropdown-toggle user-menu"
+                                   data-toggle="dropdown">
+                                    <img src="" alt="">
+                                    <span>{{ app.user.username }}</span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{{ url('fos_user_profile_show') }}">Profile</a>
+                                    </li>
+                                    <li><a href="{{ url('fos_user_profile_edit') }}">Account</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url('fos_user_profile_edit') }}">
+                                            <i class="dropdown-icon fa fa-cog"></i>&nbsp;&nbsp;Settings
+                                        </a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li><a href="{{ url('fos_user_security_logout') }}"><i
+                                                    class="dropdown-icon fa fa-power-off"></i>&nbsp;&nbsp;Log Out</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="main-menu" role="navigation">
+        <div id="main-menu-inner">
+
+            <div class="menu-content top user-widget">
+                <div>
+                    <div class="text-bg"><span class="text-slim">Welcome,</span> <span class="text-semibold">{{ app.user.username | capitalize }}</span>
+                    </div>
+
+                    <img src="{% if app.user %}{% endif %}" alt="" class="">
+                    <div class="btn-group">
+                        <a href="#" class="btn btn-xs btn-primary btn-outline dark"><i class="fa fa-envelope"></i></a>
+                        <a href="{{ url('fos_user_profile_show') }}" class="btn btn-xs btn-primary btn-outline dark"><i class="fa fa-user"></i></a>
+                        <a href="{{ url('fos_user_profile_edit') }}" class="btn btn-xs btn-primary btn-outline dark"><i class="fa fa-cog"></i></a>
+                        <a href="{{ url('fos_user_security_logout') }}" class="btn btn-xs btn-danger btn-outline dark"><i class="fa fa-power-off"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <ul class="navigation">
+                {% block nav %}
+
+                {% endblock %}
+            </ul>
+
+        </div>
+    </div>
+
+
+    <div id="content-wrapper">
+
+        <div class="page-header">
+            <h1>{% block page_title %}{% endblock %}</h1>
+
+            <p class="text-muted">
+                {% block page_desc %}{% endblock %}
+            </p>
+
+            {% block page_icon %}
+
+            {% endblock %}
+        </div>
+
+        <ul class="breadcrumb breadcrumb-page">
+            <li><a href="{# { url('linestorm_cms_admin_index') } #}"><i class="fa-home"></i> Home</a></li>
+            {% block breadcrumbs %}{% endblock %}
+        </ul>
+
+        {% block body %}
+
+        {% endblock %}
+
+    </div>
+
+    <div id="main-menu-bg"></div>
+</div>
+
+</body>
+</html>

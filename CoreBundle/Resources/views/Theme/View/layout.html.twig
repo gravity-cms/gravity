@@ -1,0 +1,12 @@
+{% extends 'GravityNodeBundle::base.html.twig' %}
+{% set page_modules = ['cms/core/view/view']|merge(page_modules|default([])) %}
+
+{% block breadcrumbs %}
+    {{ parent() }}
+    <li><a href="{{ url('gravity_admin_theme_view_list') }}">Views</a></li>
+{% endblock %}
+
+
+{% block page_icon %}
+    <i class="page-header-icon fa-align-left"></i>
+{% endblock %}

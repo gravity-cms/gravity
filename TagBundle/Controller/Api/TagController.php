@@ -4,7 +4,7 @@ namespace Gravity\TagBundle\Controller\Api;
 
 use Gravity\TagBundle\Entity\Tag;
 use Gravity\TagBundle\Form\TagForm;
-use GravityCMS\CoreBundle\Controller\Api\AbstractApiController;
+use Gravity\CoreBundle\Controller\Api\AbstractApiController;
 use Symfony\Component\Form\AbstractType;
 
 /**

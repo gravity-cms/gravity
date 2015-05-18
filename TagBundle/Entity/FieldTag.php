@@ -5,7 +5,7 @@ namespace Gravity\TagBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Gravity\TagBundle\Entity\Tag;
 use Gravity\NodeBundle\Entity\NodeContent;
-use GravityCMS\CoreBundle\Entity\FieldData;
+use Gravity\CoreBundle\Entity\FieldData;
 
 /**
  * Class FieldTag

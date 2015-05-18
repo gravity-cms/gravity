@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    {% if form|default(false) %}
+        {% form_theme form '@theme_gravity_admin/Form/fields.html.twig' %}
+    {% endif %}
+
+    <title>{% block meta_title %}LineStorm CMS Admin Panel{% endblock %}</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+
+    <!-- START META -->
+    {% block head_meta %}
+
+    {% endblock %}
+    <!-- END META -->
+
+    <!-- START STYLESHEETS -->
+    {% stylesheets
+    filter="compass" output="css/theme/gravity_admin/external.css"
+    "@theme_gravity_admin/Resources/assets/sass/main.scss"
+    "css/cms/*"
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+    {% block head_stylesheets %}
+
+    {% endblock %}
+    <!-- END STYLESHEETS -->
+
+    <!-- START JAVASCRIPTS -->
+    <script type="text/javascript">
+        window.Gravity = {};
+    </script>
+    {% set page_modules = page_modules|default([]) %}
+    {% block head_javascripts %}
+        {{ include('GravityCoreBundle::requirejs.html.twig', {
+        requirejs_module: ['cms/core/api', 'theme/gravity_admin/main']|merge(page_modules)
+        }) }}
+    {% endblock %}
+    <!-- END JAVASCRIPTS -->
+
+</head>
+<body class="theme-default main-menu-animated page-signin">
+    {% block page %}
+
+    {% endblock %}
+</body>
+</html>

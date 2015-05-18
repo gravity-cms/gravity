@@ -1,0 +1,6 @@
+parameters:
+  gravity_cms.menu_manager.class: Gravity\Component\Menu\MenuManager
+
+services:
+  gravity_cms.menu_manager:
+    class: %gravity_cms.menu_manager.class%

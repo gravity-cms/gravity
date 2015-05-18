@@ -1,0 +1,42 @@
+{% block toggle_widget %}
+    <div class="field-toggle">
+        <div class="toggle-value">
+            <div class="input-group">
+                <label class="input-group-addon">
+                    {{ form_widget(form.enabled, {attr: {class: 'field-toggle-switch'}}) }}
+                </label>
+                {{ form_widget(form.value, {attr: {class: 'form-control field-toggle-value'}}) }}
+            </div>
+            <!-- /input-group -->
+        </div>
+    </div>
+{% endblock %}
+
+{# Fix for BS3 @see https://github.com/sonata-project/SonataAdminBundle/issues/2630 #}
+{% block checkbox_row -%}
+    {{ block('form_row') }}
+{%- endblock checkbox_row %}
+
+{% block checkbox_label %}
+    {{ block('form_label') }}
+{% endblock checkbox_label %}
+
+{% block radio_row -%}
+    {{ block('form_row') }}
+{%- endblock radio_row %}
+
+{% block radio_label %}
+    {{ block('form_label') }}
+{% endblock radio_label %}
+
+{% block config_name_widget %}
+    <div class="config-name-widget" data-target="{{ form.vars.target }}">
+        <div class="config-name-value">
+            <span class="text-muted">{% if form.vars.value %}{{ form.vars.value }}{% else %}&lt;generated field&gt;{% endif %}</span>
+            (<a href="#" class="config-name-toggle-input">edit</a>)
+        </div>
+        <div class="config-name-input">
+            {{ form_widget(form) }}
+        </div>
+    </div>
+{% endblock %}

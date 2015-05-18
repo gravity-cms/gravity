@@ -2,7 +2,7 @@
 
 namespace Gravity\FileBundle\Entity;
 
-use GravityCMS\CoreBundle\Entity\FieldData;
+use Gravity\CoreBundle\Entity\FieldData;
 
 /**
  * Class FieldImage

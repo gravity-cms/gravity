@@ -5,8 +5,8 @@ namespace Gravity\TagBundle\Field\Widget\AutoComplete;
 use Gravity\TagBundle\Asset\TagAutoCompleteLibrary;
 use Gravity\TagBundle\Entity\FieldTag;
 use Gravity\TagBundle\Field\Widget\AutoComplete\Configuration\TagAutoCompleteWidgetConfiguration;
-use GravityCMS\Component\Field\FieldDefinitionInterface;
-use GravityCMS\Component\Field\Widget\AbstractWidgetDefinition;
+use Gravity\Component\Field\FieldDefinitionInterface;
+use Gravity\Component\Field\Widget\AbstractWidgetDefinition;
 
 class TagAutoCompleteWidget extends AbstractWidgetDefinition
 {

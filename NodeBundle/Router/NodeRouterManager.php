@@ -2,7 +2,7 @@
 
 namespace Gravity\NodeBundle\Router;
 
-use GravityCMS\Component\Configuration\ConfigurationManager;
+use Gravity\Component\Configuration\ConfigurationManager;
 use Gravity\NodeBundle\Configuration\RoutingConfiguration;
 use Gravity\NodeBundle\Entity\Node;
 use Gravity\NodeBundle\Router\PathProcessor\PathProcessorInterface;

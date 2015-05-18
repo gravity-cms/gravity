@@ -4,9 +4,9 @@ namespace Gravity\TagBundle\Field;
 
 use Gravity\TagBundle\Field\Display\TagHtmlDisplay;
 use Gravity\TagBundle\Field\Widget\AutoComplete\TagAutoCompleteWidget;
-use GravityCMS\Component\Field\AbstractFieldDefinition;
-use GravityCMS\Component\Field\Display\DisplayInterface;
-use GravityCMS\Component\Field\Widget\WidgetDefinitionInterface;
+use Gravity\Component\Field\AbstractFieldDefinition;
+use Gravity\Component\Field\Display\DisplayInterface;
+use Gravity\Component\Field\Widget\WidgetDefinitionInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class FieldTag extends AbstractFieldDefinition

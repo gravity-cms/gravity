@@ -2,7 +2,7 @@
 
 namespace Gravity\CKEditorBundle\Editor;
 
-use GravityCMS\Component\Editor\EditorInterface;
+use Gravity\Component\Editor\EditorInterface;
 
 /**
  * Class CKEditor

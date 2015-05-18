@@ -8,7 +8,7 @@ use Gravity\FileBundle\Entity\File;
 use Gravity\FileBundle\File\Exception\FileUploadException;
 use Gravity\FileBundle\File\Exception\FileUploadExtensionDeniedException;
 use Gravity\FileBundle\File\Exception\FileUploadFailedException;
-use GravityCMS\Component\Configuration\ConfigurationManager;
+use Gravity\Component\Configuration\ConfigurationManager;
 use Knp\Bundle\GaufretteBundle\FilesystemMap;
 use Symfony\Component\HttpFoundation\File\File as SymfonyFile;
 use Symfony\Component\HttpFoundation\File\UploadedFile;

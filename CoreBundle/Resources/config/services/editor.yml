@@ -1,0 +1,3 @@
+services:
+  gravity.editor_manager:
+    class: Gravity\Component\Editor\EditorManager

@@ -2,7 +2,7 @@
 
 namespace Gravity\CKEditorBundle;
 
-use GravityCMS\Component\Bundle\GravityBundle;
+use Gravity\Component\Bundle\GravityBundle;
 
 class GravityCKEditorBundle extends GravityBundle
 {

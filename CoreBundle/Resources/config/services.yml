@@ -1,0 +1,21 @@
+imports:
+    - { resource: services/theme.yml }
+    - { resource: services/router.yml }
+    - { resource: services/menu.yml }
+    - { resource: services/forms.yml }
+    - { resource: services/entity.yml }
+    - { resource: services/editor.yml }
+    - { resource: services/field_text.yml }
+    - { resource: services/field_number.yml }
+
+parameters: ~
+
+services:
+  gravity_cms.config_manager:
+    class: Gravity\Component\Configuration\ConfigurationManager
+    arguments:
+      - @doctrine.orm.default_entity_manager
+      - @form.factory
+
+  gravity_cms.field_manager:
+    class: Gravity\Component\Field\FieldManager

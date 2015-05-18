@@ -1,0 +1,43 @@
+{% extends 'GravityCoreBundle:Theme:base.html.twig' %}
+
+{% block page_title %}
+    Layouts
+{% endblock %}
+
+{% block page_desc %}
+    Manage and Change Layouts
+{% endblock %}
+
+{% block plugin %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <a class="btn btn-primary" href="{{ url('gravity_admin_layout_new') }}">
+                <i class="fa fa-plus"></i> New Layout
+            </a>
+        </div>
+    </div>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for name,layout in layouts %}
+            <tr>
+                <td>{{ layout.name }}</td>
+                <td>{{ layout.description }}</td>
+                <td>
+                    <a class="btn btn-default" href="{{ url('gravity_admin_layout_edit', { id: layout.id}) }}">
+                        Configure Blocks
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

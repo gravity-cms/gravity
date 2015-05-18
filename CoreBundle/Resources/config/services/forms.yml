@@ -1,0 +1,89 @@
+
+services:
+  #
+  # Form Types
+  gravity.form.type.hidden_entity:
+      class: Gravity\Component\Form\Type\HiddenEntityIdType
+      arguments:
+        - @doctrine.orm.default_entity_manager
+      tags:
+        - { name: form.type, alias: hidden_entity }
+
+  #
+  # Fields
+  gravity.form.field:
+    class: Gravity\CoreBundle\Form\FieldForm
+    tags:
+      - { name: form.type, alias: gravity_field }
+
+  gravity.form.type.field_type_choice:
+    class: Gravity\CoreBundle\Form\Type\FieldTypeChoiceType
+    arguments:
+      - @gravity_cms.field_manager
+    tags:
+      - { name: form.type, alias: gravity_field_type }
+
+
+  gravity.form.type.field_collection:
+    class: Gravity\CoreBundle\Form\Type\FieldCollectionType
+    arguments:
+        - @gravity_cms.field_manager
+        - @gravity_cms.config_manager
+    tags:
+        - { name: form.type, alias: field_collection }
+
+  gravity.form.type.field_data_collection:
+    class: Gravity\CoreBundle\Form\Type\FieldDataCollectionType
+    tags:
+        - { name: form.type, alias: field_data_collection }
+
+  gravity.form.type.field_widget:
+    class: Gravity\CoreBundle\Form\Type\FieldWidgetType
+    tags:
+        - { name: form.type, alias: field_widget }
+
+  #
+  # AutoComplete
+  gravity.cms.auto_complete_manager:
+    class: Gravity\Component\Form\AutoComplete\AutoCompleteManager
+
+  gravity.cms.form.type.auto_complete:
+      class: Gravity\Component\Form\Type\AutoCompleteType
+      arguments:
+        - @gravity.cms.auto_complete_manager
+        - @router.default
+      tags:
+          - { name: form.type, alias: auto_complete }
+
+  gravity_cms.form.type.basic_route:
+      class: Gravity\Component\Form\Type\BasicRouteType
+      tags:
+          - { name: form.type, alias: basic_route }
+
+  gravity_cms.form.type.toggle:
+      class: Gravity\Component\Form\Type\ToggleType
+      tags:
+          - { name: form.type, alias: toggle }
+
+  gravity_cms.field.form.type.field_configuration:
+      class: Gravity\Component\Field\Form\Type\FieldConfigurationType
+      tags:
+          - { name: form.type, alias: field_configuration }
+
+  gravity_cms.field.form.type.field_widget_configuration:
+      class: Gravity\Component\Field\Form\Type\FieldWidgetConfigurationType
+      tags:
+          - { name: form.type, alias: field_widget_configuration }
+
+  gravity.form.type.text_list:
+    class: Gravity\Component\Form\Type\TextListType
+    tags:
+      - { name: form.type, alias: text_list }
+
+
+
+  gravity.form.type.config_name:
+    class: Gravity\Component\Form\Type\ConfigNameType
+    tags:
+      - { name: form.type, alias: config_name }
+      - { name: asset_library, class: Gravity\CoreBundle\Asset\Field\ConfigNameAssetLibrary }

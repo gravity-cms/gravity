@@ -6,7 +6,7 @@ namespace Gravity\FileBundle\Entity\Service;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Gravity\FileBundle\Entity\File;
-use GravityCMS\CoreBundle\Entity\Service\EntityServiceInterface;
+use Gravity\CoreBundle\Entity\Service\EntityServiceInterface;
 
 /**
  * Class FileEntityService

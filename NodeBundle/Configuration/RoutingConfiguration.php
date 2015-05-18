@@ -3,7 +3,7 @@
 namespace Gravity\NodeBundle\Configuration;
 
 use Symfony\Component\Validator\Constraints as Assert;
-use GravityCMS\Component\Configuration\AbstractConfiguration;
+use Gravity\Component\Configuration\AbstractConfiguration;
 use Gravity\NodeBundle\Form\RoutingConfigurationForm;
 
 /**

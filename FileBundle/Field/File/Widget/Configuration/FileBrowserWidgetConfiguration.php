@@ -2,7 +2,7 @@
 
 namespace Gravity\FileBundle\Field\File\Widget\Configuration;
 
-use GravityCMS\Component\Field\Widget\AbstractWidgetConfiguration;
+use Gravity\Component\Field\Widget\AbstractWidgetConfiguration;
 
 /**
  * Class FileBrowserWidgetConfiguration

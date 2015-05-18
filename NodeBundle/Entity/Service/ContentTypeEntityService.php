@@ -6,7 +6,7 @@ namespace Gravity\NodeBundle\Entity\Service;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Gravity\NodeBundle\Entity\ContentType;
-use GravityCMS\CoreBundle\Entity\Service\EntityServiceInterface;
+use Gravity\CoreBundle\Entity\Service\EntityServiceInterface;
 
 /**
  * Class ContentTypeEntityService

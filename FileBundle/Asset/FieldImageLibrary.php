@@ -2,7 +2,7 @@
 
 namespace Gravity\FileBundle\Asset;
 
-use GravityCMS\Component\Asset\AbstractAssetLibrary;
+use Gravity\Component\Asset\AbstractAssetLibrary;
 
 class FieldImageLibrary extends AbstractAssetLibrary
 {

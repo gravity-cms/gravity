@@ -1,0 +1,20 @@
+{% extends 'GravityCoreBundle:Theme:base.html.twig' %}
+{% set page_modules = ['cms/core/view/layout']|merge(page_modules|default([])) %}
+
+{% block page_title %}
+    New Layout
+{% endblock %}
+
+{% block page_desc %}
+    &nbsp;
+{% endblock %}
+
+{% block plugin %}
+    {{ form_start(form) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.description) }}
+        <button type="submit" class="btn btn-primary">
+            <i class="fa-save"></i> Save
+        </button>
+    {{ form_end(form) }}
+{% endblock %}

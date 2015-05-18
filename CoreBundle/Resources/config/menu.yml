@@ -1,0 +1,16 @@
+theme:
+  title: Themes
+  icon: paint-brush
+  items:
+    themes:
+      route: gravity_admin_theme_list
+      title: Themes
+      description: ~
+    layouts:
+      route: gravity_admin_layout_list
+      title: Layouts
+      description: ~
+    views:
+      route: gravity_admin_theme_view_list
+      title: Views
+      description: ~

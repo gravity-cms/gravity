@@ -4,7 +4,7 @@ namespace Gravity\TagBundle\Field\Widget\AutoComplete;
 
 use Doctrine\ORM\EntityManager;
 use Gravity\TagBundle\AutoComplete\TagAutoCompleteHandler;
-use GravityCMS\Component\Field\Field;
+use Gravity\Component\Field\Field;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;

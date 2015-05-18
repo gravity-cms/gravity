@@ -2,9 +2,9 @@
 
 namespace Gravity\NodeBundle\Entity;
 
-use GravityCMS\CoreBundle\Entity\Entity;
-use GravityCMS\CoreBundle\Entity\FieldData;
-use GravityCMS\CoreBundle\Entity\Route;
+use Gravity\CoreBundle\Entity\Entity;
+use Gravity\CoreBundle\Entity\FieldData;
+use Gravity\CoreBundle\Entity\Route;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 

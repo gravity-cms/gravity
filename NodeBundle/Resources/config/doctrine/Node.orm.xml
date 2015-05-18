@@ -23,15 +23,15 @@
             <gedmo:timestampable on="create"/>
         </field>
 
-        <many-to-one target-entity="GravityCMS\CoreBundle\Entity\Route" field="route">
+        <many-to-one target-entity="Gravity\CoreBundle\Entity\Route" field="route">
         </many-to-one>
 
-        <many-to-one target-entity="GravityCMS\CoreBundle\Entity\User" field="editedBy">
+        <many-to-one target-entity="Gravity\CoreBundle\Entity\User" field="editedBy">
             <gedmo:blameable on="update"/>
             <gedmo:blameable on="change" field="contents"/>
         </many-to-one>
 
-        <many-to-one target-entity="GravityCMS\CoreBundle\Entity\User" field="createdBy">
+        <many-to-one target-entity="Gravity\CoreBundle\Entity\User" field="createdBy">
             <gedmo:blameable on="create"/>
         </many-to-one>
     </entity>

@@ -1,0 +1,18 @@
+services:
+
+  #
+  # Fields
+  gravity.field.number:
+    class: Gravity\CoreBundle\Field\Number\NumberField
+    tags:
+      - { name: gravity.field }
+
+  gravity.field.number.display.number:
+    class: Gravity\CoreBundle\Field\Number\Display\Number\NumberDisplay
+    tags:
+      - { name: gravity.field.display }
+
+  gravity.field.number.widget.number_box:
+    class: Gravity\CoreBundle\Field\Number\Widget\NumberBox\NumberBoxWidget
+    tags:
+      - { name: gravity.field.widget }

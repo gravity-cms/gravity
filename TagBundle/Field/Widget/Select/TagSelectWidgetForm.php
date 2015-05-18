@@ -5,7 +5,7 @@ namespace Gravity\TagBundle\Field\Widget\Select;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Gravity\TagBundle\Field\Configuration\FieldTagConfiguration;
-use GravityCMS\CoreBundle\Entity\Field;
+use Gravity\CoreBundle\Entity\Field;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;

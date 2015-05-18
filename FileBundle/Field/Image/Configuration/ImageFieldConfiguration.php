@@ -3,7 +3,7 @@
 
 namespace Gravity\FileBundle\Field\Image\Configuration;
 
-use GravityCMS\Component\Field\Configuration\FieldSettingsConfiguration;
+use Gravity\Component\Field\Configuration\FieldSettingsConfiguration;
 
 /**
  * Class ImageFieldConfiguration

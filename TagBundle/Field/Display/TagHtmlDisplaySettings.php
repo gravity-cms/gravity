@@ -3,8 +3,8 @@
 namespace Gravity\TagBundle\Field\Display;
 
 use Gravity\TagBundle\Field\Display\Form\TagHtmlDisplaySettingsForm;
-use GravityCMS\Component\Configuration\AbstractConfiguration;
-use GravityCMS\Component\Field\Display\DisplaySettingsInterface;
+use Gravity\Component\Configuration\AbstractConfiguration;
+use Gravity\Component\Field\Display\DisplaySettingsInterface;
 
 /**
  * Class TagHtmlDisplaySettings

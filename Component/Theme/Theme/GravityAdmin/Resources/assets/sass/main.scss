@@ -1,0 +1,116 @@
+@import "compass";
+
+// ### Variables
+@import "theme/_variables";
+$icon-font-path: "/vendor/sass-bootstrap/fonts/";
+$fa-font-path: "/vendor/font-awesome/fonts";
+
+
+@import "custom";
+
+@import "vendor/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "vendor/font-awesome/scss/font-awesome";
+
+@import "animate";
+
+@import "theme/_mixins";
+@import "theme/_base";
+@import "theme/_main_navbar";
+@import "theme/_main_menu";
+@import "theme/_navbar";
+@import "theme/_buttons";
+@import "theme/_progress_bars";
+@import "theme/_labels";
+@import "theme/_badges";
+@import "theme/_breadcrumb";
+@import "theme/_alerts";
+@import "theme/_tables";
+@import "theme/_navs";
+@import "theme/_dropdowns";
+@import "theme/_button_groups";
+@import "theme/_pagination";
+@import "theme/_list_groups";
+@import "theme/_forms";
+@import "theme/_input_groups";
+@import "theme/_panels";
+@import "theme/_wells";
+@import "theme/_popovers";
+@import "theme/_tooltips";
+@import "theme/_modals";
+@import "theme/_accordions";
+@import "theme/_notes";
+@import "theme/_counters";
+@import "theme/_colors";
+@import "theme/_stats";
+@import "theme/_utils";
+
+@import "theme/pages/_signup";
+
+@import "theme/pages/_signin";
+
+// jQuery UI
+//
+
+@import "theme/plugins/jquery_ui/_common";
+@import "theme/plugins/jquery_ui/_sliders";
+@import "theme/plugins/jquery_ui/_accordions";
+@import "theme/plugins/jquery_ui/_autocomplete";
+@import "theme/plugins/jquery_ui/_menus";
+@import "theme/plugins/jquery_ui/_spinners";
+@import "theme/plugins/jquery_ui/_progress_bars";
+@import "theme/plugins/jquery_ui/_tabs";
+@import "theme/plugins/jquery_ui/_datepicker";
+@import "theme/plugins/jquery_ui/_tooltips";
+
+
+// Plugins
+
+@import "theme/plugins/_pa.switcher";
+@import "theme/plugins/_pa.limiter";
+@import "theme/plugins/_pa.expanding_input";
+@import "theme/plugins/_pa.wizard";
+@import "theme/plugins/_pa.file_input";
+@import "theme/plugins/_jquery.select2";
+@import "theme/plugins/_bootstrap_datepicker";
+@import "theme/plugins/_bootstrap_timepicker";
+@import "theme/plugins/_bootstrap_datepaginator";
+@import "theme/plugins/_bootstrap_tabdrop";
+@import "theme/plugins/_jquery.minicolors";
+// {
+@import "theme/plugins/bootstrap_editable/_bootstrap_editable";
+@import "theme/plugins/bootstrap_editable/_address";
+@import "theme/plugins/bootstrap_editable/_typeahead";
+// }
+@import "theme/plugins/_bootbox";
+@import "theme/plugins/_jquery.datatables";
+@import "theme/plugins/_jquery.growl";
+@import "theme/plugins/_dropzone";
+@import "theme/plugins/_summernote";
+@import "theme/plugins/_bootstrap_markdown";
+@import "theme/plugins/_jquery.sparkline";
+@import "theme/plugins/_easy_pie_chart";
+@import "theme/plugins/_morris";
+@import "theme/plugins/_jquery.flot";
+@import "theme/plugins/_slim_scroll";
+
+@import "theme/themes/default/default";
+
+@import "custom";
+@import "widgets/_menu_widget";
+@import "widgets/_notifications";
+
+// add widgets here
+// @import "./theme/widgets/...";
+@import "theme/widgets/_profile";
+@import "theme/widgets/_support_tickets";
+@import "theme/widgets/_tasks";
+
+[class*="fa-"] {
+    display: inline-block;
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}

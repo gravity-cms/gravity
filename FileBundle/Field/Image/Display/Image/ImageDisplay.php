@@ -4,8 +4,8 @@
 namespace Gravity\FileBundle\Field\Image\Display\Image;
 
 use Gravity\FileBundle\Field\Image\Display\Image\Configuration\ImageDisplayConfiguration;
-use GravityCMS\Component\Field\Display\AbstractDisplay;
-use GravityCMS\Component\Field\Display\DisplaySettingsInterface;
+use Gravity\Component\Field\Display\AbstractDisplay;
+use Gravity\Component\Field\Display\DisplaySettingsInterface;
 
 /**
  * Class ImageDisplay

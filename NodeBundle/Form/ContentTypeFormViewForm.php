@@ -18,7 +18,7 @@ class ContentTypeFormViewForm extends AbstractType
             ->add('fields', 'collection', array(
                 'type' => new ContentTypeFormViewFieldForm(),
                 'options' => array(
-                    'data_class' => 'GravityCMS\CoreBundle\Entity\Field',
+                    'data_class' => 'Gravity\CoreBundle\Entity\Field',
                 ),
             ))
         ;

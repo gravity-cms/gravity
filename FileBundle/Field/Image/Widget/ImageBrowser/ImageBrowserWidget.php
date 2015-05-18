@@ -5,8 +5,8 @@ namespace Gravity\FileBundle\Field\Image\Widget\ImageBrowser;
 
 use Gravity\FileBundle\Asset\FieldImageLibrary;
 use Gravity\FileBundle\Field\Image\Widget\ImageBrowser\Configuration\ImageBrowserWidgetConfiguration;
-use GravityCMS\Component\Field\FieldDefinitionInterface;
-use GravityCMS\Component\Field\Widget\AbstractWidgetDefinition;
+use Gravity\Component\Field\FieldDefinitionInterface;
+use Gravity\Component\Field\Widget\AbstractWidgetDefinition;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 

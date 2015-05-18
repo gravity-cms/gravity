@@ -2,7 +2,7 @@
 
 namespace Gravity\FileBundle\Field\File\Configuration;
 
-use GravityCMS\Component\Field\Configuration\FieldSettingsConfiguration;
+use Gravity\Component\Field\Configuration\FieldSettingsConfiguration;
 
 /**
  * Class FileFieldConfiguration

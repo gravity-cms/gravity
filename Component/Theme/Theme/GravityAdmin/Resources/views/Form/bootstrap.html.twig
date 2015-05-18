@@ -1,0 +1,103 @@
+{% extends 'form_div_layout.html.twig' %}
+
+{% block form_start %}
+    {% spaceless %}
+        {% set method = method|upper %}
+        {% if method in ["GET", "POST"] %}
+            {% set form_method = method %}
+        {% else %}
+            {% set form_method = "POST" %}
+        {% endif %}
+        {% set attr = attr|merge({'class': (attr.class|default('') ~ ' form-horizontal')|trim}) %}
+        <form name="{{ form.vars.name }}" method="{{ form_method|lower }}" action="{{ action }}"{% for attrname, attrvalue in attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}{% if multipart %} enctype="multipart/form-data"{% endif %}>
+        {% if form_method != method %}
+            <input type="hidden" name="_method" value="{{ method }}" />
+        {% endif %}
+    {% endspaceless %}
+{% endblock form_start %}
+
+{% block form_row %}
+    {% set row_size = row_size|default('sm') %}
+    {% spaceless %}
+        <div class="form-group">
+            {{ form_label(form) }}
+            {{ form_errors(form) }}
+            <div class="col-{{ row_size }}-{% if label is same as(false) %}12{% else %}10{% endif %}">{{ form_widget(form) }}</div>
+        </div>
+    {% endspaceless %}
+{% endblock form_row %}
+
+{% block form_label %}
+    {% set row_size = row_size|default('sm') %}
+    {% spaceless %}
+        {% if label is not sameas(false) %}
+            {% if not compound %}
+                {% set label_attr = label_attr|merge({'for': id}) %}
+            {% endif %}
+            {% if required %}
+                {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
+            {% endif %}
+            {% if label is empty %}
+                {% set label = name|humanize %}
+            {% endif %}
+            {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' col-' ~ row_size ~ '-2 control-label')|trim}) %}
+            <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
+            {{ label|trans({}, translation_domain) }}
+
+            {% if add_link is defined %}
+                [<a class="{{ add_link.class|default('add-link') }}" href="{{ add_link.href|default('#') }}">{{ add_link.text|default('Add') }}</a>]
+            {% endif %}
+
+            {% if help is defined %}
+                <i class="fa-question-circle blue" title="{{ help }}"></i>
+            {% endif %}
+            </label>
+        {% endif %}
+    {% endspaceless %}
+{% endblock form_label %}
+
+
+{% block widget_attributes %}
+    {% spaceless %}
+        id="{{ id }}" name="{{ full_name }}"
+        {%- if read_only %} readonly="readonly"{% endif -%}
+        {%- if disabled %} disabled="disabled"{% endif -%}
+        {%- if required %} required="required"{% endif -%}
+        {%- if max_length %} maxlength="{{ max_length }}"{% endif -%}
+        {%- if pattern %} pattern="{{ pattern }}"{% endif -%}
+        {%- set hasClass = false -%}
+        {%- for attrname, attrvalue in attr -%}
+            {{- " " -}}
+            {%- if attrname in ['placeholder', 'title'] -%}
+                {{- attrname }}="{{ attrvalue|trans({}, translation_domain) }}"
+            {%- elseif attrname == 'class' -%}
+                {%- set hasClass = true -%}
+                {% if attrvalue|length %}
+                    {{- attrname }}="{{ attrvalue }}"
+                {% elseif attr.type not in ['checkbox', 'radio'] %}
+                    {{- attrname }}="form-control {{ attrvalue }}"
+                {% endif %}
+            {%- elseif attrvalue is sameas(true) -%}
+                {{- attrname }}="{{ attrname }}"
+            {%- elseif attrvalue is not sameas(false) -%}
+                {{- attrname }}="{{ attrvalue }}"
+            {%- endif -%}
+        {%- endfor -%}
+        {%- if not hasClass and ((input_type|default(false) and input_type not in ['checkbox', 'radio']) or input_type is not defined) -%}
+            {{- " " -}}
+            {{- ' class="form-control"' -}}
+        {%- endif -%}
+    {% endspaceless %}
+{% endblock widget_attributes %}
+
+{% block checkbox_widget -%}
+    {% set row_size = row_size|default('sm') %}
+    {% set input_type = 'checkbox' %}
+    {{ parent() }}
+{%- endblock checkbox_widget %}
+
+{% block radio_widget -%}
+    {% set row_size = row_size|default('sm') %}
+    {% set input_type = 'radio' %}
+    {{ parent() }}
+{%- endblock radio_widget %}

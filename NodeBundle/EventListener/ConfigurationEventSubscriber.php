@@ -3,7 +3,7 @@
 namespace Gravity\NodeBundle\EventListener;
 
 use Doctrine\ORM\EntityManager;
-use GravityCMS\Component\Configuration\ConfigurationManager;
+use Gravity\Component\Configuration\ConfigurationManager;
 use Gravity\NodeBundle\Entity\ContentType;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

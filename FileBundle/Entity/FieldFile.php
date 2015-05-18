@@ -3,7 +3,7 @@
 namespace Gravity\FileBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use GravityCMS\CoreBundle\Entity\FieldData;
+use Gravity\CoreBundle\Entity\FieldData;
 
 /**
  * Class FieldFile

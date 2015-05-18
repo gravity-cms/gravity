@@ -6,8 +6,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use Gravity\TagBundle\Entity\Tag;
 use Gravity\TagBundle\Field\Configuration\FieldTagConfiguration;
-use GravityCMS\Component\Field\FieldManager;
-use GravityCMS\Component\Form\AutoComplete\AbstractAutoCompleteHandler;
+use Gravity\Component\Field\FieldManager;
+use Gravity\Component\Form\AutoComplete\AbstractAutoCompleteHandler;
 
 class TagAutoCompleteHandler extends AbstractAutoCompleteHandler
 {

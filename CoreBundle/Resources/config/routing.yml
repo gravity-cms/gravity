@@ -1,0 +1,14 @@
+gravity_cms_theme:
+  resource: @GravityCoreBundle/Resources/config/routing/theme.yml
+  type: gravity_admin
+
+gravity_cms_api:
+  resource: @GravityCoreBundle/Resources/config/routing/api.yml
+  type: gravity_api
+
+gravity_cms_forms:
+  resource: @GravityCoreBundle/Resources/config/routing/forms.yml
+
+gravity_module_admin:
+  resource: .
+  type: gravity_admin

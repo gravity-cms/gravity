@@ -2,7 +2,7 @@
 
 namespace Gravity\NodeBundle\Form;
 
-use GravityCMS\CoreBundle\Entity\Field;
+use Gravity\CoreBundle\Entity\Field;
 
 /**
  * Interface FieldNodeFormInterface

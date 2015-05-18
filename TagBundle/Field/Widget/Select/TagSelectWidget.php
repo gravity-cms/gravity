@@ -2,8 +2,8 @@
 
 namespace Gravity\TagBundle\Field\Widget\Select;
 
-use GravityCMS\Component\Field\FieldDefinitionInterface;
-use GravityCMS\Component\Field\Widget\AbstractWidgetDefinition;
+use Gravity\Component\Field\FieldDefinitionInterface;
+use Gravity\Component\Field\Widget\AbstractWidgetDefinition;
 
 /**
  * Class TagSelectWidget

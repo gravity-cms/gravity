@@ -4,8 +4,8 @@ namespace Gravity\FileBundle\Controller\Api;
 
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use Gravity\FileBundle\Entity\File;
-use GravityCMS\CoreBundle\Controller\Api\ApiEntityServiceControllerTrait;
-use GravityCMS\CoreBundle\FosRest\View\View\JsonApiView;
+use Gravity\CoreBundle\Controller\Api\ApiEntityServiceControllerTrait;
+use Gravity\CoreBundle\FosRest\View\View\JsonApiView;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -233,7 +233,7 @@ class FileController extends Controller implements ClassResourceInterface
      * @param Request $request
      *
      * @return Response
-     * @throws \GravityCMS\Component\Configuration\Exception\ConfigurationNotFoundException
+     * @throws \Gravity\Component\Configuration\Exception\ConfigurationNotFoundException
      *
      * [GET] /api/file/settings.{_format}
      */

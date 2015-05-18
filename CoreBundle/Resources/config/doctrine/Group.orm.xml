@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Gravity\CoreBundle\Entity\Group" table="security_group">
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="name" type="string" column="name" length="50" precision="0" scale="0" nullable="false"/>
+    <many-to-many field="users" target-entity="Gravity\CoreBundle\Entity\User" mapped-by="groups"/>
+
+    <many-to-many field="roles" target-entity="Gravity\CoreBundle\Entity\Role" inversed-by="groups">
+      <join-table name="security_group_role">
+        <join-columns>
+          <join-column name="group_id" referenced-column-name="id" on-delete="CASCADE"/>
+        </join-columns>
+        <inverse-join-columns>
+          <join-column name="role_id" referenced-column-name="id" on-delete="CASCADE"/>
+        </inverse-join-columns>
+      </join-table>
+    </many-to-many>
+
+  </entity>
+</doctrine-mapping>

@@ -3,7 +3,7 @@
 namespace Gravity\FileBundle\Field\File\Widget;
 
 use Gravity\FileBundle\Field\File\Configuration\FileFieldConfiguration;
-use GravityCMS\CoreBundle\Entity\Field;
+use Gravity\CoreBundle\Entity\Field;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;

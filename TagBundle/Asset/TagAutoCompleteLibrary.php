@@ -2,7 +2,7 @@
 
 namespace Gravity\TagBundle\Asset;
 
-use GravityCMS\Component\Asset\AbstractAssetLibrary;
+use Gravity\Component\Asset\AbstractAssetLibrary;
 
 class TagAutoCompleteLibrary extends AbstractAssetLibrary
 {

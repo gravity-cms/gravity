@@ -1,0 +1,33 @@
+parameters:
+  gravity_cms.routing.module_loader.class:  Gravity\Component\Router\ModuleLoader
+  gravity_cms.routing.api_loader.class:     Gravity\Component\Router\ApiLoader
+  gravity_cms.routing.web_loader.class:     Gravity\Component\Router\WebLoader
+  gravity_cms.routing.admin_loader.class:   Gravity\Component\Router\AdminLoader
+
+services:
+  gravity_cms.routing.module_loader:
+    class: %gravity_cms.routing.module_loader.class%
+    tags:
+      - { name: routing.loader }
+
+  gravity_cms.routing.api_loader:
+    class: %gravity_cms.routing.api_loader.class%
+    arguments:
+      - @file_locator
+    tags:
+      - { name: routing.loader }
+
+  gravity_cms.routing.web_loader:
+    class: %gravity_cms.routing.web_loader.class%
+    tags:
+      - { name: routing.loader }
+
+  gravity_cms.routing.admin_loader:
+    class: %gravity_cms.routing.admin_loader.class%
+    tags:
+      - { name: routing.loader }
+
+  gravity_cms.routing.route_provider:
+    class: Gravity\Component\Router\GravityRouteProvider
+    arguments:
+      - @doctrine.orm.default_entity_manager

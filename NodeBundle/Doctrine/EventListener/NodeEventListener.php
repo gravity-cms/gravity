@@ -9,7 +9,7 @@ use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\UnitOfWork;
 use Gedmo\SoftDeleteable\SoftDeleteableListener;
-use GravityCMS\CoreBundle\Entity\Route;
+use Gravity\CoreBundle\Entity\Route;
 use Gravity\NodeBundle\Entity\Node;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\Route as SymfonyRoute;

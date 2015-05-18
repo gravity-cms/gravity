@@ -7,7 +7,7 @@
 
 namespace Gravity\NodeBundle\Gravity\Entity;
 
-use GravityCMS\Component\Entity\Definition\EntityDefinitionInterface;
+use Gravity\Component\Entity\Definition\EntityDefinitionInterface;
 
 class NodeEntity implements EntityDefinitionInterface
 {

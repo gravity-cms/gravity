@@ -1,0 +1,26 @@
+{% extends '@theme/base-plain.html.twig' %}
+
+{% block page %}
+    <div class="signin-container">
+
+        <div class="signin-info">
+            <a href="{{ url('fos_user_security_login') }}" class="logo">
+                <i class="fa-paper-plane"></i> Gravity
+            </a>
+            <div class="slogan">
+                Administration Panel
+            </div>
+
+            {% block login_info %}
+
+            {% endblock %}
+
+        </div>
+
+        <div class="signin-form">
+            {% block fos_user_content %}
+
+            {% endblock fos_user_content %}
+        </div>
+    </div>
+{% endblock %}

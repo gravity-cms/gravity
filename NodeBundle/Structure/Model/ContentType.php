@@ -3,7 +3,7 @@
 
 namespace Gravity\NodeBundle\Structure\Model;
 
-use GravityCMS\Component\Field\Field;
+use Gravity\Component\Field\Field;
 
 /**
  * Class ContentType

@@ -1,0 +1,30 @@
+{% extends 'GravityCoreBundle:Theme:base.html.twig' %}
+
+{% block page_title %}
+    Themes
+{% endblock %}
+
+{% block page_desc %}
+    Manage and Change Themes
+{% endblock %}
+
+{% block plugin %}
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for name,theme in themes %}
+            <tr>
+                <td>{{ theme.label }}</td>
+                <td>{% if theme.adminTheme %}Admin{% else %}Frontend{% endif %}</td>
+                <td>Active</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -3,8 +3,8 @@
 namespace Gravity\FileBundle\Field\File\Display\FileLink;
 
 use Gravity\FileBundle\Field\File\Display\FileLink\Configuration\FileLinkDisplayConfiguration;
-use GravityCMS\Component\Field\Display\AbstractDisplay;
-use GravityCMS\Component\Field\Display\DisplaySettingsInterface;
+use Gravity\Component\Field\Display\AbstractDisplay;
+use Gravity\Component\Field\Display\DisplaySettingsInterface;
 
 /**
  * Class FileLinkDisplay

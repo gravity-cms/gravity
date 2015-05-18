@@ -1,0 +1,30 @@
+theme_layout_block:
+  resource: \Gravity\CoreBundle\Controller\Api\LayoutBlockController
+  type: rest
+  prefix: /core
+
+theme_layout:
+  resource: \Gravity\CoreBundle\Controller\Api\LayoutController
+  type: rest
+  prefix: /core
+
+theme_view:
+  resource: \Gravity\CoreBundle\Controller\Api\ViewController
+  type: rest
+  prefix: /core
+
+
+field:
+  resource: \Gravity\CoreBundle\Controller\Api\FieldController
+  type: rest
+  prefix: /core
+
+field_widget:
+  resource: \Gravity\CoreBundle\Controller\Api\FieldWidgetController
+  type: rest
+  prefix: /core
+
+field_display:
+  resource: \Gravity\CoreBundle\Controller\Api\FieldDisplayController
+  type: rest
+  prefix: /core
