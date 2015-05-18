@@ -6,12 +6,19 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use Gravity\TagBundle\Entity\Tag;
 use Gravity\TagBundle\Field\Configuration\FieldTagConfiguration;
+use GravityCMS\Component\Field\FieldManager;
 use GravityCMS\Component\Form\AutoComplete\AbstractAutoCompleteHandler;
 
 class TagAutoCompleteHandler extends AbstractAutoCompleteHandler
 {
-    public function __construct(EntityManager $entityManager)
+    /**
+     * @var FieldManager
+     */
+    protected $fieldManager;
+
+    public function __construct(FieldManager $fieldManager, EntityManager $entityManager)
     {
+        $this->fieldManager  = $fieldManager;
         $this->entityManager = $entityManager;
         $this->dataClass     = '\Gravity\TagBundle\Entity\Tag';
         $this->dataProperty  = 'name';
@@ -30,9 +37,8 @@ class TagAutoCompleteHandler extends AbstractAutoCompleteHandler
             return [];
         }
 
-        $field = $this->entityManager->getRepository('GravityCMSCoreBundle:Field')->find($options['field']);
-        /** @var FieldTagConfiguration $fieldConfig */
-        $fieldConfig = $field->getConfig();
+        $field = $this->fieldManager->getField('tag', $options['field']);
+        $fieldConfig = $field->getSettings();
 
         $repo = $this->entityManager->getRepository($this->dataClass);
 
@@ -44,7 +50,7 @@ class TagAutoCompleteHandler extends AbstractAutoCompleteHandler
             ->andWhere('t.parentTag = :parent')
             ->setParameters([
                 'cond'   => $condition,
-                'parent' => $fieldConfig->getTag(),
+                'parent' => $fieldConfig['tag'],
             ])
             ->getQuery();
 
@@ -64,7 +70,7 @@ class TagAutoCompleteHandler extends AbstractAutoCompleteHandler
             ];
         }, $results);
 
-        if (!$hasExactMatch && $fieldConfig->isAllowNew()) {
+        if (!$hasExactMatch && $fieldConfig['allow_new']) {
             $cleanTerm = htmlspecialchars($term);
             $options[] = [
                 'id'   => $cleanTerm,
@@ -89,20 +95,19 @@ class TagAutoCompleteHandler extends AbstractAutoCompleteHandler
             return $objects;
         }
 
-        $field = $this->entityManager->getRepository('GravityCMSCoreBundle:Field')->find($options['field']);
-        /** @var FieldTagConfiguration $fieldConfig */
-        $fieldConfig = $field->getConfig();
+        $field = $this->fieldManager->getField('tag', $options['field']);
+        $fieldConfig = $field->getSettings();
 
-        $parentTag = $tag = $this->entityManager->getRepository($this->dataClass)->find($fieldConfig->getTag());
+        $parentTag = $tag = $this->entityManager->getRepository($this->dataClass)->find($fieldConfig['tag']);
 
         foreach ($ids as $id) {
             $tag = $this->entityManager->getRepository($this->dataClass)->findOneBy([
                 $this->dataProperty => $id,
-                'parentTag'         => $fieldConfig->getTag(),
+                'parentTag'         => $fieldConfig['tag'],
             ]);
             if ($tag instanceof $this->dataClass) {
                 $objects[] = $tag;
-            } elseif($fieldConfig->isAllowNew()) {
+            } elseif($fieldConfig['allow_new']) {
                 $tag = new Tag();
                 $tag->setName($id);
                 $tag->setParentTag($parentTag);

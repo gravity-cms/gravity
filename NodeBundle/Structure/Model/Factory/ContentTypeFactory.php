@@ -15,6 +15,14 @@ use GravityCMS\Component\Field\Widget\WidgetReference;
  */
 class ContentTypeFactory
 {
+    /**
+     * @param FieldManager $fieldManager
+     * @param              $id
+     * @param array        $contentTypeConfig
+     *
+     * @return ContentType
+     * @throws \Exception
+     */
     public static function create(FieldManager $fieldManager, $id, array $contentTypeConfig)
     {
         $contentType = new ContentType();
@@ -25,11 +33,7 @@ class ContentTypeFactory
         $fields = [];
         foreach ($contentTypeConfig['fields'] as $fieldName => $fieldConfig) {
 
-            $fields[] = $fieldDefinition = $fieldManager->createField(
-                $fieldConfig['type'],
-                $fieldName,
-                $fieldConfig['settings']
-            );
+            $fields[] = $fieldDefinition = $fieldManager->getField($fieldConfig['type'], $fieldName);
 
             $fieldWidget = new WidgetReference(
                 $fieldManager->getFieldWidget($fieldConfig['widget']['type']),

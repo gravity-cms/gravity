@@ -28,28 +28,6 @@ class GravityNodeExtension extends Extension
         $loader->load('services.yml');
 
         // get the content_types definition
-        $contentTypesConfig    = $config['content_types'];
-        $contentTypeRepository = $container->findDefinition('gravity_node.content_type_repository');
-
-        // TODO: put this in a compiler pass
-        $contentTypeDefinitions = [];
-        foreach ($contentTypesConfig as $contentTypeName => $contentTypeConfig) {
-            $contentTypeDefinition = $container->register(
-                'gravity_node.content_type.' . $contentTypeName,
-                "Gravity\\NodeBundle\\Structure\\Model\\ContentType"
-            );
-            $contentTypeDefinition->setFactory("Gravity\\NodeBundle\\Structure\\Model\\Factory\\ContentTypeFactory::create");
-            $contentTypeDefinition->setArguments(
-                [
-                    new Reference('gravity_cms.field_manager'),
-                    $contentTypeName,
-                    $contentTypeConfig,
-                ]
-            );
-            $contentTypeDefinition->setPublic(false);
-            $contentTypeDefinitions[] = new Reference('gravity_node.content_type.' . $contentTypeName);
-        }
-
-        $contentTypeRepository->addMethodCall('setContentTypes', [$contentTypeDefinitions]);
+        $container->setParameter('gravity_node.content_types', $config['content_types']);
     }
 }

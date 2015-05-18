@@ -4,9 +4,7 @@ namespace Gravity\TagBundle\Field\Widget\AutoComplete;
 
 use Doctrine\ORM\EntityManager;
 use Gravity\TagBundle\AutoComplete\TagAutoCompleteHandler;
-use Gravity\TagBundle\Field\Configuration\FieldTagConfiguration;
-use GravityCMS\Component\Field\FieldReference;
-use GravityCMS\CoreBundle\Entity\Field;
+use GravityCMS\Component\Field\Field;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -44,7 +42,7 @@ class TagAutoCompleteWidgetForm extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        /** @var FieldReference $field */
+        /** @var Field $field */
         $field         = $options['field'];
         $configuration = $field->getSettings();
         $limit         = $configuration['limit'];

@@ -97,12 +97,16 @@ class NodeController extends Controller implements ClassResourceInterface
      */
     public function putAction(Request $request, Node $node)
     {
+        $contentType = $this->get('gravity_node.content_type_repository')->get($node->getContentType());
+
         $service = $this->get('gravity.entity_service.node');
         $form    = $this->createForm(
             'gravity_node',
             $node,
             [
-                'method' => 'PUT',
+                'content_type'    => $contentType,
+                'csrf_protection' => false,
+                'method'          => 'PUT',
             ]
         );
         $payload = json_decode($request->getContent(), true);
@@ -139,12 +143,16 @@ class NodeController extends Controller implements ClassResourceInterface
      */
     public function patchAction(Request $request, Node $node)
     {
+        $contentType = $this->get('gravity_node.content_type_repository')->get($node->getContentType());
+
         $service = $this->get('gravity.entity_service.node');
         $form    = $this->createForm(
             'gravity_node',
             $node,
             [
-                'method' => 'PATCH',
+                'content_type'    => $contentType,
+                'csrf_protection' => false,
+                'method'          => 'PATCH',
             ]
         );
         $payload = json_decode($request->getContent(), true);

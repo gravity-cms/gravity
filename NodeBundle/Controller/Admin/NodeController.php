@@ -110,6 +110,7 @@ class NodeController extends Controller
             new NodeForm(),
             $node,
             [
+                'csrf_protection' => false,
                 'content_type' => $contentType,
                 'attr'         => [
                     'class' => 'api-save'
