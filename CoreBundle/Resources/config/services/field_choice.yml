@@ -1,0 +1,22 @@
+services:
+
+  #
+  # Field
+  gravity.field.choice:
+    class: Gravity\CoreBundle\Field\Choice\ChoiceField
+    tags:
+      - { name: gravity.field }
+
+  #
+  # Widgets
+  gravity.field.choice.widget.unformatted:
+    class: Gravity\CoreBundle\Field\Choice\Widget\Select\SelectWidget
+    tags:
+      - { name: gravity.field.widget }
+
+  #
+  # Displays
+#  gravity_node.field.choice.display:
+#    class: Gravity\CoreBundle\Field\Text\Display\TextFieldDisplay
+#    tags:
+#      - { name: gravity.field.display }

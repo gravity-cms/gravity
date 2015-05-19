@@ -8,6 +8,7 @@ imports:
     - { resource: services/field_text.yml }
     - { resource: services/field_number.yml }
     - { resource: services/field_boolean.yml }
+    - { resource: services/field_choice.yml }
 
 parameters: ~
 
