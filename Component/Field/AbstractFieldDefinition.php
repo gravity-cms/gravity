@@ -5,6 +5,7 @@ namespace Gravity\Component\Field;
 use Gravity\Component\Field\Display\DisplayInterface;
 use Gravity\Component\Field\Widget\WidgetDefinitionInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraint;
 
 abstract class AbstractFieldDefinition implements FieldDefinitionInterface
 {
@@ -29,5 +30,17 @@ abstract class AbstractFieldDefinition implements FieldDefinitionInterface
      */
     public function setOptions(OptionsResolver $optionsResolver)
     {
+    }
+
+    /**
+     * Return an array of constraints to be applied in each widget
+     *
+     * @param array $options
+     *
+     * @return Constraint[]
+     */
+    public function getConstraints(array $options)
+    {
+        return [];
     }
 }

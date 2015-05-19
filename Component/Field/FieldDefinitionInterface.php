@@ -5,6 +5,7 @@ namespace Gravity\Component\Field;
 use Gravity\Component\Field\Display\DisplayInterface;
 use Gravity\Component\Field\Widget\WidgetDefinitionInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraint;
 
 /**
  * Interface FieldDefinitionInterface
@@ -59,4 +60,13 @@ interface FieldDefinitionInterface
      * @return DisplayInterface
      */
     public function getDefaultDisplay();
+
+    /**
+     * Return an array of constraints to be applied in each widget
+     *
+     * @param array $options
+     *
+     * @return Constraint[]
+     */
+    public function getConstraints(array $options);
 }

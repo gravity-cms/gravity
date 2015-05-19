@@ -2,13 +2,15 @@
 
 namespace Gravity\FileBundle\Field\Image;
 
-use Gravity\FileBundle\Field\Image\Configuration\ImageFieldConfiguration;
-use Gravity\FileBundle\Field\Image\Display\Image\ImageDisplay;
-use Gravity\FileBundle\Field\Image\Widget\ImageBrowser\ImageBrowserWidget;
 use Gravity\Component\Field\AbstractFieldDefinition;
 use Gravity\Component\Field\Configuration\FieldSettingsConfiguration;
 use Gravity\Component\Field\Display\DisplayInterface;
 use Gravity\Component\Field\Widget\WidgetDefinitionInterface;
+use Gravity\FileBundle\Field\Image\Configuration\ImageFieldConfiguration;
+use Gravity\FileBundle\Field\Image\Display\Image\ImageDisplay;
+use Gravity\FileBundle\Field\Image\Widget\ImageBrowser\ImageBrowserWidget;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotNull;
 
 class ImageField extends AbstractFieldDefinition
 {
@@ -75,6 +77,40 @@ class ImageField extends AbstractFieldDefinition
     public function getSettings()
     {
         return new ImageFieldConfiguration();
+    }
+
+    public function setOptions(OptionsResolver $optionsResolver)
+    {
+        $optionsResolver->setDefaults(
+            [
+                'alt_field'      => true,
+                'alt_required'   => true,
+                'title_field'    => false,
+                'title_required' => false
+            ]
+        );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getConstraints(array $options)
+    {
+        $constraints = [];
+
+        if ($options['alt_field'] && $options['alt_required']) {
+            $constraints['alt'] = [
+                new NotNull()
+            ];
+        }
+
+        if ($options['title_field'] && $options['title_required']) {
+            $constraints['title'] = [
+                new NotNull()
+            ];
+        }
+
+        return $constraints;
     }
 
 }

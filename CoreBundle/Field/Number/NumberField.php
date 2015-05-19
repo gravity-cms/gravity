@@ -12,6 +12,9 @@ use Gravity\CoreBundle\Field\Number\Configuration\NumberFieldConfiguration;
 use Gravity\CoreBundle\Field\Number\Display\Number\NumberDisplay;
 use Gravity\CoreBundle\Field\Number\Widget\NumberBox\NumberBoxWidget;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
+use Symfony\Component\Validator\Constraints\LessThanOrEqual;
+use Symfony\Component\Validator\Constraints\Range;
 
 /**
  * Class NumberField
@@ -91,6 +94,9 @@ class NumberField extends AbstractFieldDefinition
         $entity->setNumber($configuration->getDefault());
     }
 
+    /**
+     * @param OptionsResolver $optionsResolver
+     */
     public function setOptions(OptionsResolver $optionsResolver)
     {
         $optionsResolver->setDefaults(
@@ -101,6 +107,35 @@ class NumberField extends AbstractFieldDefinition
                 'step'     => null,
             ]
         );
+    }
+
+    /**
+     * @param array $options
+     *
+     * @return array
+     */
+    public function getConstraints(array $options)
+    {
+        $constraints = [];
+        if ($options['min'] !== null && $options['max'] !== null) {
+            $constraints[] = new Range(
+                [
+                    'min' => $options['min'],
+                    'max' => $options['max']
+                ]
+            );
+        } else {
+            if ($options['min'] !== null) {
+                $constraints[] = new GreaterThanOrEqual($options['min']);
+            }
+            if ($options['max'] !== null) {
+                $constraints[] = new LessThanOrEqual($options['max']);
+            }
+        }
+
+        return [
+            'number' => $constraints,
+        ];
     }
 
 }

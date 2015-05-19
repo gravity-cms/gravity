@@ -4,6 +4,7 @@
 namespace Gravity\Component\Field;
 
 use Gravity\Component\Field\Widget\WidgetReference;
+use Symfony\Component\Validator\Constraint;
 
 /**
  * Class Field
@@ -83,5 +84,15 @@ class Field
     public function setWidget(WidgetReference $widget)
     {
         $this->widget = $widget;
+    }
+
+    /**
+     * Helper method to fetch the constrains array
+     *
+     * @return Constraint[]
+     */
+    public function getConstraints()
+    {
+        return $this->definition->getConstraints($this->settings);
     }
 }

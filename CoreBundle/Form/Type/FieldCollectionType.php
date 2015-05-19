@@ -2,18 +2,19 @@
 
 namespace Gravity\CoreBundle\Form\Type;
 
-use Gravity\NodeBundle\Entity\Node;
 use Gravity\Component\Configuration\ConfigurationManager;
 use Gravity\Component\Field\Field;
 use Gravity\Component\Field\FieldDefinitionInterface;
 use Gravity\Component\Field\FieldManager;
 use Gravity\CoreBundle\Entity\FieldData;
 use Gravity\CoreBundle\Form\DataTransformer\FieldCollectionDataTransformer;
+use Gravity\NodeBundle\Entity\Node;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Validator\Constraints\Collection;
 
 class FieldCollectionType extends AbstractType
 {

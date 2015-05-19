@@ -3,8 +3,8 @@
 
 namespace Gravity\FileBundle\Field\Image\Widget\ImageBrowser;
 
-use Gravity\FileBundle\Field\Image\Configuration\ImageFieldConfiguration;
 use Gravity\Component\Field\Field;
+use Gravity\FileBundle\Field\Image\Configuration\ImageFieldConfiguration;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -31,18 +31,35 @@ class ImageBrowserWidgetForm extends AbstractType
 
         $widgetConfig = $field->getWidget()->getSettings();
 
-        $builder
-            ->add(
-                'file',
-                'image_browser',
+        $builder->add(
+            'file',
+            'image_browser',
+            [
+                // 'label'       => $limit == 1 ? null : $field->getLabel(),
+                'mime_types'  => ['image/*'],
+                'image_style' => $widgetConfig['image_style'],
+            ]
+        );
+
+        if ($configuration['alt_field']) {
+            $builder->add(
+                'alt',
+                'text',
                 [
-                    // 'label'       => $limit == 1 ? null : $field->getLabel(),
-                    'mime_types'  => ['image/*'],
-                    'image_style' => $widgetConfig['image_style'],
+                    'required' => $configuration['alt_required']
                 ]
-            )
-            ->add('alt', 'text')
-            ->add('title', 'text');
+            );
+        }
+
+        if ($configuration['title_field']) {
+            $builder->add(
+                'title',
+                'text',
+                [
+                    'required' => $configuration['title_required']
+                ]
+            );
+        }
     }
 
     /**

@@ -7,6 +7,9 @@ use Gravity\Component\Field\Field;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
+use Symfony\Component\Validator\Constraints\LessThanOrEqual;
+use Symfony\Component\Validator\Constraints\Range;
 
 /**
  * Class NumberBoxWidgetForm
@@ -22,7 +25,7 @@ class NumberBoxWidgetForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         /** @var Field $field */
-        $field = $options['field'];
+        $field       = $options['field'];
         $fieldConfig = $field->getSettings();
         $limit       = $fieldConfig['limit'];
 
@@ -31,14 +34,15 @@ class NumberBoxWidgetForm extends AbstractType
                 'number',
                 'number',
                 [
-                    'label' => $limit == 1 ? $fieldConfig['label'] : false,
-                    'attr'  => [
+                    'label'       => $limit == 1 ? $fieldConfig['label'] : false,
+                    'attr'        => [
                         'class'      => 'form-control',
                         'data-limit' => $limit,
                         'step'       => $fieldConfig['step'],
                         'min'        => $fieldConfig['min'],
                         'max'        => $fieldConfig['max'],
                     ],
+//                    'constraints' => $options['constraints']
                 ]
             );
     }

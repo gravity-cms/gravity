@@ -3,17 +3,14 @@
 namespace Gravity\CoreBundle\Field\Text;
 
 use Gravity\Component\Field\AbstractFieldDefinition;
-use Gravity\Component\Field\Display\DisplayInterface;
-use Gravity\Component\Field\Widget\WidgetDefinitionInterface;
 use Gravity\CoreBundle\Field\Text\Configuration\TextFieldConfiguration;
 use Gravity\CoreBundle\Field\Text\Display\TextFieldDisplay;
 use Gravity\CoreBundle\Field\Text\Widget\Formatted\FormattedWidget;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
 
 class TextField extends AbstractFieldDefinition
 {
-    protected $widget;
-
     /**
      * {@inheritdoc}
      */
@@ -39,7 +36,7 @@ class TextField extends AbstractFieldDefinition
     }
 
     /**
-     * @return WidgetDefinitionInterface
+     * {@inheritdoc}
      */
     public function getDefaultWidget()
     {
@@ -47,7 +44,7 @@ class TextField extends AbstractFieldDefinition
     }
 
     /**
-     * @return DisplayInterface
+     * {@inheritdoc}
      */
     public function getDefaultDisplay()
     {
@@ -55,22 +52,42 @@ class TextField extends AbstractFieldDefinition
     }
 
     /**
-     * Get the entity class name for this field
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function getEntityClass()
     {
         return 'Gravity\CoreBundle\Entity\FieldText';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function setOptions(OptionsResolver $optionsResolver)
     {
         $optionsResolver->setDefaults(
             [
-                'multiline' => false,
-                'max_chars' => null,
+                'char_min'  => null,
+                'char_max'  => null,
             ]
         );
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getConstraints(array $options)
+    {
+        $constraints = [];
+        if ($options['char_min'] !== null || $options['char_max'] !== null) {
+            $constraints['body'] = new Length(
+                [
+                    'max' => $options['char_max'],
+                    'min' => $options['char_min']
+                ]
+            );
+        }
+
+        return $constraints;
+    }
+
 }

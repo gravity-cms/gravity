@@ -3,10 +3,9 @@
 
 namespace Gravity\FileBundle\Field\Image\Widget\ImageBrowser;
 
-use Gravity\FileBundle\Asset\FieldImageLibrary;
-use Gravity\FileBundle\Field\Image\Widget\ImageBrowser\Configuration\ImageBrowserWidgetConfiguration;
 use Gravity\Component\Field\FieldDefinitionInterface;
 use Gravity\Component\Field\Widget\AbstractWidgetDefinition;
+use Gravity\FileBundle\Asset\FieldImageLibrary;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,7 +13,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  * Class ImageBrowserWidget
  *
  * @package Gravity\FileBundle\Field\Image\Widget\ImageBrowser
- * @author Andy Thorne <contrabandvr@gmail.com>
+ * @author  Andy Thorne <contrabandvr@gmail.com>
  */
 class ImageBrowserWidget extends AbstractWidgetDefinition
 {
