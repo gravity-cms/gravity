@@ -22,7 +22,7 @@
             {{ form_widget(form) }}
         {% else %}
             <div class="field-group-header">
-                <h3>{{ form.vars.type_field.label|default('')|capitalize }}</h3>
+                <h3>{{ form.vars.field.settings.label|default('')|capitalize }}</h3>
                 <div class="field-control-block">
                     <button type="button" class="form-add-widget btn btn-primary btn-xs"
                             data-prototype="{{ _self.field_collection_row(form.vars.prototype)|e }}"
