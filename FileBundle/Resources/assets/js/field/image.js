@@ -8,7 +8,8 @@ define(['jquery', 'jqueryui', 'bootbox', 'cms/node/node/form', 'cms/file/browser
                 previewStyle = $launchButton.data('preview-style'),
                 box = $field.find('.file-browser-modal'),
                 $browser = $field.find('.file-browser'),
-                $entityInput = $field.find('input[type="hidden"]');
+                $entityInput = $field.find('input[type="hidden"]'),
+                $removeButton = $field.find('.file-browser-remove-file');
 
 
             var browser = browserFactory.create($browser, $browser.data());
@@ -19,9 +20,16 @@ define(['jquery', 'jqueryui', 'bootbox', 'cms/node/node/form', 'cms/file/browser
                     $field.find('.field-image-img').attr('src', data[i].styles[previewStyle]);
                     $field.find('.field-image-title').text(data[i].name);
                 }
+                $removeButton.show();
                 box.modal('hide');
             });
 
+            $removeButton.on('click', function(e){
+                $entityInput.val('');
+                $field.find('.field-image-img').attr('src', '');
+                $field.find('.field-image-title').text('');
+                $removeButton.hide();
+            });
 
             $launchButton.on('click', function(){
                 box.modal({

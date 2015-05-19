@@ -46,7 +46,7 @@ define(['jquery', 'cms/file/form/dropzone', 'cms/core/api'], function ($, dropzo
             };
 
             dropzone.addListener(dropzone.events.UPLOAD, function (file, response) {
-                $library.prepend(buildItem(data.data[i]));
+                $library.prepend(buildItem(response.data));
                 files.unshift(response.data);
             });
 

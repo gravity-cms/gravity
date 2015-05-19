@@ -54,7 +54,7 @@
         {{ include('GravityFileBundle:Form:file-browser-modal.html.twig', {mime_types: form.vars.mime_types, title: 'Image Browser'}) }}
         <button type="button" class="btn btn-default launch-image-browser-button"
                 data-preview-style="{{ image_style }}">
-            Add File
+            {% if form.vars.entity %}Change Image{% else %}Add Image{% endif %}
         </button>
 
         <div class="media">
@@ -63,6 +63,11 @@
             </div>
             <div class="media-body">
                 <p class="media-heading field-image-title">{% if form.vars.entity %}<strong>name:</strong> {{ form.vars.entity.name }}{% endif %}</p>
+                {% if form.vars.entity %}
+                    <button type="button" class="btn btn-default file-browser-remove-file">
+                        Remove
+                    </button>
+                {% endif %}
             </div>
         </div>
 
