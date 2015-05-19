@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                    http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Gravity\CoreBundle\Entity\FieldBoolean" table="field_boolean">
+
+        <field name="value" type="boolean" column="boolean_value" nullable="false"/>
+
+    </entity>
+</doctrine-mapping>

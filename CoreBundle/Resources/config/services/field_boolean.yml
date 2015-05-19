@@ -1,0 +1,22 @@
+services:
+
+  #
+  # Field
+  gravity_node.field.boolean:
+    class: Gravity\CoreBundle\Field\Boolean\BooleanField
+    tags:
+      - { name: gravity.field }
+
+  #
+  # Widgets
+  gravity_node.field.boolean.widget.checkbox:
+    class: Gravity\CoreBundle\Field\Boolean\Widget\Checkbox\CheckboxWidget
+    tags:
+      - { name: gravity.field.widget }
+
+  #
+  # Displays
+#  gravity_node.field.boolean.display:
+#    class: Gravity\CoreBundle\Field\Text\Display\TextFieldDisplay
+#    tags:
+#      - { name: gravity.field.display }
