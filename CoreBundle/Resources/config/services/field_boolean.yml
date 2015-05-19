@@ -2,14 +2,14 @@ services:
 
   #
   # Field
-  gravity_node.field.boolean:
+  gravity.field.boolean:
     class: Gravity\CoreBundle\Field\Boolean\BooleanField
     tags:
       - { name: gravity.field }
 
   #
   # Widgets
-  gravity_node.field.boolean.widget.checkbox:
+  gravity.field.boolean.widget.checkbox:
     class: Gravity\CoreBundle\Field\Boolean\Widget\Checkbox\CheckboxWidget
     tags:
       - { name: gravity.field.widget }

@@ -2,26 +2,26 @@ services:
 
   #
   # Field
-  gravity_node.field.text:
+  gravity.field.text:
     class: Gravity\CoreBundle\Field\Text\TextField
     tags:
       - { name: gravity.field }
 
   #
   # Widgets
-  gravity_node.field.text.widget.unformatted:
+  gravity.field.text.widget.unformatted:
     class: Gravity\CoreBundle\Field\Text\Widget\UnFormatted\UnFormattedWidget
     tags:
       - { name: gravity.field.widget }
 
-  gravity_node.field.text.widget.formatted:
+  gravity.field.text.widget.formatted:
     class: Gravity\CoreBundle\Field\Text\Widget\Formatted\FormattedWidget
     tags:
       - { name: gravity.field.widget }
 
   #
   # Displays
-  gravity_node.field.text.display:
+  gravity.field.text.display:
     class: Gravity\CoreBundle\Field\Text\Display\TextFieldDisplay
     tags:
       - { name: gravity.field.display }
