@@ -28,6 +28,8 @@ class ChoiceArrayToStringDataTransformer implements DataTransformerInterface
             $values = $value->getValues();
             if (count($values)) {
                 $value->setValues($values[0]);
+            } else {
+                $value->setValues(null);
             }
         }
 

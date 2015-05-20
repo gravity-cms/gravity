@@ -5,12 +5,13 @@ namespace Gravity\CoreBundle\Field\Choice\Widget\Select;
 
 use Gravity\Component\Field\FieldDefinitionInterface;
 use Gravity\Component\Field\Widget\AbstractWidgetDefinition;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Class SelectWidget
  *
  * @package gravity\CoreBundle\Field\Choice\Widget\Select
- * @author Andy Thorne <contrabandvr@gmail.com>
+ * @author  Andy Thorne <contrabandvr@gmail.com>
  */
 class SelectWidget extends AbstractWidgetDefinition
 {
@@ -38,6 +39,9 @@ class SelectWidget extends AbstractWidgetDefinition
         return 'Choice Using a Dropdown Box';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getForm()
     {
         return new SelectWidgetForm();
@@ -52,6 +56,18 @@ class SelectWidget extends AbstractWidgetDefinition
      */
     public function supportsField(FieldDefinitionInterface $field)
     {
-        return ($field->getName() === 'tag');
+        return ($field->getName() === 'choice');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setOptions(OptionsResolver $optionsResolver)
+    {
+        $optionsResolver->setDefaults(
+            [
+                'expanded' => false
+            ]
+        );
     }
 }

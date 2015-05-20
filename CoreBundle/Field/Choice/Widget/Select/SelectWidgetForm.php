@@ -23,11 +23,12 @@ class SelectWidgetForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         /** @var Field $field */
-        $field         = $options['field'];
-        $fieldSettings = $field->getSettings();
+        $field          = $options['field'];
+        $fieldSettings  = $field->getSettings();
+        $widgetSettings = $field->getWidget()->getSettings();
 
         // if the field is not multiple, we need to transform the data from an array format to a string format
-        if(!$fieldSettings['multiple']){
+        if (!$fieldSettings['multiple']) {
             $builder->addModelTransformer(new ChoiceArrayToStringDataTransformer());
         }
 
@@ -36,11 +37,12 @@ class SelectWidgetForm extends AbstractType
                 'values',
                 'choice',
                 [
-                    'empty_data'  => [],
-                    'choices'     => $fieldSettings['choices'],
-                    'multiple'    => $fieldSettings['multiple'],
-                    'required'    => $fieldSettings['required'],
-                    'label'       => null
+                    'empty_data' => [],
+                    'choices'    => $fieldSettings['choices'],
+                    'multiple'   => $fieldSettings['multiple'],
+                    'required'   => $fieldSettings['required'],
+                    'expanded'   => $widgetSettings['expanded'] ? true : false,
+                    'label'      => $fieldSettings['label']
                 ]
             );
     }
