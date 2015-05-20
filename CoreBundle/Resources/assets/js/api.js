@@ -117,7 +117,15 @@
                         if(field.checked)
                             data[fname].push(field.value);
                     } else if(field.type === 'checkbox'){
-                        data[fname] = field.checked ? field.value : null;
+                        if(field.checked) {
+                            if (field.name.match(/\[\]$/)) {
+                                fname = field.name.replace(/\[\]$/, '');
+                                data[fname] = data[fname] || [];
+                                data[fname].push(field.value);
+                            } else {
+                                data[fname] = field.value;
+                            }
+                        }
                     } else {
                         if(field.name.match(/\[\]$/)){
                             fname = field.name.replace(/\[\]$/, '');
