@@ -107,10 +107,10 @@ class Role implements RoleInterface
     /**
      * Add users
      *
-     * @param \Andy\CmsBundle\Entity\User $users
+     * @param User $users
      * @return Role
      */
-    public function addUser(\Andy\CmsBundle\Entity\User $users)
+    public function addUser(User $users)
     {
         $this->users[] = $users;
     
@@ -120,9 +120,9 @@ class Role implements RoleInterface
     /**
      * Remove users
      *
-     * @param \Andy\CmsBundle\Entity\User $users
+     * @param User $users
      */
-    public function removeUser(\Andy\CmsBundle\Entity\User $users)
+    public function removeUser(User $users)
     {
         $this->users->removeElement($users);
     }
@@ -140,10 +140,10 @@ class Role implements RoleInterface
     /**
      * Add groups
      *
-     * @param \Andy\CmsBundle\Entity\Group $groups
+     * @param Group $groups
      * @return Role
      */
-    public function addGroup(\Andy\CmsBundle\Entity\Group $groups)
+    public function addGroup(Group $groups)
     {
         $this->groups[] = $groups;
     
@@ -153,9 +153,9 @@ class Role implements RoleInterface
     /**
      * Remove groups
      *
-     * @param \Andy\CmsBundle\Entity\Group $groups
+     * @param Group $groups
      */
-    public function removeGroup(\Andy\CmsBundle\Entity\Group $groups)
+    public function removeGroup(Group $groups)
     {
         $this->groups->removeElement($groups);
     }
