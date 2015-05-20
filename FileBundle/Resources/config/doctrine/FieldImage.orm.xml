@@ -6,8 +6,8 @@
 
     <entity name="Gravity\FileBundle\Entity\FieldImage" table="field_image">
 
-        <field name="title" column="title" type="string" length="255" />
-        <field name="alt" column="alt" type="string" length="255" />
+        <field name="title" column="title" type="string" length="255" nullable="true" />
+        <field name="alt" column="alt" type="string" length="255" nullable="true" />
         <field name="height" column="height" type="integer" />
         <field name="width" column="width" type="integer" />
 
